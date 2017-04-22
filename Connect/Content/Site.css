@@ -22,3 +22,209 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+::selection {
+    background-color: #b5e2e7;
+}
+
+::-moz-selection {
+    background-color: #8ac7d8;
+}
+
+body {
+    background: white;
+}
+
+.navbar-inverse {
+    background-color: black;
+    border-color: #080808;
+}
+
+#logbox {
+    padding: 10px;
+    margin: 50px auto;
+    width: 340px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+}
+
+h1 {
+    text-align: center;
+    font-size: 175%;
+    font-weight: 300;
+}
+
+h1, input {
+    font-family: "Open Sans", Helvetica, sans-serif;
+}
+
+.input {
+    width: 75%;
+    height: 50px;
+    display: block;
+    margin: 0 auto 15px;
+    padding: 0 15px;
+    border: none;
+    border-bottom: 2px solid #ebebeb;
+}
+
+    .input:focus {
+        outline: none;
+        border-bottom-color: #337ab7 !important;
+    }
+
+    .input:hover {
+        border-bottom-color: #dcdcdc;
+    }
+
+    .input:invalid {
+        box-shadow: none;
+    }
+
+.pass:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+}
+
+.inputButton {
+    position: relative;
+    width: 85%;
+    height: 50px;
+    display: block;
+    margin: 30px auto 30px;
+    color: white;
+    border: none;
+}
+
+    .inputButton:active {
+        top: 5px;
+        box-shadow: none;
+    }
+
+    .inputButton:focus {
+        outline: none;
+    }
+
+.navbar-brand {
+    font-size: xx-large;
+    font-family: Candara;
+    color: white;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
+}
+
+/*Profile pic*/
+img#profilePic {
+    width: 250px;
+    height: 180px;
+}
+/*End*/
+
+/*Validation*/
+.validation {
+    width: 75%;
+    height: 50px;
+    margin: 0 auto 15px;
+    padding: 0 40px;
+    border: none;
+}
+/**/
+
+div.em {
+    position: absolute;
+    right: -137px;
+    bottom: -21px;
+    z-index: 1;
+}
+
+
+#profileData {
+    display: inline-block;
+    padding: 13px 0 13px 0;
+    color: white;
+    font-size: 16px;
+    background-color: black;
+    text-decoration: none;
+}
+
+.logout {
+    color: white;
+}
+
+/*Live Search Textbox*/
+.livesearch {
+    display: inline-block;
+    padding-top: 12px;
+    position: relative;
+}
+
+input#searchText {
+    position: relative;
+    margin-top: 1px;
+    margin-right: 510px;
+    top: -4px;
+    display: inline-block;
+    width: 400px;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+/*End Live Search*/
+
+/*Live Search List*/
+#livesearch img {
+    width: 20px;
+    position: initial;
+    height: 20px;
+}
+
+ul#liveSearchul {
+    position: absolute;
+    background: white;
+    top: 40px;
+    padding: 0px;
+    color: antiquewhite;
+    border: 1px solid antiquewhite;
+    list-style: none;
+}
+
+    ul#liveSearchul li {
+        width: 280px;
+        padding: 8px;
+    }
+
+    ul#liveSearchul a {
+        color: black;
+        text-decoration: none;
+    }
+
+    ul#liveSearchul li:hover {
+        background-color: floralwhite;
+        text-decoration: none;
+    }
+
+/*li close*/
+#liveSearchul li.close {
+    position: absolute;
+    color: black;
+    font-size: 15px;
+    width: 20px;
+    height: 2px;
+    opacity: 1 !important;
+    right: -10px;
+    border: none;
+    right: 0;
+    top: -10px;
+    cursor: pointer;
+    z-index: 10;
+    pointer-events: initial;
+}

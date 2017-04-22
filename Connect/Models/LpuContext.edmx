@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Connect_LPUModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblBranch">
+          <Key>
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="BranchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchName" Type="varchar" MaxLength="400" />
+          <Property Name="CourseId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblCourse">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseName" Type="varchar" MaxLength="400" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblDepartment">
+          <Key>
+            <PropertyRef Name="DepartmentId" />
+          </Key>
+          <Property Name="DepartmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentName" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblEmailVerification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UniqueId" Type="uniqueidentifier" />
+          <Property Name="VerificationDateTime" Type="datetime" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblFaculty">
+          <Key>
+            <PropertyRef Name="Fac_Id" />
+          </Key>
+          <Property Name="Fac_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpId" Type="int" Nullable="false" />
+          <Property Name="Department" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="FromYear" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ToYear" Type="varchar" MaxLength="10" />
+          <Property Name="CurrentlyWorking" Type="bit" />
+          <Property Name="UserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tblStudents">
+          <Key>
+            <PropertyRef Name="Std_Id" />
+          </Key>
+          <Property Name="Std_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegistrationNumber" Type="int" Nullable="false" />
+          <Property Name="Course" Type="int" Nullable="false" />
+          <Property Name="Branch" Type="int" />
+          <Property Name="EntryYear" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="GraduateYear" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="UserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tblUserSignup">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firstname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lastname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsEmailVerified" Type="bit" />
+          <Property Name="Password" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="RegisteredDateTime" Type="datetime" />
+          <Property Name="registeredUniqueId" Type="uniqueidentifier" />
+          <Property Name="IsUserVerified" Type="bit" />
+          <Property Name="VerifiedUniqueId" Type="uniqueidentifier" />
+          <Property Name="VerifiedDateTime" Type="datetime" />
+          <Property Name="LoginRetryAttempts" Type="int" />
+          <Property Name="IsAccountLocked" Type="bit" />
+          <Property Name="LockDateTime" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__tblBranch__Cours__72C60C4A">
+          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="0..1" />
+          <End Role="tblBranch" Type="Self.tblBranch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCourse">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="tblBranch">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEmailV__UserI__0B91BA14">
+          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="1" />
+          <End Role="tblEmailVerification" Type="Self.tblEmailVerification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserSignup">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblEmailVerification">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblFacult__Depar__05D8E0BE">
+          <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="1" />
+          <End Role="tblFaculty" Type="Self.tblFaculty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="DepartmentId" />
+            </Principal>
+            <Dependent Role="tblFaculty">
+              <PropertyRef Name="Department" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblFacult__UserI__06CD04F7">
+          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="0..1" />
+          <End Role="tblFaculty" Type="Self.tblFaculty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserSignup">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblFaculty">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblStuden__Branc__7F2BE32F">
+          <End Role="tblBranch" Type="Self.tblBranch" Multiplicity="0..1" />
+          <End Role="tblStudents" Type="Self.tblStudents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBranch">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="tblStudents">
+              <PropertyRef Name="Branch" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblStuden__Cours__7E37BEF6">
+          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="1" />
+          <End Role="tblStudents" Type="Self.tblStudents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCourse">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="tblStudents">
+              <PropertyRef Name="Course" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblStuden__UserI__00200768">
+          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="0..1" />
+          <End Role="tblStudents" Type="Self.tblStudents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserSignup">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblStudents">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Connect_LPUModelStoreContainer">
+          <EntitySet Name="tblBranch" EntityType="Self.tblBranch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCourse" EntityType="Self.tblCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDepartment" EntityType="Self.tblDepartment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEmailVerification" EntityType="Self.tblEmailVerification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFaculty" EntityType="Self.tblFaculty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblStudents" EntityType="Self.tblStudents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUserSignup" EntityType="Self.tblUserSignup" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblBranch__Cours__72C60C4A" Association="Self.FK__tblBranch__Cours__72C60C4A">
+            <End Role="tblCourse" EntitySet="tblCourse" />
+            <End Role="tblBranch" EntitySet="tblBranch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEmailV__UserI__0B91BA14" Association="Self.FK__tblEmailV__UserI__0B91BA14">
+            <End Role="tblUserSignup" EntitySet="tblUserSignup" />
+            <End Role="tblEmailVerification" EntitySet="tblEmailVerification" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblFacult__Depar__05D8E0BE" Association="Self.FK__tblFacult__Depar__05D8E0BE">
+            <End Role="tblDepartment" EntitySet="tblDepartment" />
+            <End Role="tblFaculty" EntitySet="tblFaculty" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblFacult__UserI__06CD04F7" Association="Self.FK__tblFacult__UserI__06CD04F7">
+            <End Role="tblUserSignup" EntitySet="tblUserSignup" />
+            <End Role="tblFaculty" EntitySet="tblFaculty" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblStuden__Branc__7F2BE32F" Association="Self.FK__tblStuden__Branc__7F2BE32F">
+            <End Role="tblBranch" EntitySet="tblBranch" />
+            <End Role="tblStudents" EntitySet="tblStudents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblStuden__Cours__7E37BEF6" Association="Self.FK__tblStuden__Cours__7E37BEF6">
+            <End Role="tblCourse" EntitySet="tblCourse" />
+            <End Role="tblStudents" EntitySet="tblStudents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblStuden__UserI__00200768" Association="Self.FK__tblStuden__UserI__00200768">
+            <End Role="tblUserSignup" EntitySet="tblUserSignup" />
+            <End Role="tblStudents" EntitySet="tblStudents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Connect_LPUModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="BranchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchName" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="CourseId" Type="Int32" />
+          <NavigationProperty Name="Course" Relationship="Self.FK__tblBranch__Cours__72C60C4A" FromRole="tblBranch" ToRole="tblCourse" />
+          <NavigationProperty Name="Students" Relationship="Self.FK__tblStuden__Branc__7F2BE32F" FromRole="tblBranch" ToRole="tblStudents" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="String" MaxLength="400" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Branches" Relationship="Self.FK__tblBranch__Cours__72C60C4A" FromRole="tblCourse" ToRole="tblBranch" />
+          <NavigationProperty Name="Students" Relationship="Self.FK__tblStuden__Cours__7E37BEF6" FromRole="tblCourse" ToRole="tblStudents" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentId" />
+          </Key>
+          <Property Name="DepartmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Faculties" Relationship="Self.FK__tblFacult__Depar__05D8E0BE" FromRole="tblDepartment" ToRole="tblFaculty" />
+        </EntityType>
+        <EntityType Name="VerifyEmail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UniqueId" Type="Guid" />
+          <Property Name="VerificationDateTime" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__tblEmailV__UserI__0B91BA14" FromRole="tblEmailVerification" ToRole="tblUserSignup" />
+        </EntityType>
+        <EntityType Name="Faculty">
+          <Key>
+            <PropertyRef Name="Fac_Id" />
+          </Key>
+          <Property Name="Fac_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpId" Type="Int32" Nullable="false" />
+          <Property Name="Department" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FromYear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ToYear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentlyWorking" Type="Boolean" />
+          <Property Name="UserId" Type="Int64" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK__tblFacult__Depar__05D8E0BE" FromRole="tblFaculty" ToRole="tblDepartment" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__tblFacult__UserI__06CD04F7" FromRole="tblFaculty" ToRole="tblUserSignup" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Std_Id" />
+          </Key>
+          <Property Name="Std_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrationNumber" Type="Int32" Nullable="false" />
+          <Property Name="Course" Type="Int32" Nullable="false" />
+          <Property Name="Branch" Type="Int32" />
+          <Property Name="EntryYear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GraduateYear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserId" Type="Int64" />
+          <NavigationProperty Name="Branches" Relationship="Self.FK__tblStuden__Branc__7F2BE32F" FromRole="tblStudents" ToRole="tblBranch" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK__tblStuden__Cours__7E37BEF6" FromRole="tblStudents" ToRole="tblCourse" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__tblStuden__UserI__00200768" FromRole="tblStudents" ToRole="tblUserSignup" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsEmailVerified" Type="Boolean" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegisteredDateTime" Type="DateTime" Precision="3" />
+          <Property Name="registeredUniqueId" Type="Guid" />
+          <Property Name="IsUserVerified" Type="Boolean" />
+          <Property Name="VerifiedUniqueId" Type="Guid" />
+          <Property Name="VerifiedDateTime" Type="DateTime" Precision="3" />
+          <Property Name="LoginRetryAttempts" Type="Int32" />
+          <Property Name="IsAccountLocked" Type="Boolean" />
+          <Property Name="LockDateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="EmailVerifications" Relationship="Self.FK__tblEmailV__UserI__0B91BA14" FromRole="tblUserSignup" ToRole="tblEmailVerification" />
+          <NavigationProperty Name="Faculties" Relationship="Self.FK__tblFacult__UserI__06CD04F7" FromRole="tblUserSignup" ToRole="tblFaculty" />
+          <NavigationProperty Name="Students" Relationship="Self.FK__tblStuden__UserI__00200768" FromRole="tblUserSignup" ToRole="tblStudents" />
+          <Property Name="Firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__tblBranch__Cours__72C60C4A">
+          <End Role="tblCourse" Type="Connect_LPUModel.Course" Multiplicity="0..1" />
+          <End Role="tblBranch" Type="Connect_LPUModel.Branch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCourse">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="tblBranch">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblStuden__Branc__7F2BE32F">
+          <End Role="tblBranch" Type="Connect_LPUModel.Branch" Multiplicity="0..1" />
+          <End Role="tblStudents" Type="Connect_LPUModel.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBranch">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="tblStudents">
+              <PropertyRef Name="Branch" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblStuden__Cours__7E37BEF6">
+          <End Role="tblCourse" Type="Connect_LPUModel.Course" Multiplicity="1" />
+          <End Role="tblStudents" Type="Connect_LPUModel.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCourse">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="tblStudents">
+              <PropertyRef Name="Course" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblFacult__Depar__05D8E0BE">
+          <End Role="tblDepartment" Type="Connect_LPUModel.Department" Multiplicity="1" />
+          <End Role="tblFaculty" Type="Connect_LPUModel.Faculty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="DepartmentId" />
+            </Principal>
+            <Dependent Role="tblFaculty">
+              <PropertyRef Name="Department" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEmailV__UserI__0B91BA14">
+          <End Role="tblUserSignup" Type="Connect_LPUModel.User" Multiplicity="1" />
+          <End Role="tblEmailVerification" Type="Connect_LPUModel.VerifyEmail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserSignup">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblEmailVerification">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblFacult__UserI__06CD04F7">
+          <End Role="tblUserSignup" Type="Connect_LPUModel.User" Multiplicity="0..1" />
+          <End Role="tblFaculty" Type="Connect_LPUModel.Faculty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserSignup">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblFaculty">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblStuden__UserI__00200768">
+          <End Role="tblUserSignup" Type="Connect_LPUModel.User" Multiplicity="0..1" />
+          <End Role="tblStudents" Type="Connect_LPUModel.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserSignup">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblStudents">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LpuContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Branches" EntityType="Connect_LPUModel.Branch" />
+          <EntitySet Name="Courses" EntityType="Connect_LPUModel.Course" />
+          <EntitySet Name="Departments" EntityType="Connect_LPUModel.Department" />
+          <EntitySet Name="VerifyEmails" EntityType="Connect_LPUModel.VerifyEmail" />
+          <EntitySet Name="Faculties" EntityType="Connect_LPUModel.Faculty" />
+          <EntitySet Name="Students" EntityType="Connect_LPUModel.Student" />
+          <EntitySet Name="Users" EntityType="Connect_LPUModel.User" />
+          <AssociationSet Name="FK__tblBranch__Cours__72C60C4A" Association="Self.FK__tblBranch__Cours__72C60C4A">
+            <End Role="tblCourse" EntitySet="Courses" />
+            <End Role="tblBranch" EntitySet="Branches" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblStuden__Branc__7F2BE32F" Association="Self.FK__tblStuden__Branc__7F2BE32F">
+            <End Role="tblBranch" EntitySet="Branches" />
+            <End Role="tblStudents" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblStuden__Cours__7E37BEF6" Association="Self.FK__tblStuden__Cours__7E37BEF6">
+            <End Role="tblCourse" EntitySet="Courses" />
+            <End Role="tblStudents" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblFacult__Depar__05D8E0BE" Association="Self.FK__tblFacult__Depar__05D8E0BE">
+            <End Role="tblDepartment" EntitySet="Departments" />
+            <End Role="tblFaculty" EntitySet="Faculties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEmailV__UserI__0B91BA14" Association="Self.FK__tblEmailV__UserI__0B91BA14">
+            <End Role="tblUserSignup" EntitySet="Users" />
+            <End Role="tblEmailVerification" EntitySet="VerifyEmails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblFacult__UserI__06CD04F7" Association="Self.FK__tblFacult__UserI__06CD04F7">
+            <End Role="tblUserSignup" EntitySet="Users" />
+            <End Role="tblFaculty" EntitySet="Faculties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblStuden__UserI__00200768" Association="Self.FK__tblStuden__UserI__00200768">
+            <End Role="tblUserSignup" EntitySet="Users" />
+            <End Role="tblStudents" EntitySet="Students" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Connect_LPUModelStoreContainer" CdmEntityContainer="LpuContext">
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="Connect_LPUModel.Branch">
+              <MappingFragment StoreEntitySet="tblBranch">
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="Connect_LPUModel.Course">
+              <MappingFragment StoreEntitySet="tblCourse">
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="Connect_LPUModel.Department">
+              <MappingFragment StoreEntitySet="tblDepartment">
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VerifyEmails">
+            <EntityTypeMapping TypeName="Connect_LPUModel.VerifyEmail">
+              <MappingFragment StoreEntitySet="tblEmailVerification">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
+                <ScalarProperty Name="VerificationDateTime" ColumnName="VerificationDateTime" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Faculties">
+            <EntityTypeMapping TypeName="Connect_LPUModel.Faculty">
+              <MappingFragment StoreEntitySet="tblFaculty">
+                <ScalarProperty Name="Fac_Id" ColumnName="Fac_Id" />
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="FromYear" ColumnName="FromYear" />
+                <ScalarProperty Name="ToYear" ColumnName="ToYear" />
+                <ScalarProperty Name="CurrentlyWorking" ColumnName="CurrentlyWorking" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="Connect_LPUModel.Student">
+              <MappingFragment StoreEntitySet="tblStudents">
+                <ScalarProperty Name="Std_Id" ColumnName="Std_Id" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="EntryYear" ColumnName="EntryYear" />
+                <ScalarProperty Name="GraduateYear" ColumnName="GraduateYear" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Connect_LPUModel.User">
+              <MappingFragment StoreEntitySet="tblUserSignup">
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RegisteredDateTime" ColumnName="RegisteredDateTime" />
+                <ScalarProperty Name="registeredUniqueId" ColumnName="registeredUniqueId" />
+                <ScalarProperty Name="IsUserVerified" ColumnName="IsUserVerified" />
+                <ScalarProperty Name="VerifiedUniqueId" ColumnName="VerifiedUniqueId" />
+                <ScalarProperty Name="VerifiedDateTime" ColumnName="VerifiedDateTime" />
+                <ScalarProperty Name="LoginRetryAttempts" ColumnName="LoginRetryAttempts" />
+                <ScalarProperty Name="IsAccountLocked" ColumnName="IsAccountLocked" />
+                <ScalarProperty Name="LockDateTime" ColumnName="LockDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

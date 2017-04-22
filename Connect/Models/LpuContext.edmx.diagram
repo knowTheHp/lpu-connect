@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9dae606fe0d9436eb12e50d22faff315" Name="Diagram1">
+        <EntityTypeShape EntityType="Connect_LPUModel.Branch" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Connect_LPUModel.Course" Width="1.5" PointX="0.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Connect_LPUModel.Department" Width="1.5" PointX="9.125" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Connect_LPUModel.VerifyEmail" Width="1.5" PointX="7" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Connect_LPUModel.Faculty" Width="1.5" PointX="8.875" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Connect_LPUModel.Student" Width="1.5" PointX="2.625" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Connect_LPUModel.User" Width="1.5" PointX="5.375" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblBranch__Cours__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblStuden__Branc__7F2BE32F" ManuallyRouted="false" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblStuden__Cours__7E37BEF6" ManuallyRouted="false" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblFacult__Depar__05D8E0BE" ManuallyRouted="false" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblEmailV__UserI__0B91BA14" ManuallyRouted="false" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblFacult__UserI__06CD04F7" ManuallyRouted="false" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblStuden__UserI__00200768" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

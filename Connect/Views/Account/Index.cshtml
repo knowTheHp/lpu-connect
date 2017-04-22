@@ -1,0 +1,94 @@
+﻿@model Connect.Models.User
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    @using (Html.BeginForm("CreateAccount", "Account", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div>
+            <div class="col-md-4">
+                <label>Choose User Type</label>
+                @Html.DropDownList("Role", new List<SelectListItem>() { new SelectListItem() { Text = "Faculty", Value = "Faculty" }, new SelectListItem { Text = "Student", Value = "Student" } })
+                <div id="studentContainer" class="logbox">
+                    <h1 class="text-primary">Create a new Account</h1>
+
+                    <!-- #region Profile pic -->
+                    <img src="~/Content/Avatar.svg" id="profilePic" class="img-responsive img-thumbnail col-md-offset-1" alt="your image" />
+                    <input type="file" name="file" ID="ImageUpload" class="col-md-offset-2" />
+                    <!-- #endregion -->
+                    <!-- #region Firstname -->
+                    @Html.EditorFor(model => model.Firstname, new { htmlAttributes = new { @class = "input pass", placeholder = "Firstname" } })
+                    @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger validation" })
+                    <!-- #endregion -->
+                    <!-- #region Lastname -->
+                    @Html.EditorFor(model => model.Lastname, new { htmlAttributes = new { @class = "input pass", placeholder = "Surname" } })
+                    @Html.ValidationMessageFor(model => model.Lastname, "", new { @class = "text-danger validation" })
+                    <!-- #endregion -->
+                    <!-- #region Username -->
+                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "input pass", placeholder = "Username" } })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger validation" })
+                    <!-- #endregion -->
+                    <!-- #region Email -->
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input pass", placeholder = "Email" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger validation" })
+                    <!-- #endregion -->
+                    <!-- #region Password -->
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "input pass", placeholder = "Password", type = "password" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger validation" })
+                    <!-- #endregion -->
+                    <!-- #region Submit button -->
+                    <input type="submit" value="Go" class="inputButton btn-primary" />
+                    <!-- #endregion -->
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jquery")
+@section Scripts {
+    <script>
+        //Start Image Script
+        $(document).ready(function () {
+            function readURL(input) {
+
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $("img#profilePic").attr("src", e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#ImageUpload").change(function () {
+                readURL(this);
+            });
+            //End Image Script
+
+
+            //Start Login Form
+            $("form#loginform").submit(function (e) {
+                e.preventDefault();
+                var username = $("#Username").val();
+                var password = $("#Password").val();
+                var url = "/account/login";
+
+                $.post(url, { username: username, password: password }, function (data) {
+                    var response = data.trim();
+                    document.location.href = "/";
+                    if (response == "ok") {
+
+                    } else {
+                        $("#validationVisible").show();
+                    }
+                });
+            });
+            //End Login Form
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

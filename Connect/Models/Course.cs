@@ -18,7 +18,7 @@ namespace Connect.Models
         public Course()
         {
             this.Branches = new HashSet<Branch>();
-            this.Students = new HashSet<Student>();
+            this.Records = new HashSet<Record>();
         }
     
         public int CourseId { get; set; }
@@ -27,6 +27,6 @@ namespace Connect.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Branch> Branches { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<Record> Records { get; set; }
     }
 }

@@ -18,13 +18,10 @@ namespace Connect.Models
         public User()
         {
             this.EmailVerifications = new HashSet<VerifyEmail>();
-            this.Faculties = new HashSet<Faculty>();
-            this.Students = new HashSet<Student>();
+            this.Records = new HashSet<Record>();
         }
     
         public long UserId { get; set; }
-        public string Firstname { get; set; }
-        public string Lastname { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
         public Nullable<bool> IsEmailVerified { get; set; }
@@ -37,12 +34,13 @@ namespace Connect.Models
         public Nullable<int> LoginRetryAttempts { get; set; }
         public Nullable<bool> IsAccountLocked { get; set; }
         public Nullable<System.DateTime> LockDateTime { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public string City { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VerifyEmail> EmailVerifications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Faculty> Faculties { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<Record> Records { get; set; }
     }
 }

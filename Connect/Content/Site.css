@@ -41,6 +41,10 @@ body {
     border-color: #080808;
 }
 
+
+.hide {
+    display: none;
+}
 #logbox {
     padding: 10px;
     margin: 50px auto;

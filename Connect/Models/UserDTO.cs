@@ -37,6 +37,10 @@ namespace Connect.Models {
         //[Remote("CheckEmail", "Account", ErrorMessage = "Email already in use")]
         public string Email { get; set; }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage = "City required")]
+        [RegularExpression(pattern: "^[A-Za-z]+$", ErrorMessage ="Characters only")]
+        public string City { get; set; }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "Password required")]
         [DataType(DataType.Password)]
         [StringLength(maximumLength: 100, ErrorMessage = "length cannot be greater than 200")]

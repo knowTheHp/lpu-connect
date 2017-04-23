@@ -29,8 +29,7 @@ namespace Connect.Models
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<VerifyEmail> VerifyEmails { get; set; }
-        public virtual DbSet<Faculty> Faculties { get; set; }
-        public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Record> Records { get; set; }
     }
 }

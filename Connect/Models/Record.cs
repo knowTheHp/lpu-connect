@@ -12,11 +12,16 @@ namespace Connect.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Student
+    public partial class Record
     {
-        public long Std_Id { get; set; }
-        public int RegistrationNumber { get; set; }
-        public int Course { get; set; }
+        public long User_Id { get; set; }
+        public int LpuId { get; set; }
+        public Nullable<int> Department { get; set; }
+        public string Title { get; set; }
+        public string FromYear { get; set; }
+        public string ToYear { get; set; }
+        public Nullable<bool> CurrentlyWorking { get; set; }
+        public Nullable<int> Course { get; set; }
         public Nullable<int> Branch { get; set; }
         public string EntryYear { get; set; }
         public string GraduateYear { get; set; }
@@ -24,6 +29,7 @@ namespace Connect.Models
     
         public virtual Branch Branches { get; set; }
         public virtual Course Courses { get; set; }
+        public virtual Department Departments { get; set; }
         public virtual User Users { get; set; }
     }
 }

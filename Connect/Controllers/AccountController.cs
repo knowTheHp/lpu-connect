@@ -1,5 +1,7 @@
 ﻿using Connect.Models;
+using Connect.Models.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -9,26 +11,43 @@ using System.Web.Security;
 
 namespace Connect.Controllers {
     public class AccountController : Controller {
-        LpuContext lpuContext;
+        LpuContext lpuContext = new LpuContext();
+        Record recordDTO;
         // GET: /
         public ActionResult Index() {
+            //
+            ViewBag.Courses = lpuContext.Courses;
+
             //confirm user not logged in 
             string Username = User.Identity.Name;
             if (!String.IsNullOrEmpty(Username)) {
                 return Redirect($"~/{Username}");
             } else {
+                lpuContext = new LpuContext();
+                List<Course> courses = lpuContext.Courses.ToList();
+                ViewBag.Course = courses;
                 //return view
                 return View();
             }
         }
 
+        #region Fill Branch
+        //public ActionResult FillBranch(int? courseId) {
+        //    if (courseId.HasValue) {
+        //        var branch = lpuContext.Branches.Where(x => x.CourseId == courseId);
+        //        return Json(branch, JsonRequestBehavior.AllowGet);
+        //    } else {
+        //        return Json(null);
+        //    }
+        //}
+        #endregion
+
         //POST: Account/CreateAccount
         [HttpPost]
-        public ActionResult CreateAccount(User userModel, HttpPostedFileBase file) {
+        public ActionResult CreateAccount(FormCollection role, RegisterVM userModel, HttpPostedFileBase file) {
             try {
-
-                //step 1: Initialize the database
-                lpuContext = new LpuContext();
+                //Step 1: Get Role
+                string UserRole = role["Role"].ToString();
 
                 //step 2: Check model state
                 if (!ModelState.IsValid) {
@@ -54,8 +73,29 @@ namespace Connect.Controllers {
                     Lastname = userModel.Lastname,
                     Username = userModel.Username,
                     Email = userModel.Email,
+                    City = userModel.City,
                     Password = FormsAuthentication.HashPasswordForStoringInConfigFile(userModel.Password, "SHA1")
                 };
+                if (UserRole == "1") {
+                    recordDTO = new Record() {
+                        LpuId = userModel.LpuId,
+                        Department = userModel.Department,
+                        Title = userModel.Title,
+                        FromYear = userModel.FromYear,
+                        ToYear = userModel.ToYear,
+                        CurrentlyWorking = userModel.CurrentlyWorking,
+                        UserId = userDTO.UserId
+                    };
+                } else if (UserRole == "2") {
+                    recordDTO = new Record() {
+                        LpuId = userModel.LpuId,
+                        Course = userModel.Course,
+                        Branch = userModel.Branch,
+                        EntryYear = userModel.EntryYear,
+                        GraduateYear = userModel.GraduateYear,
+                        UserId = userDTO.UserId
+                    };
+                }
                 //step 6: Add to DTO
                 lpuContext.Users.Add(userDTO);
 
@@ -90,6 +130,7 @@ namespace Connect.Controllers {
                     }
 
                     //step 13: Save
+                    lpuContext.Records.Add(recordDTO);
                     lpuContext.SaveChanges();
 
                     //Step 14: Get the inserted id

@@ -163,9 +163,6 @@
     <Compile Include="Models\Department.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Faculty.cs">
-      <DependentUpon>LpuContext.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\LpuContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -181,9 +178,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LpuContext.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Student.cs">
+    <Compile Include="Models\Record.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RecordDTO.cs" />
     <Compile Include="Models\User.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
@@ -232,6 +230,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Index.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

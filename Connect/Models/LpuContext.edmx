@@ -36,29 +36,21 @@
           <Property Name="VerificationDateTime" Type="datetime" />
           <Property Name="UserId" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="tblFaculty">
+        <EntityType Name="tblLpuRecords">
           <Key>
-            <PropertyRef Name="Fac_Id" />
+            <PropertyRef Name="User_Id" />
           </Key>
-          <Property Name="Fac_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EmpId" Type="int" Nullable="false" />
-          <Property Name="Department" Type="int" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="300" Nullable="false" />
-          <Property Name="FromYear" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="User_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LpuId" Type="int" Nullable="false" />
+          <Property Name="Department" Type="int" />
+          <Property Name="Title" Type="varchar" MaxLength="300" />
+          <Property Name="FromYear" Type="varchar" MaxLength="10" />
           <Property Name="ToYear" Type="varchar" MaxLength="10" />
           <Property Name="CurrentlyWorking" Type="bit" />
-          <Property Name="UserId" Type="bigint" />
-        </EntityType>
-        <EntityType Name="tblStudents">
-          <Key>
-            <PropertyRef Name="Std_Id" />
-          </Key>
-          <Property Name="Std_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RegistrationNumber" Type="int" Nullable="false" />
-          <Property Name="Course" Type="int" Nullable="false" />
+          <Property Name="Course" Type="int" />
           <Property Name="Branch" Type="int" />
-          <Property Name="EntryYear" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="GraduateYear" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="EntryYear" Type="varchar" MaxLength="10" />
+          <Property Name="GraduateYear" Type="varchar" MaxLength="10" />
           <Property Name="UserId" Type="bigint" />
         </EntityType>
         <EntityType Name="tblUserSignup">
@@ -80,6 +72,7 @@
           <Property Name="LoginRetryAttempts" Type="int" />
           <Property Name="IsAccountLocked" Type="bit" />
           <Property Name="LockDateTime" Type="datetime" />
+          <Property Name="City" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <Association Name="FK__tblBranch__Cours__72C60C4A">
           <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="0..1" />
@@ -105,62 +98,50 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblFacult__Depar__05D8E0BE">
-          <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="1" />
-          <End Role="tblFaculty" Type="Self.tblFaculty" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblDepartment">
-              <PropertyRef Name="DepartmentId" />
-            </Principal>
-            <Dependent Role="tblFaculty">
-              <PropertyRef Name="Department" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblFacult__UserI__06CD04F7">
-          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="0..1" />
-          <End Role="tblFaculty" Type="Self.tblFaculty" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUserSignup">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblFaculty">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblStuden__Branc__7F2BE32F">
+        <Association Name="FK__tblLpuRec__Branc__1F98B2C1">
           <End Role="tblBranch" Type="Self.tblBranch" Multiplicity="0..1" />
-          <End Role="tblStudents" Type="Self.tblStudents" Multiplicity="*" />
+          <End Role="tblLpuRecords" Type="Self.tblLpuRecords" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblBranch">
               <PropertyRef Name="BranchId" />
             </Principal>
-            <Dependent Role="tblStudents">
+            <Dependent Role="tblLpuRecords">
               <PropertyRef Name="Branch" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblStuden__Cours__7E37BEF6">
-          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="1" />
-          <End Role="tblStudents" Type="Self.tblStudents" Multiplicity="*" />
+        <Association Name="FK__tblLpuRec__Cours__1EA48E88">
+          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="0..1" />
+          <End Role="tblLpuRecords" Type="Self.tblLpuRecords" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblCourse">
               <PropertyRef Name="CourseId" />
             </Principal>
-            <Dependent Role="tblStudents">
+            <Dependent Role="tblLpuRecords">
               <PropertyRef Name="Course" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblStuden__UserI__00200768">
+        <Association Name="FK__tblLpuRec__Depar__1DB06A4F">
+          <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="0..1" />
+          <End Role="tblLpuRecords" Type="Self.tblLpuRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="DepartmentId" />
+            </Principal>
+            <Dependent Role="tblLpuRecords">
+              <PropertyRef Name="Department" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblLpuRec__UserI__208CD6FA">
           <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="0..1" />
-          <End Role="tblStudents" Type="Self.tblStudents" Multiplicity="*" />
+          <End Role="tblLpuRecords" Type="Self.tblLpuRecords" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblUserSignup">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="tblStudents">
+            <Dependent Role="tblLpuRecords">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -170,8 +151,7 @@
           <EntitySet Name="tblCourse" EntityType="Self.tblCourse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblDepartment" EntityType="Self.tblDepartment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblEmailVerification" EntityType="Self.tblEmailVerification" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblFaculty" EntityType="Self.tblFaculty" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblStudents" EntityType="Self.tblStudents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblLpuRecords" EntityType="Self.tblLpuRecords" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUserSignup" EntityType="Self.tblUserSignup" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__tblBranch__Cours__72C60C4A" Association="Self.FK__tblBranch__Cours__72C60C4A">
             <End Role="tblCourse" EntitySet="tblCourse" />
@@ -181,25 +161,21 @@
             <End Role="tblUserSignup" EntitySet="tblUserSignup" />
             <End Role="tblEmailVerification" EntitySet="tblEmailVerification" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblFacult__Depar__05D8E0BE" Association="Self.FK__tblFacult__Depar__05D8E0BE">
-            <End Role="tblDepartment" EntitySet="tblDepartment" />
-            <End Role="tblFaculty" EntitySet="tblFaculty" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblFacult__UserI__06CD04F7" Association="Self.FK__tblFacult__UserI__06CD04F7">
-            <End Role="tblUserSignup" EntitySet="tblUserSignup" />
-            <End Role="tblFaculty" EntitySet="tblFaculty" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblStuden__Branc__7F2BE32F" Association="Self.FK__tblStuden__Branc__7F2BE32F">
+          <AssociationSet Name="FK__tblLpuRec__Branc__1F98B2C1" Association="Self.FK__tblLpuRec__Branc__1F98B2C1">
             <End Role="tblBranch" EntitySet="tblBranch" />
-            <End Role="tblStudents" EntitySet="tblStudents" />
+            <End Role="tblLpuRecords" EntitySet="tblLpuRecords" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblStuden__Cours__7E37BEF6" Association="Self.FK__tblStuden__Cours__7E37BEF6">
+          <AssociationSet Name="FK__tblLpuRec__Cours__1EA48E88" Association="Self.FK__tblLpuRec__Cours__1EA48E88">
             <End Role="tblCourse" EntitySet="tblCourse" />
-            <End Role="tblStudents" EntitySet="tblStudents" />
+            <End Role="tblLpuRecords" EntitySet="tblLpuRecords" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblStuden__UserI__00200768" Association="Self.FK__tblStuden__UserI__00200768">
+          <AssociationSet Name="FK__tblLpuRec__Depar__1DB06A4F" Association="Self.FK__tblLpuRec__Depar__1DB06A4F">
+            <End Role="tblDepartment" EntitySet="tblDepartment" />
+            <End Role="tblLpuRecords" EntitySet="tblLpuRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblLpuRec__UserI__208CD6FA" Association="Self.FK__tblLpuRec__UserI__208CD6FA">
             <End Role="tblUserSignup" EntitySet="tblUserSignup" />
-            <End Role="tblStudents" EntitySet="tblStudents" />
+            <End Role="tblLpuRecords" EntitySet="tblLpuRecords" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -214,7 +190,7 @@
           <Property Name="BranchName" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
           <Property Name="CourseId" Type="Int32" />
           <NavigationProperty Name="Course" Relationship="Self.FK__tblBranch__Cours__72C60C4A" FromRole="tblBranch" ToRole="tblCourse" />
-          <NavigationProperty Name="Students" Relationship="Self.FK__tblStuden__Branc__7F2BE32F" FromRole="tblBranch" ToRole="tblStudents" />
+          <NavigationProperty Name="Records" Relationship="Connect_LPUModel.FK__tblLpuRec__Branc__18EBB532" FromRole="Branch" ToRole="tblLpuRecord" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
@@ -223,7 +199,7 @@
           <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CourseName" Type="String" MaxLength="400" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Branches" Relationship="Self.FK__tblBranch__Cours__72C60C4A" FromRole="tblCourse" ToRole="tblBranch" />
-          <NavigationProperty Name="Students" Relationship="Self.FK__tblStuden__Cours__7E37BEF6" FromRole="tblCourse" ToRole="tblStudents" />
+          <NavigationProperty Name="Records" Relationship="Connect_LPUModel.FK__tblLpuRec__Cours__17F790F9" FromRole="Course" ToRole="tblLpuRecord" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -231,7 +207,7 @@
           </Key>
           <Property Name="DepartmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DepartmentName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Faculties" Relationship="Self.FK__tblFacult__Depar__05D8E0BE" FromRole="tblDepartment" ToRole="tblFaculty" />
+          <NavigationProperty Name="Records" Relationship="Connect_LPUModel.FK__tblLpuRec__Depar__17036CC0" FromRole="Department" ToRole="tblLpuRecord" />
         </EntityType>
         <EntityType Name="VerifyEmail">
           <Key>
@@ -242,36 +218,6 @@
           <Property Name="VerificationDateTime" Type="DateTime" Precision="3" />
           <Property Name="UserId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="Self.FK__tblEmailV__UserI__0B91BA14" FromRole="tblEmailVerification" ToRole="tblUserSignup" />
-        </EntityType>
-        <EntityType Name="Faculty">
-          <Key>
-            <PropertyRef Name="Fac_Id" />
-          </Key>
-          <Property Name="Fac_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmpId" Type="Int32" Nullable="false" />
-          <Property Name="Department" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FromYear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ToYear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="CurrentlyWorking" Type="Boolean" />
-          <Property Name="UserId" Type="Int64" />
-          <NavigationProperty Name="Departments" Relationship="Self.FK__tblFacult__Depar__05D8E0BE" FromRole="tblFaculty" ToRole="tblDepartment" />
-          <NavigationProperty Name="Users" Relationship="Self.FK__tblFacult__UserI__06CD04F7" FromRole="tblFaculty" ToRole="tblUserSignup" />
-        </EntityType>
-        <EntityType Name="Student">
-          <Key>
-            <PropertyRef Name="Std_Id" />
-          </Key>
-          <Property Name="Std_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RegistrationNumber" Type="Int32" Nullable="false" />
-          <Property Name="Course" Type="Int32" Nullable="false" />
-          <Property Name="Branch" Type="Int32" />
-          <Property Name="EntryYear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="GraduateYear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="UserId" Type="Int64" />
-          <NavigationProperty Name="Branches" Relationship="Self.FK__tblStuden__Branc__7F2BE32F" FromRole="tblStudents" ToRole="tblBranch" />
-          <NavigationProperty Name="Courses" Relationship="Self.FK__tblStuden__Cours__7E37BEF6" FromRole="tblStudents" ToRole="tblCourse" />
-          <NavigationProperty Name="Users" Relationship="Self.FK__tblStuden__UserI__00200768" FromRole="tblStudents" ToRole="tblUserSignup" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -291,10 +237,10 @@
           <Property Name="IsAccountLocked" Type="Boolean" />
           <Property Name="LockDateTime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="EmailVerifications" Relationship="Self.FK__tblEmailV__UserI__0B91BA14" FromRole="tblUserSignup" ToRole="tblEmailVerification" />
-          <NavigationProperty Name="Faculties" Relationship="Self.FK__tblFacult__UserI__06CD04F7" FromRole="tblUserSignup" ToRole="tblFaculty" />
-          <NavigationProperty Name="Students" Relationship="Self.FK__tblStuden__UserI__00200768" FromRole="tblUserSignup" ToRole="tblStudents" />
           <Property Name="Firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Records" Relationship="Connect_LPUModel.FK__tblLpuRec__UserI__19DFD96B" FromRole="User" ToRole="tblLpuRecord" />
         </EntityType>
         <Association Name="FK__tblBranch__Cours__72C60C4A">
           <End Role="tblCourse" Type="Connect_LPUModel.Course" Multiplicity="0..1" />
@@ -305,42 +251,6 @@
             </Principal>
             <Dependent Role="tblBranch">
               <PropertyRef Name="CourseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblStuden__Branc__7F2BE32F">
-          <End Role="tblBranch" Type="Connect_LPUModel.Branch" Multiplicity="0..1" />
-          <End Role="tblStudents" Type="Connect_LPUModel.Student" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblBranch">
-              <PropertyRef Name="BranchId" />
-            </Principal>
-            <Dependent Role="tblStudents">
-              <PropertyRef Name="Branch" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblStuden__Cours__7E37BEF6">
-          <End Role="tblCourse" Type="Connect_LPUModel.Course" Multiplicity="1" />
-          <End Role="tblStudents" Type="Connect_LPUModel.Student" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCourse">
-              <PropertyRef Name="CourseId" />
-            </Principal>
-            <Dependent Role="tblStudents">
-              <PropertyRef Name="Course" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblFacult__Depar__05D8E0BE">
-          <End Role="tblDepartment" Type="Connect_LPUModel.Department" Multiplicity="1" />
-          <End Role="tblFaculty" Type="Connect_LPUModel.Faculty" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblDepartment">
-              <PropertyRef Name="DepartmentId" />
-            </Principal>
-            <Dependent Role="tblFaculty">
-              <PropertyRef Name="Department" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -356,67 +266,107 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblFacult__UserI__06CD04F7">
-          <End Role="tblUserSignup" Type="Connect_LPUModel.User" Multiplicity="0..1" />
-          <End Role="tblFaculty" Type="Connect_LPUModel.Faculty" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUserSignup">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblFaculty">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblStuden__UserI__00200768">
-          <End Role="tblUserSignup" Type="Connect_LPUModel.User" Multiplicity="0..1" />
-          <End Role="tblStudents" Type="Connect_LPUModel.Student" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUserSignup">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblStudents">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="LpuContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Branches" EntityType="Connect_LPUModel.Branch" />
           <EntitySet Name="Courses" EntityType="Connect_LPUModel.Course" />
           <EntitySet Name="Departments" EntityType="Connect_LPUModel.Department" />
           <EntitySet Name="VerifyEmails" EntityType="Connect_LPUModel.VerifyEmail" />
-          <EntitySet Name="Faculties" EntityType="Connect_LPUModel.Faculty" />
-          <EntitySet Name="Students" EntityType="Connect_LPUModel.Student" />
           <EntitySet Name="Users" EntityType="Connect_LPUModel.User" />
           <AssociationSet Name="FK__tblBranch__Cours__72C60C4A" Association="Self.FK__tblBranch__Cours__72C60C4A">
             <End Role="tblCourse" EntitySet="Courses" />
             <End Role="tblBranch" EntitySet="Branches" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblStuden__Branc__7F2BE32F" Association="Self.FK__tblStuden__Branc__7F2BE32F">
-            <End Role="tblBranch" EntitySet="Branches" />
-            <End Role="tblStudents" EntitySet="Students" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblStuden__Cours__7E37BEF6" Association="Self.FK__tblStuden__Cours__7E37BEF6">
-            <End Role="tblCourse" EntitySet="Courses" />
-            <End Role="tblStudents" EntitySet="Students" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblFacult__Depar__05D8E0BE" Association="Self.FK__tblFacult__Depar__05D8E0BE">
-            <End Role="tblDepartment" EntitySet="Departments" />
-            <End Role="tblFaculty" EntitySet="Faculties" />
-          </AssociationSet>
           <AssociationSet Name="FK__tblEmailV__UserI__0B91BA14" Association="Self.FK__tblEmailV__UserI__0B91BA14">
             <End Role="tblUserSignup" EntitySet="Users" />
             <End Role="tblEmailVerification" EntitySet="VerifyEmails" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblFacult__UserI__06CD04F7" Association="Self.FK__tblFacult__UserI__06CD04F7">
-            <End Role="tblUserSignup" EntitySet="Users" />
-            <End Role="tblFaculty" EntitySet="Faculties" />
+          <EntitySet Name="Records1" EntityType="Connect_LPUModel.Record" />
+          <AssociationSet Name="FK__tblLpuRec__Branc__18EBB532" Association="Connect_LPUModel.FK__tblLpuRec__Branc__18EBB532">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="tblLpuRecord" EntitySet="Records1" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblStuden__UserI__00200768" Association="Self.FK__tblStuden__UserI__00200768">
-            <End Role="tblUserSignup" EntitySet="Users" />
-            <End Role="tblStudents" EntitySet="Students" />
+          <AssociationSet Name="FK__tblLpuRec__Cours__17F790F9" Association="Connect_LPUModel.FK__tblLpuRec__Cours__17F790F9">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="tblLpuRecord" EntitySet="Records1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblLpuRec__Depar__17036CC0" Association="Connect_LPUModel.FK__tblLpuRec__Depar__17036CC0">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="tblLpuRecord" EntitySet="Records1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblLpuRec__UserI__19DFD96B" Association="Connect_LPUModel.FK__tblLpuRec__UserI__19DFD96B">
+            <End Role="User" EntitySet="Users" />
+            <End Role="tblLpuRecord" EntitySet="Records1" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Record">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LpuId" Type="Int32" Nullable="false" />
+          <Property Name="Department" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="FromYear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ToYear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentlyWorking" Type="Boolean" />
+          <Property Name="Course" Type="Int32" />
+          <Property Name="Branch" Type="Int32" />
+          <Property Name="EntryYear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="GraduateYear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Int64" />
+          <NavigationProperty Name="Branches" Relationship="Connect_LPUModel.FK__tblLpuRec__Branc__18EBB532" FromRole="tblLpuRecord" ToRole="Branch" />
+          <NavigationProperty Name="Courses" Relationship="Connect_LPUModel.FK__tblLpuRec__Cours__17F790F9" FromRole="tblLpuRecord" ToRole="Course" />
+          <NavigationProperty Name="Departments" Relationship="Connect_LPUModel.FK__tblLpuRec__Depar__17036CC0" FromRole="tblLpuRecord" ToRole="Department" />
+          <NavigationProperty Name="Users" Relationship="Connect_LPUModel.FK__tblLpuRec__UserI__19DFD96B" FromRole="tblLpuRecord" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__tblLpuRec__Branc__18EBB532">
+          <End Type="Connect_LPUModel.Branch" Role="Branch" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.Record" Role="tblLpuRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="tblLpuRecord">
+              <PropertyRef Name="Branch" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblLpuRec__Cours__17F790F9">
+          <End Type="Connect_LPUModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.Record" Role="tblLpuRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="tblLpuRecord">
+              <PropertyRef Name="Course" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblLpuRec__Depar__17036CC0">
+          <End Type="Connect_LPUModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.Record" Role="tblLpuRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentId" />
+            </Principal>
+            <Dependent Role="tblLpuRecord">
+              <PropertyRef Name="Department" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblLpuRec__UserI__19DFD96B">
+          <End Type="Connect_LPUModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.Record" Role="tblLpuRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblLpuRecord">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -458,36 +408,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Faculties">
-            <EntityTypeMapping TypeName="Connect_LPUModel.Faculty">
-              <MappingFragment StoreEntitySet="tblFaculty">
-                <ScalarProperty Name="Fac_Id" ColumnName="Fac_Id" />
-                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
-                <ScalarProperty Name="Department" ColumnName="Department" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="FromYear" ColumnName="FromYear" />
-                <ScalarProperty Name="ToYear" ColumnName="ToYear" />
-                <ScalarProperty Name="CurrentlyWorking" ColumnName="CurrentlyWorking" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Students">
-            <EntityTypeMapping TypeName="Connect_LPUModel.Student">
-              <MappingFragment StoreEntitySet="tblStudents">
-                <ScalarProperty Name="Std_Id" ColumnName="Std_Id" />
-                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
-                <ScalarProperty Name="Course" ColumnName="Course" />
-                <ScalarProperty Name="Branch" ColumnName="Branch" />
-                <ScalarProperty Name="EntryYear" ColumnName="EntryYear" />
-                <ScalarProperty Name="GraduateYear" ColumnName="GraduateYear" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="Connect_LPUModel.User">
               <MappingFragment StoreEntitySet="tblUserSignup">
+                <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="Lastname" ColumnName="Lastname" />
                 <ScalarProperty Name="Firstname" ColumnName="Firstname" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -503,6 +427,24 @@
                 <ScalarProperty Name="LoginRetryAttempts" ColumnName="LoginRetryAttempts" />
                 <ScalarProperty Name="IsAccountLocked" ColumnName="IsAccountLocked" />
                 <ScalarProperty Name="LockDateTime" ColumnName="LockDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Records1">
+            <EntityTypeMapping TypeName="Connect_LPUModel.Record">
+              <MappingFragment StoreEntitySet="tblLpuRecords">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="GraduateYear" ColumnName="GraduateYear" />
+                <ScalarProperty Name="EntryYear" ColumnName="EntryYear" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="CurrentlyWorking" ColumnName="CurrentlyWorking" />
+                <ScalarProperty Name="ToYear" ColumnName="ToYear" />
+                <ScalarProperty Name="FromYear" ColumnName="FromYear" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="LpuId" ColumnName="LpuId" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

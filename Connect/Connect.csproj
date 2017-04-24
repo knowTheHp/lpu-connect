@@ -262,9 +262,6 @@
     <Folder Include="Views\Profile\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
   </ItemGroup>
   <ItemGroup>

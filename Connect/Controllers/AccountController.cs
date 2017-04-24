@@ -14,8 +14,21 @@ namespace Connect.Controllers {
         LpuContext lpuContext = new LpuContext();
         Record recordDTO;
         // GET: /
+
+        #region username and email validation
+
+        public JsonResult ValidateUsername(string Username) {
+            return Json(!lpuContext.Users.Any(user => user.Username.Equals(Username)), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ValidateEmail(string Email) {
+            return Json(!lpuContext.Users.Any(user => user.Email.Equals(Email)), JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
         public ActionResult Index() {
-            //
+            //Fetching and adding course and department in the viewbag
+            ViewBag.Department = lpuContext.Departments;
             ViewBag.Courses = lpuContext.Courses;
 
             //confirm user not logged in 
@@ -32,14 +45,11 @@ namespace Connect.Controllers {
         }
 
         #region Fill Branch
-        //public ActionResult FillBranch(int? courseId) {
-        //    if (courseId.HasValue) {
-        //        var branch = lpuContext.Branches.Where(x => x.CourseId == courseId);
-        //        return Json(branch, JsonRequestBehavior.AllowGet);
-        //    } else {
-        //        return Json(null);
-        //    }
-        //}
+        public ActionResult Branches(int courseId) {
+            lpuContext.Configuration.ProxyCreationEnabled = false;
+            List<Branch> branches = lpuContext.Branches.Where(x => x.CourseId == courseId).ToList();
+            return Json(branches, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         //POST: Account/CreateAccount
@@ -96,7 +106,7 @@ namespace Connect.Controllers {
                         UserId = userDTO.UserId
                     };
                 }
-                //step 6: Add to DTO
+                //step 6: Add basic user data
                 lpuContext.Users.Add(userDTO);
 
                 //step 7: Set upload directory

@@ -26,15 +26,15 @@ namespace Connect.Models {
         public string Lastname { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Username required")]
-        [RegularExpression(pattern: "(?=.{5,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", ErrorMessage = "Username must contain minimum of 5 characters")]
+        //[RegularExpression(pattern: "(?=.{5,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", ErrorMessage = "Username must contain minimum of 5 characters")]
         [StringLength(maximumLength: 100, ErrorMessage = "length cannot be greater than 100")]
-        //[Remote("CheckUsername", "Account", ErrorMessage ="Username already taken")]
+        [System.Web.Mvc.Remote("ValidateUsername", "Account", ErrorMessage ="Username already taken")]
         public string Username { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Email required")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Email format invalid")]
         [StringLength(maximumLength: 200, ErrorMessage = "length cannot be greater than 200")]
-        //[Remote("CheckEmail", "Account", ErrorMessage = "Email already in use")]
+        [System.Web.Mvc.Remote("ValidateEmail", "Account", ErrorMessage = "Email already in use")]
         public string Email { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "City required")]

@@ -17,6 +17,11 @@ namespace Connect {
             routes.MapRoute("Logout", "Account/Logout", new { controller = "Account", action = "Logout" });
             routes.MapRoute("Account", "{Username}", new { controller = "Account", action = "Username" });
             routes.MapRoute("CreateAccount", "Account/CreateAccount", new { controller = "Account", action = "CreateAccount" });
+            routes.MapRoute("Branches", "Account/Branches/", new { controller = "Account", action = "Branches", courseId = UrlParameter.Optional });
+
+            routes.MapRoute("Username", "Account/Username/", new { controller = "Account", action = "ValidateUsername",Username = UrlParameter.Optional });
+            routes.MapRoute("Email", "Account/ValidateEmail/", new { controller = "Account", action = "ValidateEmail", Email = UrlParameter.Optional });
+
             routes.MapRoute("Default", "", new { controller = "Account", action = "Index" });
             //routes.MapRoute(
             //    name: "Default",

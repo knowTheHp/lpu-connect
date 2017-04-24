@@ -1,12 +1,19 @@
 ﻿$(document).ready(function () {
+    $("#register").hide();
     //Toggle Registration Form
     $('#Role').on('change', function () {
         if (this.value === '1') {
+            $("#register").show();
             $(".facultyInput").show();
             $(".studentInput").hide();
         } else if (this.value === '2') {
+            $("#register").show();
             $(".facultyInput").hide();
             $(".studentInput").show();
+        } else {
+            $("#register").hide();
+            $(".facultyInput").hide();
+            $(".studentInput").hide();
         }
     });
     //End
@@ -16,24 +23,27 @@
     //
 
     //Start Branch
-    //$('#Courses').change(function () {
-    //    var courseId = $('#Courses').val();
-    //    $.ajax({
-    //        type: "get",
-    //        //data: JSON.stringify({courseId: courseId }),
-    //        url: "/Account/FillBranch?courseId=" + courseId,
-    //        datatype: "json",
-    //        traditional: true,
-    //        success: function (data) {
-    //            var branch = $('#Branches');
-    //            $.each(data, function (val, text) {
-    //                branch.append(
-    //                    $('<option></option>').val(val).html(text)
-    //                );
-    //            });
-    //        }
-    //    });
-    //});
+    $('#Course').change(function () {
+        var courseId = $('#Course').val();
+        $.ajax({
+            type: "get",
+            url: "Account/Branches/",
+            data: { courseId: courseId },
+            datatype: "json",
+            traditional: true,
+            success: function (branches) {
+                var branchId = $('#Branch');
+                branchId.empty();
+                $.each(branches, function (index, branch) {
+                    //alert(branch.text);
+                    branchId.append($('<option/>', {
+                            value: branch.value,
+                            text: branch.text
+                        }));
+                });
+            }
+        });
+    });
     //End
 
     //Start Image Script

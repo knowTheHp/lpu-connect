@@ -7,16 +7,17 @@
     @using (Html.BeginForm("CreateAccount", "Account", FormMethod.Post, new { enctype = "multipart/form-data" })) {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div>
+        <div class="col-md-4">
+            <div style="margin:20px"></div>
+            <label class="label-control">Choose User Type</label>
+            @Html.DropDownList("Role", new List<SelectListItem>() { new SelectListItem() { Text = "Faculty", Value = "1" }, new SelectListItem { Text = "Student", Value = "2" } }, "Select Role", new { @id = "Role", @class = "pass input div-toggle", data_target = ".register" })
+        </div>
+        <div id="register">
             <div class="col-md-4">
-                <div style="margin:20px"></div>
-                <label class="label-control">Choose User Type</label>
-                @Html.DropDownList("Role", new List<SelectListItem>() { new SelectListItem() { Text = "Faculty", Value = "1" }, new SelectListItem { Text = "Student", Value = "2" } }, "Select Role", new { @id = "Role", @class = "pass input div-toggle", data_target = ".register" })
-
                 <div class="logbox">
                     <h1 class="text-primary">Create a new Account</h1>
                     <!-- #region Profile pic -->
-                    <img src="~/Content/Avatar.svg" id="profilePic" class="img-responsive img-thumbnail col-md-offset-2" alt="your image" />
+                    <img src="~/Content/Avatar.svg" id="profilePic" class="img-responsive img-thumbnail col-md-offset-2 pass input" alt="your image" />
                     <input type="file" name="file" ID="ImageUpload" class="col-md-offset-2" />
                     <!-- #endregion -->
                     <div class="form-inline">
@@ -47,7 +48,7 @@
                     <!-- #endregion -->
                     <div class="facultyInput">
                         <!-- #region Department -->
-                        @Html.DropDownList("Department", new List<SelectListItem>() { new SelectListItem() { Text = "School of Computer Application", Value = "100" } }, "Select Department", new { @id = "Department", @class = "pass input" })
+                        @Html.DropDownListFor(model => model.Department, new SelectList(ViewBag.Department, "DepartmentId", "DepartmentName"), "Select Department", new { @id = "Department", @class = "pass input" })
                         <!-- #endregion -->
                         <!-- #region Title -->
                         @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "input pass", placeholder = "Title" } })
@@ -70,13 +71,11 @@
                     </div>
                     <div class="studentInput">
                         <!-- #region Courses -->
-                        @Html.DropDownListFor(model => model.Course, new List<SelectListItem>() { new SelectListItem() { Text = "BA (Hons)", Value = "102" } }, "Select Course", new { @class = "pass input" })
+                        @Html.DropDownListFor(model => model.Course, new SelectList(ViewBag.Courses, "CourseId", "CourseName"), "Select Course", new { @class = "pass input" })
                         <!-- #endregion -->
                         <!-- #region Branch -->
-                        @*@Html.DropDownList("Branch",
-                            new SelectList(Enumerable.Empty<SelectListItem>(), "BranchId", "BranchName"),
-                                   new { @class = "input pass" })*@
-                        @Html.DropDownList("Branch", new List<SelectListItem>() { new SelectListItem() { Text = "English/ Psychology/ Geography/ Sociology/  History/  Economics", Value = "100" } }, "Select Branch", new { @class = "pass input" })
+                        @Html.DropDownListFor(model => model.Branch,
+                                 Enumerable.Empty<SelectListItem>(), new { @class = "input pass" })
                     </div>
                     <!-- #endregion -->
                     <!-- #region Password -->
@@ -85,7 +84,7 @@
                     <!-- #endregion -->
                     <!-- #region Confirm Password -->
                     @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "input pass", placeholder = "Confirm Password", type = "password" } })
-                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new {@class = "text-danger validation" })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger validation" })
                     <!-- #endregion -->
                     <!-- #region Submit button -->
                     <input type="submit" value="Go" class="inputButton btn-primary" />
@@ -96,9 +95,9 @@
         </div>
     }
 </div>
-@Scripts.Render("~/bundles/bootstrap")
-@Scripts.Render("~/bundles/jquery")
 @section Scripts {
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/Index.js"></script>
     @Scripts.Render("~/bundles/jqueryval")
 }

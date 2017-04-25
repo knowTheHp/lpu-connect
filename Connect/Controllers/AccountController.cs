@@ -20,7 +20,6 @@ namespace Connect.Controllers {
         public JsonResult ValidateUsername(string Username) {
             return Json(!lpuContext.Users.Any(user => user.Username.Equals(Username)), JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult ValidateEmail(string Email) {
             return Json(!lpuContext.Users.Any(user => user.Email.Equals(Email)), JsonRequestBehavior.AllowGet);
         }
@@ -47,8 +46,8 @@ namespace Connect.Controllers {
         #region Fill Branch
         public ActionResult Branches(int courseId) {
             lpuContext.Configuration.ProxyCreationEnabled = false;
-            List<Branch> branches = lpuContext.Branches.Where(x => x.CourseId == courseId).ToList();
-            return Json(branches, JsonRequestBehavior.AllowGet);
+            var branches = lpuContext.Branches.Where(x => x.CourseId == courseId);
+            return Json(branches);
         }
         #endregion
 
@@ -74,8 +73,9 @@ namespace Connect.Controllers {
                     ModelState.AddModelError("Email", "Email already exists");
                     userModel.Email = "";
                     return View("Index", userModel);
-                } else {
-                    //
+                } else if(userModel.Department == null){
+                    ModelState.AddModelError("", "Department required");
+                    return View("Index", userModel);
                 }
                 //step 5: Create UserDTO object
                 User userDTO = new User() {

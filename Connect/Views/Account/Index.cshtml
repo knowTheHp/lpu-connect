@@ -48,7 +48,7 @@
                     <!-- #endregion -->
                     <div class="facultyInput">
                         <!-- #region Department -->
-                        @Html.DropDownListFor(model => model.Department, new SelectList(ViewBag.Department, "DepartmentId", "DepartmentName"), "Select Department", new { @id = "Department", @class = "pass input" })
+                        @Html.DropDownListFor(model => model.Department, new SelectList(ViewBag.Department, "DepartmentId", "DepartmentName"), new { @id = "Department", @class = "pass input" })
                         <!-- #endregion -->
                         <!-- #region Title -->
                         @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "input pass", placeholder = "Title" } })
@@ -75,7 +75,7 @@
                         <!-- #endregion -->
                         <!-- #region Branch -->
                         @Html.DropDownListFor(model => model.Branch,
-                                 Enumerable.Empty<SelectListItem>(), new { @class = "input pass" })
+                                 new SelectList(string.Empty,"Value","Text"), new { @class = "input pass" })
                     </div>
                     <!-- #endregion -->
                     <!-- #region Password -->

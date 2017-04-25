@@ -14,7 +14,7 @@ namespace Connect.Models.ViewModel {
         public string Lastname { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Username required")]
-        [RegularExpression(pattern: "(?=.{5,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", ErrorMessage = "Username must contain minimum of 5 characters")]
+        //[RegularExpression(pattern: "(?=.{5,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", ErrorMessage = "Username must contain minimum of 5 characters")]
         [StringLength(maximumLength: 100, ErrorMessage = "length cannot be greater than 100")]
         [System.Web.Mvc.Remote("ValidateUsername", "Account", ErrorMessage = "Username already taken")]
         public string Username { get; set; }

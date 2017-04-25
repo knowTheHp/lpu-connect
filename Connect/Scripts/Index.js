@@ -25,21 +25,16 @@
     //Start Branch
     $('#Course').change(function () {
         var courseId = $('#Course').val();
+        var branchId = $('#Branch');
+        branchId.empty();
         $.ajax({
-            type: "get",
-            url: "Account/Branches/",
-            data: { courseId: courseId },
+            type: "post",
+            url: "account/branches/",
             datatype: "json",
-            traditional: true,
+            data: { courseId: courseId },
             success: function (branches) {
-                var branchId = $('#Branch');
-                branchId.empty();
                 $.each(branches, function (index, branch) {
-                    //alert(branch.text);
-                    branchId.append($('<option/>', {
-                            value: branch.value,
-                            text: branch.text
-                        }));
+                    branchId.append('<option value="' + branch.BranchId + '">' + branch.BranchName+ '</option>');
                 });
             }
         });

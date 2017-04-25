@@ -147,10 +147,11 @@ div.em {
 
 
 #profileData {
+    right:-450px;
     display: inline-block;
     padding: 13px 0 13px 0;
     color: white;
-    font-size: 16px;
+    font-size: 20px;
     background-color: black;
     text-decoration: none;
 }
@@ -169,11 +170,10 @@ div.em {
 input#searchText {
     position: relative;
     margin-top: 1px;
-    margin-right: 510px;
     top: -4px;
     display: inline-block;
     width: 400px;
-    height: 34px;
+    height: 38px;
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857143;

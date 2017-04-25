@@ -20,27 +20,18 @@
                 @Html.ActionLink("LPU Connect", "", "", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             @if (Request.IsAuthenticated) {
-                <ul class="nav navbar-nav navbar-right collapse navbar-collapse">
-                    <li class="livesearch" id="livesearch">
+                <ul class="nav navbar-nav collapse navbar-collapse">
+                    <li class="livesearch navbar-left" id="livesearch">
                         <div class="input-group">
                             <input type="text" id="searchText" placeholder="Search and Connect" />
                             <ul id="liveSearchul"></ul>
                         </div>
                     </li>
-                    <li>
-                        <div>
-                            <a href="/@User.Identity.Name" id="profileData">@ViewBag.FullName</a>
-                            <span data-toggle="dropdown" class=" dropdown-toggle logout">
-                                <span class="caret"></span>
-                            </span>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    @*<li class="divider"></li>*@
-                                <li>
-                                    @Html.ActionLink("Logout", "Logout", "Account")
-                                </li>
-                            </ul>
-                        </div>
+                    <li class="navbar-right">
+                        <a href="#" id="profileData">&nbsp;Message</a>
+                        <a href="#" id="profileData">&nbsp;Notification</a>
+                        <a href="/@User.Identity.Name" id="profileData">&nbsp;Profile&nbsp;</a>
+                        @Html.ActionLink("Logout", "Logout", "Account", new { @id = "profileData" })
                     </li>
                 </ul>
             } else {

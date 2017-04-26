@@ -13,6 +13,15 @@
           <Property Name="BranchName" Type="varchar" MaxLength="400" />
           <Property Name="CourseId" Type="int" />
         </EntityType>
+        <EntityType Name="tblConnections">
+          <Key>
+            <PropertyRef Name="ConnectionId" />
+          </Key>
+          <Property Name="ConnectionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Sender" Type="bigint" />
+          <Property Name="User_Reciever" Type="bigint" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
         <EntityType Name="tblCourse">
           <Key>
             <PropertyRef Name="CourseId" />
@@ -146,8 +155,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="Fk_Reciever">
+          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="0..1" />
+          <End Role="tblConnections" Type="Self.tblConnections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserSignup">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblConnections">
+              <PropertyRef Name="User_Reciever" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Sender">
+          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="0..1" />
+          <End Role="tblConnections" Type="Self.tblConnections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserSignup">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblConnections">
+              <PropertyRef Name="User_Sender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Connect_LPUModelStoreContainer">
           <EntitySet Name="tblBranch" EntityType="Self.tblBranch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblConnections" EntityType="Self.tblConnections" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCourse" EntityType="Self.tblCourse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblDepartment" EntityType="Self.tblDepartment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblEmailVerification" EntityType="Self.tblEmailVerification" Schema="dbo" store:Type="Tables" />
@@ -176,6 +210,14 @@
           <AssociationSet Name="FK__tblLpuRec__UserI__208CD6FA" Association="Self.FK__tblLpuRec__UserI__208CD6FA">
             <End Role="tblUserSignup" EntitySet="tblUserSignup" />
             <End Role="tblLpuRecords" EntitySet="tblLpuRecords" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Reciever" Association="Self.Fk_Reciever">
+            <End Role="tblUserSignup" EntitySet="tblUserSignup" />
+            <End Role="tblConnections" EntitySet="tblConnections" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Sender" Association="Self.Fk_Sender">
+            <End Role="tblUserSignup" EntitySet="tblUserSignup" />
+            <End Role="tblConnections" EntitySet="tblConnections" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -241,6 +283,8 @@
           <Property Name="Lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="City" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Records" Relationship="Connect_LPUModel.FK__tblLpuRec__UserI__19DFD96B" FromRole="User" ToRole="tblLpuRecord" />
+          <NavigationProperty Name="Sender" Relationship="Connect_LPUModel.Fk_Reciever" FromRole="User" ToRole="tblConnection" />
+          <NavigationProperty Name="Receiver" Relationship="Connect_LPUModel.Fk_Sender" FromRole="User" ToRole="tblConnection" />
         </EntityType>
         <Association Name="FK__tblBranch__Cours__72C60C4A">
           <End Role="tblCourse" Type="Connect_LPUModel.Course" Multiplicity="0..1" />
@@ -296,6 +340,15 @@
           <AssociationSet Name="FK__tblLpuRec__UserI__19DFD96B" Association="Connect_LPUModel.FK__tblLpuRec__UserI__19DFD96B">
             <End Role="User" EntitySet="Users" />
             <End Role="tblLpuRecord" EntitySet="Records1" />
+          </AssociationSet>
+          <EntitySet Name="Connections" EntityType="Connect_LPUModel.Connection" />
+          <AssociationSet Name="Fk_Reciever" Association="Connect_LPUModel.Fk_Reciever">
+            <End Role="User" EntitySet="Users" />
+            <End Role="tblConnection" EntitySet="Connections" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Sender" Association="Connect_LPUModel.Fk_Sender">
+            <End Role="User" EntitySet="Users" />
+            <End Role="tblConnection" EntitySet="Connections" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Record">
@@ -364,6 +417,41 @@
             </Principal>
             <Dependent Role="tblLpuRecord">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Connection">
+          <Key>
+            <PropertyRef Name="ConnectionId" />
+          </Key>
+          <Property Name="ConnectionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Sender" Type="Int64" />
+          <Property Name="User_Receiver" Type="Int64" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="Receiver" Relationship="Connect_LPUModel.Fk_Reciever" FromRole="tblConnection" ToRole="User" />
+          <NavigationProperty Name="Sender" Relationship="Connect_LPUModel.Fk_Sender" FromRole="tblConnection" ToRole="User" />
+        </EntityType>
+        <Association Name="Fk_Reciever">
+          <End Type="Connect_LPUModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.Connection" Role="tblConnection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblConnection">
+              <PropertyRef Name="User_Receiver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Sender">
+          <End Type="Connect_LPUModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.Connection" Role="tblConnection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblConnection">
+              <PropertyRef Name="User_Sender" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -445,6 +533,16 @@
                 <ScalarProperty Name="Department" ColumnName="Department" />
                 <ScalarProperty Name="LpuId" ColumnName="LpuId" />
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Connections">
+            <EntityTypeMapping TypeName="Connect_LPUModel.Connection">
+              <MappingFragment StoreEntitySet="tblConnections">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="User_Receiver" ColumnName="User_Reciever" />
+                <ScalarProperty Name="User_Sender" ColumnName="User_Sender" />
+                <ScalarProperty Name="ConnectionId" ColumnName="ConnectionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

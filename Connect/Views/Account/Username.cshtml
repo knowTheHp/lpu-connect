@@ -28,179 +28,218 @@
                     @ViewBag.From
                 </h3>
             }
-            <!-- #region Connect Button -->
-            <div class="item">
-                <input type="button" class="btn btn-primary" name="connect" value="Connect" />
-                <!-- #region Connections/Followers -->
-                <span><i class="fa fa-users"></i>Connections - @ViewBag.Followers</span>
-                    <!-- #endregion Followers-->
-                </div>
-                <!-- #endregion  Connect Button-->
-            </div><!--//profile-container-->
 
-            <div class="contact-container container-block">
-                <ul class="list-unstyled contact-list">
-                    <li class="email">
-                        <i class="fa fa-home"></i><span>@ViewBag.City</span>
-                    </li>
-                    <li class="email"><i class="glyphicon glyphicon-envelope"></i><a href="mailto: @ViewBag.Email">&nbsp;@ViewBag.Email</a></li>
-                </ul>
-            </div>
-
-            @if (ViewBag.Course != null) {
-                <div class="education-container container-block">
-                    <h2 class="container-block-title"><i class="fa fa-graduation-cap"></i>Education</h2>
-                    <div class="item">
-                        <h4 class="degree">@ViewBag.Course</h4>
-                        <h5 class="meta">Lovely Professional University</h5>
-                        <div class="time">@ViewBag.EntryYear - @ViewBag.GraduateYear</div>
-                    </div><!--//item-->
-                </div><!--//education-container-->
-            } else if (ViewBag.Department != null) {
-                <div class="education-container container-block">
-                    <h2 class="container-block-title"><i class="fa fa-briefcase"></i>&nbsp;Department</h2>
-                    <div class="item">
-                        <h4 class="degree">@ViewBag.Department</h4>
-                        <h5 class="meta">Lovely Professional University</h5>
-                        <div class="time">@ViewBag.From</div>
-                    </div><!--//item-->
-                </div><!--//department-container-->
-            }
-        </div><!--//sidebar-wrapper-->
-        <div class="main-wrapper">
-
-            <section class="section summary-section">
-                <h2 class="section-title"><i class="fa fa-user"></i>Career Profile</h2>
-                <div class="summary">
-                    <p>
-                        To gain employment with a company or institution that offers me a consistently positive atmosphere to learn new technologies and implement them for the betterment of the business.
-                    </p>
-                </div><!--//summary-->
-            </section><!--//section-->
-
-            <section class="section experiences-section">
-                <h2 class="section-title"><i class="fa fa-briefcase"></i>Experiences</h2>
-                <p>Coming Soon</p>
-            </section><!--//section-->
-
-            <section class="section projects-section">
-                <h2 class="section-title"><i class="fa fa-archive"></i>Projects</h2>
+            <!-- #region Connect-->
+            @if (ViewBag.UserType == "guest") {
                 <div class="item">
-                    <span class="project-title"><a href="https://github.com/syntacticalpro/LPU-Connect" target="_blank">LPU Connect</a></span> -
-                    <span class="project-tagline">A web-based application that will connect all the students and faculties of Lovely Professional University with each other. The main objective of this application is to remove the connection gap between the students and faculties of same and different departments.</span>
-                </div><!--//item-->
-                <div class="item">
-                    <span class="project-title"><a href="http://www.syntacticalpro.com/" target="_blank">Hotel Prabhat</a></span> - <span class="project-tagline">
-                        A web-based application coming soon
-                    </span>
-                </div><!--//item-->
-                <div class="item">
-                    <span class="project-title"><a href="http://www.syntacticalpro.com/" target="_blank">Hotel Prabhat</a></span> - <span class="project-tagline">A cross-platfrom mobile application coming soon </span>
-                </div><!--//item-->
-                <div class="item">
-                    <span class="project-title"><a href="http://www.syntacticalpro.com/" target="_blank">Hotel Prabhat</a></span> - <span class="project-tagline">A billing system application coming soon</span>
-                </div><!--//item-->
-                <div class="item">
-                    <span class="project-title"><a href="http://www.syntacticalpro.com/" target="_blank">Android War</a></span> - <span class="project-tagline">A cross platform mobile game coming soon</span>
-                </div><!--//item-->
-                <div class="item">
-                    <span class="project-title"><a href="http://www.syntacticalpro.com/" target="_blank">AI Platformer</a></span> - <span class="project-tagline">A cross platform mobile game coming soon</span>
-                </div><!--//item-->
-            </section><!--//section-->
-
-            <br />
-
-            <section class="skills-section section">
-                <h2 class="section-title"><i class="fa fa-rocket"></i>Skills &amp; Proficiency</h2>
-                <div class="skillset">
-                    <div class="item">
-                        <h3 class="level-title">C#.Net</h3>
-                        <div class="level-bar">
-                            <div class="level-bar-inner" data-level="85%">
-                            </div>
-                        </div><!--//level-bar-->
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">Xamarin.Forms</h3>
-                        <div class="level-bar">
-                            <div class="level-bar-inner" data-level="88%">
-                            </div>
-                        </div><!--//level-bar-->
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">ASP.NET Core</h3>
-                        <div class="level-bar">
-                            <div class="level-bar-inner" data-level="75%">
-                            </div>
-                        </div><!--//level-bar-->
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">AngularJs 2</h3>
-                        <div class="level-bar">
-                            <div class="level-bar-inner" data-level="80%">
-                            </div>
-                        </div><!--//level-bar-->
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">HTML5 &amp; CSS</h3>
-                        <div class="level-bar">
-                            <div class="level-bar-inner" data-level="60%">
-                            </div>
-                        </div><!--//level-bar-->
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">Unity3D</h3>
-                        <div class="level-bar">
-                            <div class="level-bar-inner" data-level="70%">
-                            </div>
-                        </div><!--//level-bar-->
-                    </div><!--//item-->
-
-                </div>
-            </section><!--//skills-section-->
-            <section class="section-project section">
-                <h2 class="section-title"><i class="fa fa-trophy"></i>Accomplishment</h2>
-                <div class="skillset">
-                    <div class="item">
-                        <span class="project-title"><a href="#" target="_blank">MVP</a></span> - <span class="project-tagline">Awarded as Most the Valuable Professional twice csharpcorner.com for the year 2015 &amp; 2016.</span>
-                    </div><!--//item-->
-                </div>
-            </section><!--//Recognition-->
-        </div><!--//main-body-->
-    </div>
-
-    @section Scripts{
-        <script src="~/assets/js/main.js"></script>
-        <script>
-            $(document).ready(function () {
-                //Start Live Search
-                $("#searchText").keyup(function () {
-                    var searchVal = $("#searchText").val();
-                    $("#liveSearchul").empty();
-                    if (searchVal == "" || searchVal == " ") return false;
-                    var url = "Profile/Search";
-                    $.post(url, { searchVal: searchVal }, function (data) {
-
-                        for (var i = 0; i < data.length; i++) {
-                            var obj = data[i];
-                            $("#liveSearchul").append('<li><a href="/' + obj.Username + '"><img src="Uploads/' + obj.UserId + obj.Username + '.jpg"/>' + ' ' + obj.Firstname + ' ' + obj.Lastname + '</a></li>');
-                        }
-                    });
-                });
-                //End Live Search
-
-                //Close button for search
-                $("body").keydown(function (e) {
-                    if (e.keyCode === 27) {
-                        $("#searchText").val("");
-                        $("#liveSearchul").empty();
+                    @if (ViewBag.Friends == "Pending") {
+                        <div class="isFriend alert alert-warning">
+                            <p>Pending request</p>
+                        </div>
+                    } else if (ViewBag.Friends == "True") {
+                        <div class="isFriend alert alert-info">
+                            <a href="#" class="connect">Connect</a>
+                        </div>
+                    } else {
+                        <div class="isFriend alert alert-success">
+                            <span class="fa fa-thumbs-up"></span>
+                            Connected
+                        </div>
                     }
+                </div>
+            }
+            <!-- #region Connections/Followers -->
+        @if (ViewBag.Connection != null) {
+            <span class="fa fa-users friendCount @User.Identity.Name"><span>Connections - @ViewBag.Connection</span></span>
+        } else {
+            <span class="fa fa-users red friendCount @User.Identity.Name"><span>Connections - </span></span>
+        }
+            <!-- #endregion Followers-->
+            <!-- #endregion Connect Button-->
+        </div><!--//profile-container-->
+
+        <div class="contact-container container-block">
+            <ul class="list-unstyled contact-list">
+                <li class="email">
+                    <i class="fa fa-home"></i>
+                    <span>@ViewBag.City</span>
+                </li>
+                <li class="email">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                    <a href="mailto: @ViewBag.Email">&nbsp;@ViewBag.Email</a>
+                </li>
+            </ul>
+        </div>
+
+        @if (ViewBag.Course != null) {
+            <div class="education-container container-block">
+                <h2 class="container-block-title">
+                    <i class="fa fa-graduation-cap"></i>Education
+                </h2>
+                <div class="item">
+                    <h4 class="degree">@ViewBag.Course</h4>
+                    <h5 class="meta">Lovely Professional University</h5>
+                    <div class="time">@ViewBag.EntryYear - @ViewBag.GraduateYear</div>
+                </div><!--//item-->
+            </div><!--//education-container-->
+        } else if (ViewBag.Department != null) {
+            <div class="education-container container-block">
+                <h2 class="container-block-title">
+                    <i class="fa fa-briefcase"></i>&nbsp;Department
+                </h2>
+                <div class="item">
+                    <h4 class="degree">@ViewBag.Department</h4>
+                    <h5 class="meta">Lovely Professional University</h5>
+                    <div class="time">@ViewBag.From</div>
+                </div><!--//item-->
+            </div><!--//department-container-->
+        }
+    </div><!--//sidebar-wrapper-->
+    <div class="main-wrapper">
+
+        <section class="section summary-section">
+            <h2 class="section-title">
+                <i class="fa fa-user"></i>Career Profile
+            </h2>
+            <div class="summary">
+                <p>
+                    To gain employment with a company or institution that offers me a consistently positive atmosphere to learn new technologies and implement them for the betterment of the business.
+                </p>
+            </div><!--//summary-->
+        </section><!--//section-->
+
+        <section class="section experiences-section">
+            <h2 class="section-title">
+                <i class="fa fa-briefcase"></i>Experiences
+            </h2>
+            <p>Coming Soon</p>
+        </section><!--//section-->
+
+        <section class="section projects-section">
+            <h2 class="section-title">
+                <i class="fa fa-archive"></i>Projects
+            </h2>
+            <div class="item">
+                <span class="project-title"><a href="https://github.com/syntacticalpro/LPU-Connect" target="_blank">LPU Connect</a></span> -
+                <span class="project-tagline">A web-based application that will connect all the students and faculties of Lovely Professional University with each other. The main objective of this application is to remove the connection gap between the students and faculties of same and different departments.</span>
+            </div><!--//item-->
+            <div class="item">
+                <span class="project-title"><a href="http://www.syntacticalpro.com/" target="_blank">Hotel Prabhat</a></span> -
+                <span class="project-tagline">
+                    A web-based application coming soon
+                </span>
+            </div><!--//item-->
+            <div class="item">
+                <span class="project-title"><a href="http://www.syntacticalpro.com/" target="_blank">Hotel Prabhat</a></span> -
+                <span class="project-tagline">A cross-platfrom mobile application coming soon </span>
+            </div><!--//item-->
+            <div class="item">
+                <span class="project-title"><a href="http://www.syntacticalpro.com/" target="_blank">Hotel Prabhat</a></span> -
+                <span class="project-tagline">A billing system application coming soon</span>
+            </div><!--//item-->
+            <div class="item">
+                <span class="project-title"><a href="http://www.syntacticalpro.com/" target="_blank">Android War</a></span> -
+                <span class="project-tagline">A cross platform mobile game coming soon</span>
+            </div><!--//item-->
+            <div class="item">
+                <span class="project-title"><a href="http://www.syntacticalpro.com/" target="_blank">AI Platformer</a></span> -
+                <span class="project-tagline">A cross platform mobile game coming soon</span>
+            </div><!--//item-->
+        </section><!--//section-->
+
+        <br />
+
+        <section class="skills-section section">
+            <h2 class="section-title">
+                <i class="fa fa-rocket"></i>Skills &amp; Proficiency
+            </h2>
+            <div class="skillset">
+                <div class="item">
+                    <h3 class="level-title">C#.Net</h3>
+                    <div class="level-bar">
+                        <div class="level-bar-inner" data-level="85%">
+                        </div>
+                    </div><!--//level-bar-->
+                </div><!--//item-->
+
+                <div class="item">
+                    <h3 class="level-title">Xamarin.Forms</h3>
+                    <div class="level-bar">
+                        <div class="level-bar-inner" data-level="88%">
+                        </div>
+                    </div><!--//level-bar-->
+                </div><!--//item-->
+
+                <div class="item">
+                    <h3 class="level-title">ASP.NET Core</h3>
+                    <div class="level-bar">
+                        <div class="level-bar-inner" data-level="75%">
+                        </div>
+                    </div><!--//level-bar-->
+                </div><!--//item-->
+
+                <div class="item">
+                    <h3 class="level-title">AngularJs 2</h3>
+                    <div class="level-bar">
+                        <div class="level-bar-inner" data-level="80%">
+                        </div>
+                    </div><!--//level-bar-->
+                </div><!--//item-->
+
+                <div class="item">
+                    <h3 class="level-title">HTML5 &amp; CSS</h3>
+                    <div class="level-bar">
+                        <div class="level-bar-inner" data-level="60%">
+                        </div>
+                    </div><!--//level-bar-->
+                </div><!--//item-->
+
+                <div class="item">
+                    <h3 class="level-title">Unity3D</h3>
+                    <div class="level-bar">
+                        <div class="level-bar-inner" data-level="70%">
+                        </div>
+                    </div><!--//level-bar-->
+                </div><!--//item-->
+
+            </div>
+        </section><!--//skills-section-->
+        <section class="section-project section">
+            <h2 class="section-title">
+                <i class="fa fa-trophy"></i>Accomplishment
+            </h2>
+            <div class="skillset">
+                <div class="item">
+                    <span class="project-title"><a href="#" target="_blank">MVP</a></span> -
+                    <span class="project-tagline">Awarded as Most the Valuable Professional twice csharpcorner.com for the year 2015 &amp; 2016.</span>
+                </div><!--//item-->
+            </div>
+        </section><!--//Recognition-->
+    </div><!--//main-body-->
+</div>
+
+@section Scripts{
+    <script src="~/assets/js/main.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/Username.js"></script>
+    <script>
+        $(document).ready(function () {
+            //Add Connection
+            $("a.connect").click(function (e) {
+                e.preventDefault();
+                var friend = '@ViewBag.Username';
+
+                var url = "/Profile/Connect";
+                $.post(url, {
+                    friend: friend
+                }, function (data) {
+                    $(".isFriend").removeClass("alert-info").addClass("alert-warning").html("<p>Pending request</p>");
+                }).done(function () {
+                    hub.server.notify(friend);
                 });
             });
-        </script>
-    }
+            //end connect
+        });
+    </script>
+}

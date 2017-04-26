@@ -183,9 +183,6 @@ namespace Connect.Controllers {
         //GET: /{Username}
         [Authorize]
         public ActionResult Username(string Username = "") {
-            //Init DB
-            lpuContext = new LpuContext();
-
             //check if user exists
             if (!lpuContext.Users.Any(user => user.Username.Equals(Username))) {
                 return Redirect("~/");
@@ -199,6 +196,8 @@ namespace Connect.Controllers {
             #region Logged in User Data
             User userLoggedIn = lpuContext.Users.Where(user => user.Username.Equals(loggedInUser)).FirstOrDefault();
             ViewBag.FullName = userLoggedIn.Firstname + " " + userLoggedIn.Lastname;
+            //get user id
+            long userId = userLoggedIn.UserId;
             #endregion
 
             #region Get Viewing Data
@@ -214,11 +213,11 @@ namespace Connect.Controllers {
             //get email
             ViewBag.Email = recordView.Users.Email;
             //get department
-            if (recordView.Department !=null) {
-            ViewBag.Department = recordView.Departments.DepartmentName;
+            if (recordView.Department != null) {
+                ViewBag.Department = recordView.Departments.DepartmentName;
             }
             //get course
-            if (recordView.Course !=null) {
+            if (recordView.Course != null) {
                 ViewBag.Course = recordView.Courses.CourseName;
             }
             //get branch
@@ -226,11 +225,11 @@ namespace Connect.Controllers {
                 ViewBag.Branch = recordView.Branches.BranchName;
             }
             //get from year for employees
-            if (recordView.FromYear !=null) {
+            if (recordView.FromYear != null) {
                 ViewBag.From = recordView.FromYear;
             }
             //get from year for employees
-            if (recordView.ToYear!= null) {
+            if (recordView.ToYear != null) {
                 ViewBag.ToYear = recordView.ToYear;
             }
             //get entry year
@@ -238,8 +237,49 @@ namespace Connect.Controllers {
                 ViewBag.EntryYear = recordView.EntryYear;
             }
             //get graduate year
-            if (recordView.GraduateYear !=null) {
-               ViewBag.GraduateYear = recordView.GraduateYear;
+            if (recordView.GraduateYear != null) {
+                ViewBag.GraduateYear = recordView.GraduateYear;
+            }
+
+
+            //Add Connection functionality
+            string userType = "guest";
+            if (Username.Equals(loggedInUser)) {
+                userType = "owner";
+            }
+            ViewBag.UserType = userType;
+
+            //check if they are friends
+            if (userType == "guest") {
+                User self = lpuContext.Users.Where(x => x.Username.Equals(loggedInUser)).FirstOrDefault();
+                long selfId = self.UserId;
+
+                User friend = lpuContext.Users.Where(x => x.Username.Equals(Username)).FirstOrDefault();
+                long friendId = friend.UserId;
+
+                Connection fromConnection = lpuContext.Connections.Where(user => user.User_Sender == selfId && user.User_Receiver == friendId).FirstOrDefault();
+                Connection toConnection = lpuContext.Connections.Where(user => user.User_Receiver == selfId && user.User_Sender == friendId).FirstOrDefault();
+                if (fromConnection == null && toConnection == null) {
+                    ViewBag.Friends = "True";
+                }
+                if (toConnection != null) {
+                    bool isActive = (bool)toConnection.Active;
+                    if (!isActive) {
+                        ViewBag.Friends = "Pending";
+                    }
+                }
+
+                if (fromConnection != null) {
+                    bool isActive = (bool)fromConnection.Active;
+                    if (!isActive) {
+                        ViewBag.Friends = "Pending";
+                    }
+                }
+                //get connection count
+                int connectionCount = lpuContext.Connections.Count(x => x.User_Receiver == userId && x.Active == false);
+                if (connectionCount > 0) {
+                    ViewBag.Connection = connectionCount;
+                }
             }
             return View();
             #endregion

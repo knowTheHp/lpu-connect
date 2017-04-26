@@ -31,5 +31,6 @@ namespace Connect.Models
         public virtual DbSet<VerifyEmail> VerifyEmails { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Record> Records { get; set; }
+        public virtual DbSet<Connection> Connections { get; set; }
     }
 }

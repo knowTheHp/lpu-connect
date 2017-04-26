@@ -19,6 +19,8 @@ namespace Connect.Models
         {
             this.EmailVerifications = new HashSet<VerifyEmail>();
             this.Records = new HashSet<Record>();
+            this.Sender = new HashSet<Connection>();
+            this.Receiver = new HashSet<Connection>();
         }
     
         public long UserId { get; set; }
@@ -42,5 +44,9 @@ namespace Connect.Models
         public virtual ICollection<VerifyEmail> EmailVerifications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Record> Records { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Connection> Sender { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Connection> Receiver { get; set; }
     }
 }

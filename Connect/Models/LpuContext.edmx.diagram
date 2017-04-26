@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9dae606fe0d9436eb12e50d22faff315" Name="Diagram1" ZoomLevel="86">
+      <Diagram DiagramId="9dae606fe0d9436eb12e50d22faff315" Name="Diagram1" ZoomLevel="109">
         <EntityTypeShape EntityType="Connect_LPUModel.Branch" Width="1.5" PointX="11.25" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Connect_LPUModel.Course" Width="1.5" PointX="11.125" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Connect_LPUModel.Department" Width="1.5" PointX="11.125" PointY="5.375" IsExpanded="true" />
@@ -17,6 +17,9 @@
         <AssociationConnector Association="Connect_LPUModel.FK__tblLpuRec__Cours__17F790F9" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblLpuRec__Depar__17036CC0" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblLpuRec__UserI__19DFD96B" />
+        <EntityTypeShape EntityType="Connect_LPUModel.Connection" Width="1.5" PointX="5.5" PointY="6.25" />
+        <AssociationConnector Association="Connect_LPUModel.Fk_Reciever" />
+        <AssociationConnector Association="Connect_LPUModel.Fk_Sender" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

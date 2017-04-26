@@ -15,7 +15,7 @@
         <div id="register">
             <div class="col-md-4">
                 <div class="logbox">
-                    <h1 class="text-primary">Create a new Account</h1>
+                    <h1 class="text-primary" style="color: #4B6A78">Create a new Account</h1>
                     <!-- #region Profile pic -->
                     <img src="~/Content/Avatar.svg" id="profilePic" class="img-responsive img-thumbnail col-md-offset-2 pass input" alt="your image" />
                     <input type="file" name="file" ID="ImageUpload" class="col-md-offset-2" />
@@ -75,7 +75,7 @@
                         <!-- #endregion -->
                         <!-- #region Branch -->
                         @Html.DropDownListFor(model => model.Branch,
-                                 new SelectList(string.Empty,"Value","Text"), new { @class = "input pass" })
+                                 new SelectList(string.Empty, "Value", "Text"), new { @class = "input pass" })
                     </div>
                     <!-- #endregion -->
                     <!-- #region Password -->
@@ -87,7 +87,7 @@
                     @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger validation" })
                     <!-- #endregion -->
                     <!-- #region Submit button -->
-                    <input type="submit" value="Go" class="inputButton btn-primary" />
+                    <input type="submit" style="background-color: #4B6A78" value="Go" class="inputButton" />
                     <!-- #endregion -->
                 </div>
                 <!-- #endregion -->

@@ -44,8 +44,8 @@ p {
 .sidebar-wrapper {
   background: #4B6A78;
   position: absolute;
-  right: 0;
-  width: 240px;
+  right: -30px;
+  width: 300px;
   height: 100%;
   min-height: 800px;
   color: #fff;
@@ -60,11 +60,20 @@ p {
   color: #fff;
 }
 .sidebar-wrapper .name {
-  font-size: 32px;
-  font-weight: 900;
+  font-size: 30px;
+  font-weight: 600;
   margin-top: 0;
   margin-bottom: 10px;
 }
+
+.batch{
+    font-size:20px;
+}
+
+.year{
+font-size:14px;
+}
+
 .sidebar-wrapper .tagline {
   color: rgba(255, 255, 255, 0.6);
   font-size: 16px;
@@ -89,6 +98,11 @@ p {
 .sidebar-wrapper .contact-list .email .fa {
   font-size: 14px;
 }
+
+.details{
+    font-size:20px;
+}
+
 .sidebar-wrapper .container-block {
   padding: 30px;
 }

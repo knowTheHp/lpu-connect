@@ -73,7 +73,7 @@ namespace Connect.Controllers {
                     ModelState.AddModelError("Email", "Email already exists");
                     userModel.Email = "";
                     return View("Index", userModel);
-                } else if(userModel.Department == null){
+                } else if (userModel.Department == null) {
                     ModelState.AddModelError("", "Department required");
                     return View("Index", userModel);
                 }
@@ -101,6 +101,7 @@ namespace Connect.Controllers {
                         LpuId = userModel.LpuId,
                         Course = userModel.Course,
                         Branch = userModel.Branch,
+                        Title = "Student",
                         EntryYear = userModel.EntryYear,
                         GraduateYear = userModel.GraduateYear,
                         UserId = userDTO.UserId
@@ -195,11 +196,53 @@ namespace Connect.Controllers {
             //get logged in user's Username
             string loggedInUser = User.Identity.Name;
 
-            //ViewBag
-            User userData = lpuContext.Users.Where(user => user.Username.Equals(loggedInUser)).FirstOrDefault();
-            ViewBag.FullName = userData.Firstname + " " + userData.Lastname;
+            #region Logged in User Data
+            User userLoggedIn = lpuContext.Users.Where(user => user.Username.Equals(loggedInUser)).FirstOrDefault();
+            ViewBag.FullName = userLoggedIn.Firstname + " " + userLoggedIn.Lastname;
+            #endregion
 
+            #region Get Viewing Data
+            Record recordView = lpuContext.Records.Where(user => user.Users.Username.Equals(Username)).FirstOrDefault();
+            //get fullname
+            ViewBag.FullName = recordView.Users.Firstname + " " + recordView.Users.Lastname;
+            //get image
+            ViewBag.UserImage = recordView.UserId + recordView.Users.Username + ".jpg";
+            //get city
+            ViewBag.City = recordView.Users.City;
+            //get role
+            ViewBag.Role = recordView.Title;
+            //get email
+            ViewBag.Email = recordView.Users.Email;
+            //get department
+            if (recordView.Department !=null) {
+            ViewBag.Department = recordView.Departments.DepartmentName;
+            }
+            //get course
+            if (recordView.Course !=null) {
+                ViewBag.Course = recordView.Courses.CourseName;
+            }
+            //get branch
+            if (recordView.Branch != null) {
+                ViewBag.Branch = recordView.Branches.BranchName;
+            }
+            //get from year for employees
+            if (recordView.FromYear !=null) {
+                ViewBag.From = recordView.FromYear;
+            }
+            //get from year for employees
+            if (recordView.ToYear!= null) {
+                ViewBag.ToYear = recordView.ToYear;
+            }
+            //get entry year
+            if (recordView.EntryYear != null) {
+                ViewBag.EntryYear = recordView.EntryYear;
+            }
+            //get graduate year
+            if (recordView.GraduateYear !=null) {
+               ViewBag.GraduateYear = recordView.GraduateYear;
+            }
             return View();
+            #endregion
         }
 
         [Authorize]

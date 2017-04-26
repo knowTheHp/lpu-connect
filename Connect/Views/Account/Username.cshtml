@@ -1,62 +1,76 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = ViewBag.Username;
 }
 
 <link href="~/assets/css/styles.css" rel="stylesheet" />
-
+<link href="~/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<div style="padding-top:32px"></div>
 <div class="wrapper">
     <div class="sidebar-wrapper">
         <div class="profile-container">
-            <img class="profile img img-circle" src="assets/images/profile.png" alt="" />
-            <h1 class="name">Harpreet Singh</h1>
-            <h3 class="tagline">App Developer</h3>
+            <img class="profile img img-circle img-responsive" src="~/Uploads/@ViewBag.UserImage" alt="profile pic" />
+            <h1 class="name">
+                @ViewBag.FullName
+                <span style="font-weight:bold" class="tagline">(@ViewBag.Role)</span>
+            </h1>
+            @if (@ViewBag.EntryYear != null) {
+                <h3 class="batch">
+                    <span class="year">
+                        Batch -
+                    </span>
+                    @ViewBag.EntryYear
+                </h3>
+            } else if (@ViewBag.From != null) {
+                <h3 class="batch">
+                    <span class="year">
+                        Since -
+                    </span>
+                    @ViewBag.From
+                </h3>
+            }
+            <h5 class="batch">
+                <i class="fa fa-home"></i><span>@ViewBag.City</span>
+            </h5>
         </div><!--//profile-container-->
+        <!-- #region Connect Button -->
+        <div class="education-container container-block">
+            <div class="item">
+                <input type="button" class="btn btn-primary" name="connect" value="Connect" />
+            </div>
+        </div>
+        <!-- #endregion  Connect Button-->
+
 
         <div class="contact-container container-block">
             <ul class="list-unstyled contact-list">
-                <li class="email"><i class="fa fa-envelope"></i><a href="mailto: harpreetsingh14388@live.com">harpreetsingh14388</a></li>
-                <li class="phone"><i class="fa fa-phone"></i><a href="tel:9779285566">9779285566</a></li>
-                <li class="facebook"><i class="fa fa-facebook"></i><a href="https://www.facebook.com/syntacticalpro" target="_blank">&nbsp;Syntacticalpro</a></li>
-                <li class="linkedin"><i class="fa fa-linkedin"></i><a href="https://www.linkedin.com/in/syntacticalpro/" target="_blank">Syntacticalpro</a></li>
-                <li class="github"><i class="fa fa-github"></i><a href="https://github.com/syntacticalpro/" target="_blank">Syntacticalpro</a></li>
-                <li class="twitter"><i class="fa fa-twitter"></i><a href="https://twitter.com/Syntacticalpro" target="_blank">Syntacticalpro</a></li>
+                <li class="email"><i class="glyphicon glyphicon-envelope"></i><a href="mailto: @ViewBag.Email">&nbsp;@ViewBag.Email</a></li>
             </ul>
-        </div><!--//contact-container-->
-        <div class="education-container container-block">
-            <h2 class="container-block-title">Education</h2>
-            <div class="item">
-                <h4 class="degree">Master of Computer Application</h4>
-                <h5 class="meta">Lovely Professional University</h5>
-                <div class="time">2015 - 2017</div>
-            </div><!--//item-->
-            <div class="item">
-                <h4 class="degree">BSc in Information Technology</h4>
-                <h5 class="meta">Kuvempu University</h5>
-                <div class="time">2011 - 2014</div>
-            </div><!--//item-->
-        </div><!--//education-container-->
+        </div>
 
+        @if (ViewBag.Course != null) {
+            <div class="education-container container-block">
+                <h2 class="container-block-title"><i class="fa fa-graduation-cap"></i>Education</h2>
+                <div class="item">
+                    <h4 class="degree">@ViewBag.Course</h4>
+                    <h5 class="meta">Lovely Professional University</h5>
+                    <div class="time">@ViewBag.EntryYear - @ViewBag.GraduateYear</div>
+                </div><!--//item-->
+            </div><!--//education-container-->
+            } else if (ViewBag.Department != null) {
+            <div class="education-container container-block">
+                <h2 class="container-block-title"><i class="fa fa-briefcase"></i>&nbsp;Department</h2>
+                <div class="item">
+                    <h4 class="degree">@ViewBag.Department</h4>
+                    <h5 class="meta">Lovely Professional University</h5>
+                    <div class="time">@ViewBag.From</div>
+                </div><!--//item-->
+            </div><!--//department-container-->
+            }
         <div class="languages-container container-block">
-            <h2 class="container-block-title">Languages</h2>
-            <ul class="list-unstyled interests-list">
-                <li>English <span class="lang-desc">(Intermmediate)</span></li>
-                <li>Hindi <span class="lang-desc">(Professional)</span></li>
-                <li>Punjabi <span class="lang-desc">(Intermmediate)</span></li>
-            </ul>
-        </div><!--//interests-->
-
-        <div class="interests-container container-block">
-            <h2 class="container-block-title">Interests</h2>
-            <ul class="list-unstyled interests-list">
-                <li>Online Gaming</li>
-                <li>Cooking</li>
-                <li>Reading Books</li>
-            </ul>
+            <h2 class="container-block-title">Connection</h2>
         </div><!--//interests-->
 
     </div><!--//sidebar-wrapper-->
-
     <div class="main-wrapper">
 
         <section class="section summary-section">
@@ -163,11 +177,9 @@
         </section><!--//Recognition-->
     </div><!--//main-body-->
 </div>
-<!-- custom js -->
-<script src="~/assets/js/main.js"></script>
-
 
 @section Scripts{
+    <script src="~/assets/js/main.js"></script>
     <script>
         $(document).ready(function () {
             //Start Live Search

@@ -211,6 +211,7 @@
     <Compile Include="Models\VerifyEmail.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModel\FriendRequestVM.cs" />
     <Compile Include="Models\ViewModel\RegisterVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

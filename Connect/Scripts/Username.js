@@ -3,7 +3,7 @@
     $("#searchText").keyup(function () {
         var searchVal = $("#searchText").val();
         $("#liveSearchul").empty();
-        if (searchVal == "" || searchVal == " ") return false;
+        if (searchVal === "" || searchVal === " ") return false;
         var url = "Profile/Search";
         $.post(url, { searchVal: searchVal }, function (data) {
             for (var i = 0; i < data.length; i++) {

@@ -33,15 +33,15 @@
             @if (ViewBag.UserType == "guest") {
                 <div class="item">
                     @if (ViewBag.Friends == "Pending") {
-                        <div class="isFriend alert alert-warning">
+                        <div class="isFriendDiv alert alert-warning">
                             <p>Pending request</p>
                         </div>
                     } else if (ViewBag.Friends == "True") {
-                        <div class="isFriend alert alert-info">
+                        <div class="isFriendDiv alert alert-info">
                             <a href="#" class="connect">Connect</a>
                         </div>
                     } else {
-                        <div class="isFriend alert alert-success">
+                        <div class="isFriendDiv alert alert-success">
                             <span class="fa fa-thumbs-up"></span>
                             Connected
                         </div>
@@ -201,7 +201,6 @@
                         </div>
                     </div><!--//level-bar-->
                 </div><!--//item-->
-
             </div>
         </section><!--//skills-section-->
         <section class="section-project section">
@@ -229,17 +228,33 @@
             $("a.connect").click(function (e) {
                 e.preventDefault();
                 var friend = '@ViewBag.Username';
-
-                var url = "/Profile/Connect";
+                var url = "/profile/connect";
                 $.post(url, {
                     friend: friend
                 }, function (data) {
-                    $(".isFriend").removeClass("alert-info").addClass("alert-warning").html("<p>Pending request</p>");
+                    $(".isFriendDiv").removeClass("alert-info").addClass("alert-warning").html("<p>Pending request</p>");
                 }).done(function () {
                     hub.server.notify(friend);
                 });
             });
             //end connect
+            
+            //Show FriendRequests
+            //reqNotifyul
+            $("body").on("click", ".notif", function () {
+                $("ul#reqNotifyul").empty();
+                var url = "Profile/FriendRequest";
+                $.post(url, { }, function (data) {
+                    if (data.length > 0) {
+                        $("ul#reqNotifyul").append("");
+                    }
+                    for (var i = 0; i < data.length; i++) {
+                        var obj = data[i];
+                        $("ul#reqNotifyul").append('<li class=reqNotifli><a href="/' + obj.Username + '"><img src="Uploads/' + obj.UserId + obj.Username + '.jpg"/>' + ' ' + obj.Firstname + ' ' + obj.Lastname + '<a class=accept href=# data-id="' + obj.UserId + '"><span class="glyphicon glyphicon-ok"></span></a>' + '<a class=accept href=# data-id="' + obj.UserId + '"><span class="glyphicon glyphicon-"></span></a>'+'</li > ');
+                    }
+                });
+            });
+            //end FriendRequests
         });
     </script>
 }

@@ -62,6 +62,7 @@ namespace Connect.Controllers {
                 if (!ModelState.IsValid) {
                     return View("Index", userModel);
                 }
+
                 //step 3: check if Username is unique
                 if (lpuContext.Users.Any(user => user.Username.Equals(userModel.Username))) {
                     ModelState.AddModelError("Username", "Username already taken");
@@ -195,6 +196,7 @@ namespace Connect.Controllers {
 
             #region Logged in User Data
             User userLoggedIn = lpuContext.Users.Where(user => user.Username.Equals(loggedInUser)).FirstOrDefault();
+            //get user fullname
             ViewBag.FullName = userLoggedIn.Firstname + " " + userLoggedIn.Lastname;
             //get user id
             long userId = userLoggedIn.UserId;
@@ -241,12 +243,13 @@ namespace Connect.Controllers {
                 ViewBag.GraduateYear = recordView.GraduateYear;
             }
 
-
-            //Add Connection functionality
+            //check the usertype
             string userType = "guest";
             if (Username.Equals(loggedInUser)) {
                 userType = "owner";
             }
+
+            //viewbag usertype
             ViewBag.UserType = userType;
 
             //check if they are friends
@@ -259,6 +262,7 @@ namespace Connect.Controllers {
 
                 Connection fromConnection = lpuContext.Connections.Where(user => user.User_Sender == selfId && user.User_Receiver == friendId).FirstOrDefault();
                 Connection toConnection = lpuContext.Connections.Where(user => user.User_Receiver == selfId && user.User_Sender == friendId).FirstOrDefault();
+
                 if (fromConnection == null && toConnection == null) {
                     ViewBag.Friends = "True";
                 }
@@ -275,11 +279,11 @@ namespace Connect.Controllers {
                         ViewBag.Friends = "Pending";
                     }
                 }
-                //get connection count
-                int connectionCount = lpuContext.Connections.Count(x => x.User_Receiver == userId && x.Active == false);
-                if (connectionCount > 0) {
-                    ViewBag.Connection = connectionCount;
-                }
+            }
+            //get connection count
+            int requestCount = lpuContext.Connections.Count(x => x.User_Receiver == userId && x.Active == false);
+            if (requestCount > 0) {
+                ViewBag.Requests = requestCount;
             }
             return View();
             #endregion

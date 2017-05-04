@@ -11,6 +11,8 @@ namespace Connect {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            //routes.MapRoute("FriendReq", "Profile/FriendRequest", new { controller = "Profile", action = "FriendRequest" });
             routes.MapRoute("Profile", "Profile/{action}/{id}", new { controller = "Profile", action = "Index", id = UrlParameter.Optional });
             routes.MapRoute("Login", "Account/Login", new { controller = "Account", action = "Login" });
             routes.MapRoute("LoginPartial", "Account/LoginPartial", new { controller = "Account", action = "LoginPartial" });

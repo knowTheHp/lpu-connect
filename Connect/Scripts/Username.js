@@ -23,6 +23,17 @@
     });
     //End close button for search
 
+    //close button for request
+    $("body").keydown(function (e) {
+        if (e.keyCode === 27) {
+            $("#reqNotifyul").fadeOut();
+        }
+    });
+    $("body").on("click", ".notif", function () {
+        $("ul#reqNotifyul").show();
+    });
+    //end close button
+
     //setup hub connection
     var hub = $.connection.echo;
     $.connection.hub.start().done(function () {

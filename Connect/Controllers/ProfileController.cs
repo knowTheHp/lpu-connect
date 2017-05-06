@@ -1,5 +1,6 @@
 ﻿using Connect.Models;
 using Connect.Models.ViewModel;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -43,16 +44,15 @@ namespace Connect.Controllers {
             lpuContext.SaveChanges();
         }
 
+        [HttpPost]
         //POST :Profile/FriendRequest
-        public JsonResult FriendRequest() {
-            lpuContext.Configuration.ProxyCreationEnabled = false;
-
-            //get userid
+        public ActionResult FriendRequest() {
+            //get userId
             User userData = lpuContext.Users.Where(user => user.Username.Equals(User.Identity.Name)).FirstOrDefault();
             long userId = userData.UserId;
 
-            //create list of frn req
-            List<FriendRequestVM> friendList = lpuContext.Connections.Where(user => user.User_Receiver == userId && user.Active == false).ToArray().Select(user =>new FriendRequestVM(user)).ToList();
+            //create list of frn requests
+            List<FriendRequestVM> friendList = lpuContext.Connections.Where(user => user.User_Receiver == userId && user.Active == false).ToArray().Select(user => new FriendRequestVM(user)).ToList();
 
             //init list of user
             List<User> users = new List<User>();
@@ -60,8 +60,25 @@ namespace Connect.Controllers {
                 User user = lpuContext.Users.Where(x => x.UserId == viewFrndReq.Sender).FirstOrDefault();
                 users.Add(user);
             }
-            //return json
-            return Json(users);
+            string friendRequests = JsonConvert.SerializeObject(users,
+            Formatting.None, new JsonSerializerSettings() {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+
+            return Content(friendRequests, "application/json");
+        }
+
+        [HttpPost]
+        public void AcceptRequest(long? friendId) {
+            //get userId
+            lpuContext = new LpuContext();
+            User userObject = lpuContext.Users.Where(user => user.Username.Equals(User.Identity.Name)).FirstOrDefault();
+            long UserId = userObject.UserId;
+
+            //Accept request
+            Connection connectUsers = lpuContext.Connections.Where(user => user.User_Sender == friendId && user.User_Receiver == UserId).FirstOrDefault();
+            connectUsers.Active = true;
+            lpuContext.SaveChanges();
         }
     }
 }

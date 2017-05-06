@@ -49,11 +49,11 @@
                 </div>
             }
             <!-- #region Connections/Followers -->
-        @if (ViewBag.Connection != null) {
-            <span class="fa fa-users friendCount @User.Identity.Name"><span>Connections - @ViewBag.Connection</span></span>
-        } else {
-            <span class="fa fa-users red friendCount @User.Identity.Name"><span>Connections - </span></span>
-        }
+            @if (ViewBag.Connection != null) {
+                <span class="fa fa-users friendCount @User.Identity.Name"><span>Connections - @ViewBag.Connection</span></span>
+            } else {
+                <span class="fa fa-users red friendCount @User.Identity.Name"><span>Connections - </span></span>
+            }
             <!-- #endregion Followers-->
             <!-- #endregion Connect Button-->
         </div><!--//profile-container-->
@@ -238,23 +238,50 @@
                 });
             });
             //end connect
-            
+
             //Show FriendRequests
             //reqNotifyul
             $("body").on("click", ".notif", function () {
                 $("ul#reqNotifyul").empty();
-                var url = "Profile/FriendRequest";
-                $.post(url, { }, function (data) {
+                var url = "profile/FriendRequest";
+                $.post(url, {}, function (data) {
                     if (data.length > 0) {
                         $("ul#reqNotifyul").append("");
                     }
                     for (var i = 0; i < data.length; i++) {
                         var obj = data[i];
-                        $("ul#reqNotifyul").append('<li class=reqNotifli><a href="/' + obj.Username + '"><img src="Uploads/' + obj.UserId + obj.Username + '.jpg"/>' + ' ' + obj.Firstname + ' ' + obj.Lastname + '<a class=accept href=# data-id="' + obj.UserId + '"><span class="glyphicon glyphicon-ok"></span></a>' + '<a class=accept href=# data-id="' + obj.UserId + '"><span class="glyphicon glyphicon-"></span></a>'+'</li > ');
+                        $("ul#reqNotifyul").append('<li class=frnotifli><a href="/' + obj.Username
+                            + '"><img src="uploads/' + obj.UserId + obj.Username+ '.jpg" />' + ' ' + obj.Firstname +
+                            ' ' + obj.Lastname + '</a> ' + '<a class=accept href=# data-id="' +
+                            obj.UserId + '"><span class="glyphicon glyphicon-ok"></span></a>' +
+                            ' ' + '<a class=decline href=# data-id="' + obj.UserId + '"><span class="glyphicon glyphicon-remove"></span></a> </li>');
                     }
                 });
             });
+            $("body").on("click", "ul#reqNotifyul li.close", function () {
+                $("ul#reqNotifyul").empty();
+            });
             //end FriendRequests
+
+            //Accept request
+            $("body").on("click", "a.accept", function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var friendId = $this.data("UserId");
+                var url = "profile/AcceptRequest";
+                $.post(url, { friendId: friendId }, function (data) {
+                }).done(function () {
+                    $this.parent().fadeOut("fast");
+                    //hub.server.getfrCount();
+                    //hub.server.fcount(friendId);
+
+                });
+            });
+            //End accept request
+
+            //Decline request
+
+            //End decline request
         });
     </script>
 }

@@ -267,15 +267,13 @@ namespace Connect.Controllers {
                     ViewBag.Friends = "True";
                 }
                 if (toConnection != null) {
-                    bool isActive = (bool)toConnection.Active;
-                    if (!isActive) {
+                    if (!toConnection.Active) {
                         ViewBag.Friends = "Pending";
                     }
                 }
 
                 if (fromConnection != null) {
-                    bool isActive = (bool)fromConnection.Active;
-                    if (!isActive) {
+                    if (!fromConnection.Active) {
                         ViewBag.Friends = "Pending";
                     }
                 }

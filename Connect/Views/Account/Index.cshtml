@@ -76,7 +76,12 @@
                         <!-- #region Branch -->
                         @Html.DropDownListFor(model => model.Branch,
                                  new SelectList(string.Empty, "Value", "Text"), new { @class = "input pass" })
+                        @Html.DropDownListFor(model => model.EntryYear,
+                                 new List<SelectListItem>() { new SelectListItem { Text = "2014", Value = "2014" }, new SelectListItem { Text = "2015", Value = "2015" }, new SelectListItem { Text = "2016", Value = "2016" }, new SelectListItem { Text = "2017", Value = "2017" } }, "Entry Year", new { @class = "input pass" })
+                        @Html.DropDownListFor(model => model.GraduateYear,
+                                 new List<SelectListItem>() { new SelectListItem { Text = "2016", Value = "2016" }, new SelectListItem { Text = "2017", Value = "2017" }, new SelectListItem { Text = "2018", Value = "2018" }, new SelectListItem { Text = "2019", Value = "2019" } }, "Graduate Year", new { @class = "input pass" })
                     </div>
+
                     <!-- #endregion -->
                     <!-- #region Password -->
                     @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "input pass", placeholder = "Password", type = "password" } })

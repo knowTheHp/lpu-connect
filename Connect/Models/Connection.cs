@@ -15,11 +15,11 @@ namespace Connect.Models
     public partial class Connection
     {
         public long ConnectionId { get; set; }
-        public Nullable<long> User_Sender { get; set; }
-        public Nullable<long> User_Receiver { get; set; }
-        public Nullable<bool> Active { get; set; }
+        public long User_Sender { get; set; }
+        public long User_Receiver { get; set; }
+        public bool Active { get; set; }
     
-        public virtual User Receiver { get; set; }
         public virtual User Sender { get; set; }
+        public virtual User Receiver { get; set; }
     }
 }

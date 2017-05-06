@@ -17,10 +17,10 @@
         <AssociationConnector Association="Connect_LPUModel.FK__tblLpuRec__Cours__17F790F9" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblLpuRec__Depar__17036CC0" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblLpuRec__UserI__19DFD96B" />
-        <EntityTypeShape EntityType="Connect_LPUModel.Connection" Width="1.5" PointX="5.5" PointY="6.25" />
+        <EntityTypeShape EntityType="Connect_LPUModel.Connection" Width="1.5" PointX="7.625" PointY="5.875" />
         <AssociationConnector Association="Connect_LPUModel.Fk_Reciever" />
         <AssociationConnector Association="Connect_LPUModel.Fk_Sender" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

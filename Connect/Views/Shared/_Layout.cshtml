@@ -31,14 +31,28 @@
                     </ul>
                     <ul class="navbar-right">
                         <li id="profileData">
-                            <a href="#" id="profileData">&nbsp;Message</a>
+                        <div class="requestIcon">
+                            <a class="@User.Identity.Name">
+                                <i class="fa fa-envelope"></i>
+                                <span></span>
+                            </a>
+                        </div>
                         </li>
                         <li id="profileData">
                             @if (ViewBag.Requests != null) {
-
-                                <a href="#" id="profileData" class="notif @User.Identity.Name">&nbsp;Notification @ViewBag.Requests</a>
+                                <div class="requestIcon">
+                                    <a class="notif @User.Identity.Name">
+                                        <i class="fa fa-user-plus"></i>
+                                        <span>@ViewBag.Requests</span>
+                                    </a>
+                                </div>
                             } else {
-                                <a href="#" id="profileData" class="@User.Identity.Name">&nbsp;Notification</a>
+                                <div class="requestIcon">
+                                    <a class="@User.Identity.Name">
+                                        <i class="fa fa-user-plus"></i>
+                                        <span></span>
+                                    </a>
+                                </div>
                             }
                             <ul id="reqNotifyul"></ul>
                         </li>

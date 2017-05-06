@@ -153,7 +153,7 @@ div.em {
 #profileData {
     right: -450px;
     display: inline-block;
-    padding: 13px 0 13px 0;
+    padding:0px 2px 0px 2px;
     color: white;
     font-size: 16px;
     text-decoration: none;
@@ -235,3 +235,54 @@ ul#liveSearchul {
     z-index: 10;
     pointer-events: initial;
 }
+
+
+/*Friend req*/
+#reqNotifyul {
+    right: 200px;
+    text-decoration: none;
+    position: absolute;
+    background: white;
+    top: 55px;
+    padding: 0px;
+    color: antiquewhite;
+    border: 1px solid antiquewhite;
+    list-style: none;
+}
+
+.frnotifli {
+    width: 280px;
+    display: block;
+    padding: 10px;
+}
+
+    .frnotifli img {
+        position: initial;
+        width: 80px;
+        height: 80px;
+    }
+
+    .frnotifli a {
+        color: black;
+        text-decoration: none;
+    }
+
+.requestIcon {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+    top: 8px;
+    font-size:20px;
+}
+
+.notif {
+    right: -450px;
+    display: inline-block;
+    padding: 8px 2px 0px 2px;
+    color: red;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+
+/*End friend req*/

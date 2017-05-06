@@ -18,9 +18,9 @@
             <PropertyRef Name="ConnectionId" />
           </Key>
           <Property Name="ConnectionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="User_Sender" Type="bigint" />
-          <Property Name="User_Reciever" Type="bigint" />
-          <Property Name="Active" Type="bit" />
+          <Property Name="User_Sender" Type="bigint" Nullable="false" />
+          <Property Name="User_Reciever" Type="bigint" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tblCourse">
           <Key>
@@ -156,7 +156,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Fk_Reciever">
-          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="0..1" />
+          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="1" />
           <End Role="tblConnections" Type="Self.tblConnections" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblUserSignup">
@@ -168,7 +168,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Fk_Sender">
-          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="0..1" />
+          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="1" />
           <End Role="tblConnections" Type="Self.tblConnections" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblUserSignup">
@@ -285,7 +285,7 @@
           <NavigationProperty Name="Records" Relationship="Connect_LPUModel.FK__tblLpuRec__UserI__19DFD96B" FromRole="User" ToRole="tblLpuRecord" />
           <NavigationProperty Name="Sender" Relationship="Connect_LPUModel.Fk_Reciever" FromRole="User" ToRole="tblConnection" />
           <NavigationProperty Name="Receiver" Relationship="Connect_LPUModel.Fk_Sender" FromRole="User" ToRole="tblConnection" />
-        </EntityType>
+          </EntityType>
         <Association Name="FK__tblBranch__Cours__72C60C4A">
           <End Role="tblCourse" Type="Connect_LPUModel.Course" Multiplicity="0..1" />
           <End Role="tblBranch" Type="Connect_LPUModel.Branch" Multiplicity="*" />
@@ -350,7 +350,7 @@
             <End Role="User" EntitySet="Users" />
             <End Role="tblConnection" EntitySet="Connections" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Record">
           <Key>
             <PropertyRef Name="User_Id" />
@@ -425,14 +425,14 @@
             <PropertyRef Name="ConnectionId" />
           </Key>
           <Property Name="ConnectionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="User_Sender" Type="Int64" />
-          <Property Name="User_Receiver" Type="Int64" />
-          <Property Name="Active" Type="Boolean" />
-          <NavigationProperty Name="Receiver" Relationship="Connect_LPUModel.Fk_Reciever" FromRole="tblConnection" ToRole="User" />
-          <NavigationProperty Name="Sender" Relationship="Connect_LPUModel.Fk_Sender" FromRole="tblConnection" ToRole="User" />
+          <Property Name="User_Sender" Type="Int64" Nullable="false" />
+          <Property Name="User_Receiver" Type="Int64" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Sender" Relationship="Connect_LPUModel.Fk_Reciever" FromRole="tblConnection" ToRole="User" />
+          <NavigationProperty Name="Receiver" Relationship="Connect_LPUModel.Fk_Sender" FromRole="tblConnection" ToRole="User" />
         </EntityType>
         <Association Name="Fk_Reciever">
-          <End Type="Connect_LPUModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.User" Role="User" Multiplicity="1" />
           <End Type="Connect_LPUModel.Connection" Role="tblConnection" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -444,7 +444,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Fk_Sender">
-          <End Type="Connect_LPUModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.User" Role="User" Multiplicity="1" />
           <End Type="Connect_LPUModel.Connection" Role="tblConnection" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -455,7 +455,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>

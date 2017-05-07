@@ -31,27 +31,29 @@
                     </ul>
                     <ul class="navbar-right">
                         <li id="profileData">
-                        <div class="requestIcon">
-                            <a class="@User.Identity.Name">
-                                <i class="fa fa-envelope"></i>
-                                <span></span>
-                            </a>
-                        </div>
+                            <div class="requestIcon">
+                                <a class="@User.Identity.Name">
+                                    <i class="fa fa-envelope"></i>
+                                    <span></span>
+                                </a>
+                            </div>
                         </li>
                         <li id="profileData">
                             @if (ViewBag.Requests != null) {
                                 <div class="requestIcon">
-                                    <a class="notif @User.Identity.Name">
+                                    <span class="notif red @User.Identity.Name">
                                         <i class="fa fa-user-plus"></i>
-                                        <span>@ViewBag.Requests</span>
-                                    </a>
+                                        <span>
+                                            @ViewBag.Requests
+                                        </span>
+                                    </span>
                                 </div>
                             } else {
                                 <div class="requestIcon">
-                                    <a class="@User.Identity.Name">
+                                    <span class="notif @User.Identity.Name">
                                         <i class="fa fa-user-plus"></i>
                                         <span></span>
-                                    </a>
+                                    </span>
                                 </div>
                             }
                             <ul id="reqNotifyul"></ul>

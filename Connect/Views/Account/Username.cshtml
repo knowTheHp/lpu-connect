@@ -52,7 +52,7 @@
             @if (ViewBag.Connection != null) {
                 <span class="fa fa-users friendCount @User.Identity.Name"><span>Connections - @ViewBag.Connection</span></span>
             } else {
-                <span class="fa fa-users red friendCount @User.Identity.Name"><span>Connections - </span></span>
+                <span class="fa fa-users friendCount @User.Identity.Name"><span>Connections - </span></span>
             }
             <!-- #endregion Followers-->
             <!-- #endregion Connect Button-->
@@ -219,12 +219,37 @@
 
 @section Scripts{
     <script src="~/assets/js/main.js"></script>
-    <script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
     <script src="~/signalr/hubs"></script>
     <script src="~/Scripts/Username.js"></script>
     <script>
         $(document).ready(function () {
-            //Add Connection
+
+            //setup hub connection
+            var hub = $.connection.echo;
+
+            //setup notification hub
+            hub.client.frnotify = function (friend, count) {
+                $("span.notif." + friend + "> span").text(count);
+                $("span.notif." + friend).addClass("red");
+            }
+            //end notification hub
+
+            //setup request count hub
+            hub.client.requestCount = function (username, count) {
+                if (count > 0) {
+                    $("span.notif." + username + "> span").text(count);
+                } else {
+                    $("span.notif." + username + "> span").text("");
+                    $("span.notif." + username).removeClass("red");
+                }
+            }
+            //end request count
+
+            //Connect to hub
+            $.connection.hub.start().done(function () {
+
+            //Connect request
             $("a.connect").click(function (e) {
                 e.preventDefault();
                 var friend = '@ViewBag.Username';
@@ -239,8 +264,30 @@
             });
             //end connect
 
+            //Accept request
+            $("body").on("click", "a.accept", function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var friendId = $this.data("id");
+                var url = "profile/AcceptRequest";
+                $.post(url, { friendId: friendId }, function (data) {
+                }).done(function () {
+                    $this.parent().fadeOut("fast");
+                    hub.server.requestCount();
+                    //hub.server.fcount(friendId);
+//friendCount
+                });
+            });
+            //End accept request
+
+            //Decline request
+
+            //End decline request
+            });
+            //End hub
+
+
             //Show FriendRequests
-            //reqNotifyul
             $("body").on("click", ".notif", function () {
                 $("ul#reqNotifyul").empty();
                 var url = "profile/FriendRequest";
@@ -251,7 +298,7 @@
                     for (var i = 0; i < data.length; i++) {
                         var obj = data[i];
                         $("ul#reqNotifyul").append('<li class=frnotifli><a href="/' + obj.Username
-                            + '"><img src="uploads/' + obj.UserId + obj.Username+ '.jpg" />' + ' ' + obj.Firstname +
+                            + '"><img src="uploads/' + obj.UserId + obj.Username + '.jpg" />' + ' ' + obj.Firstname +
                             ' ' + obj.Lastname + '</a> ' + '<a class=accept href=# data-id="' +
                             obj.UserId + '"><span class="glyphicon glyphicon-ok"></span></a>' +
                             ' ' + '<a class=decline href=# data-id="' + obj.UserId + '"><span class="glyphicon glyphicon-remove"></span></a> </li>');
@@ -261,27 +308,8 @@
             $("body").on("click", "ul#reqNotifyul li.close", function () {
                 $("ul#reqNotifyul").empty();
             });
-            //end FriendRequests
+            //end show FriendRequests
 
-            //Accept request
-            $("body").on("click", "a.accept", function (e) {
-                e.preventDefault();
-                var $this = $(this);
-                var friendId = $this.data("UserId");
-                var url = "profile/AcceptRequest";
-                $.post(url, { friendId: friendId }, function (data) {
-                }).done(function () {
-                    $this.parent().fadeOut("fast");
-                    //hub.server.getfrCount();
-                    //hub.server.fcount(friendId);
-
-                });
-            });
-            //End accept request
-
-            //Decline request
-
-            //End decline request
         });
     </script>
 }

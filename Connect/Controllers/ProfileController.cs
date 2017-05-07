@@ -71,7 +71,6 @@ namespace Connect.Controllers {
         [HttpPost]
         public void AcceptRequest(long? friendId) {
             //get userId
-            lpuContext = new LpuContext();
             User userObject = lpuContext.Users.Where(user => user.Username.Equals(User.Identity.Name)).FirstOrDefault();
             long UserId = userObject.UserId;
 

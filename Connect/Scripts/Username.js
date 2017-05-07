@@ -33,11 +33,4 @@
         $("ul#reqNotifyul").show();
     });
     //end close button
-
-    //setup hub connection
-    var hub = $.connection.echo;
-    $.connection.hub.start().done(function () {
-        hub.server.hello("SignalR working");
-    });
-    //end hub
 });

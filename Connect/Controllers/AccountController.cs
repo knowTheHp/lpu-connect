@@ -283,15 +283,11 @@ namespace Connect.Controllers {
             if (requestCount > 0) {
                 ViewBag.Requests = requestCount;
             }
+
+            //get friend count
+            
             return View();
             #endregion
-        }
-
-        [Authorize]
-        public ActionResult Logout() {
-            //Signout
-            FormsAuthentication.SignOut();
-            return Redirect("~/");
         }
 
         public ActionResult LoginPartial() {
@@ -311,6 +307,13 @@ namespace Connect.Controllers {
             } else {
                 return "problem";
             }
+        }
+
+        [Authorize]
+        public ActionResult Logout() {
+            //Signout
+            FormsAuthentication.SignOut();
+            return Redirect("~/");
         }
     }
 }

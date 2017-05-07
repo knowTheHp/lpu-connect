@@ -153,7 +153,7 @@ div.em {
 #profileData {
     right: -450px;
     display: inline-block;
-    padding:0px 2px 0px 2px;
+    padding: 0px 2px 0px 2px;
     color: white;
     font-size: 16px;
     text-decoration: none;
@@ -272,17 +272,25 @@ ul#liveSearchul {
     display: table;
     border-collapse: separate;
     top: 8px;
-    font-size:20px;
+    font-size: 20px;
 }
 
 .notif {
     right: -450px;
     display: inline-block;
     padding: 8px 2px 0px 2px;
-    color: red;
     font-size: 16px;
+    color: black;
     text-decoration: none;
 }
 
+.red {
+    color: red;
+}
+
+notif.red {
+    color: red;
+    cursor: pointer;
+}
 
 /*End friend req*/

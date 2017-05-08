@@ -24,6 +24,7 @@ namespace Connect.Controllers {
         }
 
         [HttpPost]
+        [Authorize]
         public void Connect(string friend) {
             //get user id
             User self = lpuContext.Users.Where(x => x.Username.Equals(User.Identity.Name)).FirstOrDefault();
@@ -45,6 +46,7 @@ namespace Connect.Controllers {
         }
 
         [HttpPost]
+        [Authorize]
         //POST :Profile/FriendRequest
         public ActionResult FriendRequest() {
             //get userId
@@ -69,14 +71,29 @@ namespace Connect.Controllers {
         }
 
         [HttpPost]
+        [Authorize]
         public void AcceptRequest(long? friendId) {
             //get userId
-            User userObject = lpuContext.Users.Where(user => user.Username.Equals(User.Identity.Name)).FirstOrDefault();
-            long UserId = userObject.UserId;
+            User loogedInUser = lpuContext.Users.Where(user => user.Username.Equals(User.Identity.Name)).FirstOrDefault();
+            long UserId = loogedInUser.UserId;
 
-            //Accept request
+            //accept request
             Connection connectUsers = lpuContext.Connections.Where(user => user.User_Sender == friendId && user.User_Receiver == UserId).FirstOrDefault();
             connectUsers.Active = true;
+            lpuContext.SaveChanges();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public void DeclineRequest(long? friendId) {
+            //get loggedIn userId
+            User loggedInUser = lpuContext.Users.Where(user => user.Username.Equals(User.Identity.Name)).FirstOrDefault();
+            long UserId = loggedInUser.UserId;
+
+            //get user userId
+            Connection senderData = lpuContext.Connections.Where(sender => sender.User_Sender == friendId && sender.User_Receiver == UserId).FirstOrDefault();
+            //decline request
+            lpuContext.Connections.Remove(senderData);
             lpuContext.SaveChanges();
         }
     }

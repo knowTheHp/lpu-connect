@@ -242,6 +242,7 @@ namespace Connect.Controllers {
             if (recordView.GraduateYear != null) {
                 ViewBag.GraduateYear = recordView.GraduateYear;
             }
+            #endregion
 
             //check the usertype
             string userType = "guest";
@@ -278,16 +279,20 @@ namespace Connect.Controllers {
                     }
                 }
             }
-            //get connection count
+
+            //get connection request count
             int requestCount = lpuContext.Connections.Count(x => x.User_Receiver == userId && x.Active == false);
             if (requestCount > 0) {
                 ViewBag.Requests = requestCount;
             }
 
-            //get friend count
-            
+            //get connected count
+            User userViewedData = lpuContext.Users.Where(user => user.Username.Equals(Username)).FirstOrDefault();
+            long userViewedId = userViewedData.UserId;
+
+            var connectionCount = lpuContext.Connections.Count(connection => connection.User_Receiver == userViewedId && connection.Active == true || connection.User_Sender == userViewedId && connection.Active == true);
+            ViewBag.Connection = connectionCount;
             return View();
-            #endregion
         }
 
         public ActionResult LoginPartial() {

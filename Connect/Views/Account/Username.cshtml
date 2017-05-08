@@ -50,9 +50,9 @@
             }
             <!-- #region Connections/Followers -->
             @if (ViewBag.Connection != null) {
-                <span class="fa fa-users friendCount @User.Identity.Name"><span>Connections - @ViewBag.Connection</span></span>
+                <span class="fa fa-users friendCount @User.Identity.Name">Connection(s) - <span>@ViewBag.Connection</span></span>
             } else {
-                <span class="fa fa-users friendCount @User.Identity.Name"><span>Connections - </span></span>
+                <span class="fa fa-users friendCount @User.Identity.Name">>Connection(s) - <span>@ViewBag.Connection</span></span>
             }
             <!-- #endregion Followers-->
             <!-- #endregion Connect Button-->
@@ -246,6 +246,22 @@
             }
             //end request count
 
+            //In Connection
+            hub.client.connectionCount = function (loggedInUser, userData, count, countTwo) {
+                if (count > 0) {
+                    $("span.friendCount." +loggedInUser+"> span").text(count);
+                } else {
+                    $("span.friendCount." + loggedInUser + "> span").text("0");
+                }
+
+                if (countTwo > 0) {
+                    $("span.friendCount." + userData + "> span").text(countTwo);
+                } else {
+                    $("span.friendCount." + userData + "> span").text("0");
+                }
+            }
+            //End In Connection
+
             //Connect to hub
             $.connection.hub.start().done(function () {
 
@@ -273,15 +289,26 @@
                 $.post(url, { friendId: friendId }, function (data) {
                 }).done(function () {
                     $this.parent().fadeOut("fast");
+                    //display total request
                     hub.server.requestCount();
-                    //hub.server.fcount(friendId);
-//friendCount
+                    //display total connected users
+                    hub.server.connectionCount(friendId);
                 });
             });
             //End accept request
 
             //Decline request
-
+            $("body").on("click", "a.decline", function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var friendId = $this.data("id");
+                var url = "profile/DeclineRequest";
+                $.post(url, { friendId: friendId }, function (data) {
+                }).done(function () {
+                    $this.parent().fadeOut("fast");
+                    hub.server.requestCount();
+                });
+            });
             //End decline request
             });
             //End hub

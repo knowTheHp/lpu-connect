@@ -31,12 +31,23 @@
                     </ul>
                     <ul class="navbar-right">
                         <li id="profileData">
-                            <div class="requestIcon">
-                                <a class="@User.Identity.Name">
-                                    <i class="fa fa-envelope"></i>
-                                    <span></span>
-                                </a>
-                            </div>
+                            @if (ViewBag.MessageCount != 0) {
+                                <div class="messageIcon">
+                                    <span class="red @User.Identity.Name">
+                                        <i class="glyphicon glyphicon-comment msgnotif"></i>
+                                        <span>@ViewBag.MessageCount</span>
+                                    </span>
+                                </div>
+                            } else {
+                                <div class="messageIcon">
+                                    <span class="@User.Identity.Name">
+                                        <i class="glyphicon glyphicon-comment msgnotif"></i>
+                                        <span></span>
+                                    </span>
+                                </div>
+                            }
+                            <ul id="ulMsg"></ul>
+
                         </li>
                         <li id="profileData">
                             @if (ViewBag.Requests != null) {

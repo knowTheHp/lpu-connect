@@ -292,6 +292,11 @@ namespace Connect.Controllers {
 
             var connectionCount = lpuContext.Connections.Count(connection => connection.User_Receiver == userViewedId && connection.Active == true || connection.User_Sender == userViewedId && connection.Active == true);
             ViewBag.Connection = connectionCount;
+
+            //ViewBag message count
+            var messageCount = lpuContext.Messages.Count(user => user.ToUser == userId && user.Seen == false);
+            ViewBag.MessageCount = messageCount;
+
             return View();
         }
 

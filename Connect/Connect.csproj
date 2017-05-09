@@ -196,6 +196,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LpuContext.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Message.cs">
+      <DependentUpon>LpuContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Record.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>

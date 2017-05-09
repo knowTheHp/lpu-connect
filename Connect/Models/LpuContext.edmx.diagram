@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9dae606fe0d9436eb12e50d22faff315" Name="Diagram1" ZoomLevel="109">
+      <Diagram DiagramId="9dae606fe0d9436eb12e50d22faff315" Name="Diagram1" ZoomLevel="102">
         <EntityTypeShape EntityType="Connect_LPUModel.Branch" Width="1.5" PointX="11.25" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Connect_LPUModel.Course" Width="1.5" PointX="11.125" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Connect_LPUModel.Department" Width="1.5" PointX="11.125" PointY="5.375" IsExpanded="true" />
@@ -20,6 +20,15 @@
         <EntityTypeShape EntityType="Connect_LPUModel.Connection" Width="1.5" PointX="7.625" PointY="5.875" />
         <AssociationConnector Association="Connect_LPUModel.Fk_Reciever" />
         <AssociationConnector Association="Connect_LPUModel.Fk_Sender" />
+        <EntityTypeShape EntityType="Connect_LPUModel.Message" Width="1.5" PointX="2" PointY="5.625" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblMessag__FromU__40F9A68C" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblMessag__ToUse__41EDCAC5" ManuallyRouted="true" >
+          <ConnectorPoint PointX="5.375" PointY="4.4980453191524958" />
+          <ConnectorPoint PointX="5.05680808475" PointY="4.4980453191524958" />
+          <ConnectorPoint PointX="5.05680808475" PointY="4.5095996505921114" />
+          <ConnectorPoint PointX="2.4531275" PointY="4.5095996505921114" />
+          <ConnectorPoint PointX="2.4531275" PointY="5.625" />
+        </AssociationConnector>
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

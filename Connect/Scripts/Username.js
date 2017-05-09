@@ -33,4 +33,18 @@
         $("ul#reqNotifyul").show();
     });
     //end close button
+
+    //show connect modal
+    $("#connectModal").on("click", function () {
+        $('#connectionRequestModal').modal('show');
+    });
+    //end show modal
+
+    //hide connect modal
+    $('#hideModal').on("click", function () {
+        $('#connectionRequestModal').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+    });
+    //end hide connect modal
 });

@@ -1,6 +1,7 @@
 ﻿using Connect.Models;
 using Connect.Models.ViewModel;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -94,6 +95,28 @@ namespace Connect.Controllers {
             Connection senderData = lpuContext.Connections.Where(sender => sender.User_Sender == friendId && sender.User_Receiver == UserId).FirstOrDefault();
             //decline request
             lpuContext.Connections.Remove(senderData);
+            lpuContext.SaveChanges();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public void SendMessage(string friend, string message) {
+            //get loggedIn userId
+            User loggedInUser = lpuContext.Users.Where(user => user.Username.Equals(User.Identity.Name)).FirstOrDefault();
+            long UserId = loggedInUser.UserId;
+
+            //get friend userId
+            User friendData = lpuContext.Users.Where(user => user.Username==friend).FirstOrDefault();
+            long friendId = friendData.UserId;
+
+            Message messages = new Message() {
+                FromUser = UserId,
+                ToUser = friendId,
+                Conversations = message,
+                MessageSent = DateTime.Now,
+                Seen = false
+            };
+            lpuContext.Messages.Add(messages);
             lpuContext.SaveChanges();
         }
     }

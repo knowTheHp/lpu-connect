@@ -275,6 +275,20 @@ ul#liveSearchul {
     font-size: 20px;
 }
 
+.messageIcon {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+    top: 12px;
+    font-size: 20px;
+    color:black;
+}
+.msgTextArea{
+    width:1000px;
+    height:100px;
+    color:black;
+}
+
 .notif {
     right: -450px;
     display: inline-block;
@@ -286,11 +300,7 @@ ul#liveSearchul {
 
 .red {
     color: red;
-}
-
-notif.red {
-    color: red;
-    cursor: pointer;
+    cursor:pointer;
 }
 
 /*End friend req*/

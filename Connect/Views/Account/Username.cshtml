@@ -37,8 +37,32 @@
                             <p>Pending request</p>
                         </div>
                     } else if (ViewBag.Friends == "True") {
-                        <div class="isFriendDiv alert alert-info">
-                            <a href="#" class="connect">Connect</a>
+                        <div class="isFriendDiv alert">
+                            <button id="connectModal" class="btn btn-primary">Connect</button>
+                            <div class="modal fade" id="connectionRequestModal" tabindex="-1" role="dialog">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 style="color:#337ab7">Send Request</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            @if (ViewBag.userType == "guest") {
+                                                <!--Message area-->
+                                                <div class="summary sendmsgParent">
+                                                    <div class="msgtxtarea">
+                                                        <textarea id="msgarea" placeholder="type your message here.." class="msgTextArea"></textarea>
+                                                    </div>
+                                                </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="button" id="hideModal" class="connect sendmsg btn btn-primary" data-dismiss="modal">Connect</button>
+                                                    </div>
+                                            }
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
                         </div>
                     } else {
                         <div class="isFriendDiv alert alert-success">
@@ -99,13 +123,8 @@
 
         <section class="section summary-section">
             <h2 class="section-title">
-                <i class="fa fa-user"></i>Career Profile
+                <i class="fa fa-comment"></i>Status
             </h2>
-            <div class="summary">
-                <p>
-                    To gain employment with a company or institution that offers me a consistently positive atmosphere to learn new technologies and implement them for the betterment of the business.
-                </p>
-            </div><!--//summary-->
         </section><!--//section-->
 
         <section class="section experiences-section">
@@ -224,7 +243,6 @@
     <script src="~/Scripts/Username.js"></script>
     <script>
         $(document).ready(function () {
-
             //setup hub connection
             var hub = $.connection.echo;
 
@@ -266,8 +284,9 @@
             $.connection.hub.start().done(function () {
 
             //Connect request
-            $("a.connect").click(function (e) {
-                e.preventDefault();
+                $("button.connect").click(function (e) {
+                    e.preventDefault();
+                    $(this).modal('hide');
                 var friend = '@ViewBag.Username';
                 var url = "/profile/connect";
                 $.post(url, {
@@ -276,7 +295,7 @@
                     $(".isFriendDiv").removeClass("alert-info").addClass("alert-warning").html("<p>Pending request</p>");
                 }).done(function () {
                     hub.server.notify(friend);
-                });
+                    });
             });
             //end connect
 
@@ -310,6 +329,40 @@
                 });
             });
             //End decline request
+
+                //Send Message
+            $("body").on("click", "button.sendmsg", function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                $(this).modal('hide');
+                var friend = '@ViewBag.Username';
+                var message = $("#msgarea").val();
+                var url = "profile/SendMessage";
+                $.post(url, { friend: friend, message: message }, function (data) {
+                }).done(function () {
+                    //hub.server.notifyofMessage(friend);
+                    });
+            });
+            //End send message
+
+            //Show Unread messages
+            $("body").on("click", ".notif", function () {
+                $("ul#ulMsg").empty();
+                var url = "profile/DisplayUnreadMessages";
+                $.post(url, {}, function (data) {
+                    if (data.length > 0) {
+                        $("ul#ulMsg").append("");
+                    }
+                    for (var i = 0; i < data.length; i++) {
+                        var obj = data[i];
+                        $("ul#ulMsg").append('<li class=msgnotifli> </li>');
+                    }
+                });
+            });
+            $("body").on("click", "ul#reqNotifyul li.close", function () {
+                $("ul#ulMsg").empty();
+            });
+            //end show Unread msgs
             });
             //End hub
 
@@ -336,7 +389,6 @@
                 $("ul#reqNotifyul").empty();
             });
             //end show FriendRequests
-
         });
     </script>
 }

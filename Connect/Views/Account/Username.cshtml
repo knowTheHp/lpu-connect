@@ -54,10 +54,10 @@
                                                         <textarea id="msgarea" placeholder="type your message here.." class="msgTextArea"></textarea>
                                                     </div>
                                                 </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        <button type="button" id="hideModal" class="connect sendmsg btn btn-primary" data-dismiss="modal">Connect</button>
-                                                    </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="button" id="hideModal" class="connect sendmsg btn btn-primary" data-dismiss="modal">Connect</button>
+                                                </div>
                                             }
                                         </div>
                                     </div><!-- /.modal-content -->
@@ -123,15 +123,41 @@
 
         <section class="section summary-section">
             <h2 class="section-title">
-                <i class="fa fa-comment"></i>Status
+                <i class="fa fa-comment"></i>Bio
             </h2>
         </section><!--//section-->
+        <!-- #Education region -->
+        <section class="section education-section">
+            <h2 class="section-title" style="display:inline-block">
+                <i class="fa fa-graduation-cap"></i>Education
+            </h2>
+            @if (ViewBag.UserType == "owner") {
+                @Html.Action("EducationPartial", "Account")
+            }
+            @if (ViewBag.UserType != null) {
+                if (ViewBag.Education != null) {
+                    foreach (var item in ViewBag.Education) {
+                        <div class="item">
+                            <h4 class="degree">@item.Degree.DegreeName</h4>
+                            <h5 class="meta">@item.School</h5>
+                            <h5 class="meta">@item.Course</h5>
+            <div class="meta">@item.EduFrom - @item.EduTo</div>
+        </div><!--//item-->
+                    }
+                } else {
+                    <p>No record</p>
+                }
+            }
+        </section>
+
 
         <section class="section experiences-section">
-            <h2 class="section-title">
+            <h2 class="section-title" style="display:inline-block">
                 <i class="fa fa-briefcase"></i>Experiences
             </h2>
-            <p>Coming Soon</p>
+            @if (ViewBag.UserType == "owner") {
+                @Html.Action("WorkExperiencePartial", "Account")
+            }
         </section><!--//section-->
 
         <section class="section projects-section">
@@ -236,11 +262,17 @@
     </div><!--//main-body-->
 </div>
 
+
+
+
+
+<!--SignalR Region-->
 @section Scripts{
     <script src="~/assets/js/main.js"></script>
     <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
     <script src="~/signalr/hubs"></script>
     <script src="~/Scripts/Username.js"></script>
+    <script src="~/Scripts/Index.js"></script>
     <script>
         $(document).ready(function () {
             //setup hub connection
@@ -365,7 +397,6 @@
             //end show Unread msgs
             });
             //End hub
-
 
             //Show FriendRequests
             $("body").on("click", ".notif", function () {

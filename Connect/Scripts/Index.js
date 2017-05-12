@@ -18,8 +18,12 @@
     });
     //End
 
-    //Toggle Checkbox
-
+    //Toggle Currently Working
+    $(function () {
+        $('.always').change(function () {
+            $('#dates').toggle(!this.checked);
+        }).change(); //ensure visible state matches initially
+    });
     //
 
     //Start Branch
@@ -34,7 +38,7 @@
             data: { courseId: courseId },
             success: function (branches) {
                 $.each(branches, function (index, branch) {
-                    branchId.append('<option value="' + branch.BranchId + '">' + branch.BranchName+ '</option>');
+                    branchId.append('<option value="' + branch.BranchId + '">' + branch.BranchName + '</option>');
                 });
             }
         });
@@ -64,7 +68,6 @@
         var username = $("#Username").val();
         var password = $("#Password").val();
         var url = "/account/login";
-
         $.post(url, { username: username, password: password }, function (data) {
             var response = data.trim();
             document.location.href = "/";

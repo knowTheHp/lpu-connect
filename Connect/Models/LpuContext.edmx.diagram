@@ -7,8 +7,8 @@
       <Diagram DiagramId="9dae606fe0d9436eb12e50d22faff315" Name="Diagram1" ZoomLevel="102">
         <EntityTypeShape EntityType="Connect_LPUModel.Branch" Width="1.5" PointX="11.25" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Connect_LPUModel.Course" Width="1.5" PointX="11.125" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Connect_LPUModel.Department" Width="1.5" PointX="11.125" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Connect_LPUModel.VerifyEmail" Width="1.5" PointX="2.625" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="Connect_LPUModel.Department" Width="1.5" PointX="9.875" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Connect_LPUModel.VerifyEmail" Width="1.5" PointX="3.125" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Connect_LPUModel.User" Width="1.5" PointX="5.375" PointY="0.5" IsExpanded="true" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblBranch__Cours__72C60C4A" ManuallyRouted="false" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblEmailV__UserI__0B91BA14" ManuallyRouted="false" />
@@ -17,18 +17,27 @@
         <AssociationConnector Association="Connect_LPUModel.FK__tblLpuRec__Cours__17F790F9" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblLpuRec__Depar__17036CC0" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblLpuRec__UserI__19DFD96B" />
-        <EntityTypeShape EntityType="Connect_LPUModel.Connection" Width="1.5" PointX="7.625" PointY="5.875" />
+        <EntityTypeShape EntityType="Connect_LPUModel.Connection" Width="1.5" PointX="7.875" PointY="4.875" />
         <AssociationConnector Association="Connect_LPUModel.Fk_Reciever" />
         <AssociationConnector Association="Connect_LPUModel.Fk_Sender" />
-        <EntityTypeShape EntityType="Connect_LPUModel.Message" Width="1.5" PointX="2" PointY="5.625" />
+        <EntityTypeShape EntityType="Connect_LPUModel.Message" Width="1.5" PointX="3.25" PointY="3" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblMessag__FromU__40F9A68C" />
-        <AssociationConnector Association="Connect_LPUModel.FK__tblMessag__ToUse__41EDCAC5" ManuallyRouted="true" >
-          <ConnectorPoint PointX="5.375" PointY="4.4980453191524958" />
-          <ConnectorPoint PointX="5.05680808475" PointY="4.4980453191524958" />
-          <ConnectorPoint PointX="5.05680808475" PointY="4.5095996505921114" />
-          <ConnectorPoint PointX="2.4531275" PointY="4.5095996505921114" />
-          <ConnectorPoint PointX="2.4531275" PointY="5.625" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblMessag__ToUse__41EDCAC5" ManuallyRouted="false" >
         </AssociationConnector>
+        <EntityTypeShape EntityType="Connect_LPUModel.Degree" Width="1.5" PointX="1.875" PointY="5.875" />
+        <EntityTypeShape EntityType="Connect_LPUModel.Education" Width="1.5" PointX="4" PointY="6.375" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblEducat__Degre__51300E55" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblEducat__UserI__5224328E" />
+        <EntityTypeShape EntityType="Connect_LPUModel.Country" Width="1.5" PointX="0.5" PointY="10.5" />
+        <EntityTypeShape EntityType="Connect_LPUModel.Month" Width="1.5" PointX="0.5" PointY="13" />
+        <EntityTypeShape EntityType="Connect_LPUModel.WorkXp" Width="1.5" PointX="3.5" PointY="9.625" />
+        <EntityTypeShape EntityType="Connect_LPUModel.Year" Width="1.5" PointX="0.5" PointY="15.625" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblWorkEx__Count__690797E6" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblWorkEx__FromM__69FBBC1F" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblWorkEx__ToMon__6BE40491" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblWorkEx__UserI__6EC0713C" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblWorkEx__FromY__6AEFE058" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblWorkEx__ToYea__6CD828CA" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

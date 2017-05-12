@@ -13,6 +13,7 @@ namespace Connect.Controllers {
     public class AccountController : Controller {
         LpuContext lpuContext = new LpuContext();
         Record recordDTO;
+
         // GET: /
 
         #region username and email validation
@@ -35,9 +36,6 @@ namespace Connect.Controllers {
             if (!String.IsNullOrEmpty(Username)) {
                 return Redirect($"~/{Username}");
             } else {
-                lpuContext = new LpuContext();
-                List<Course> courses = lpuContext.Courses.ToList();
-                ViewBag.Course = courses;
                 //return view
                 return View();
             }
@@ -190,7 +188,6 @@ namespace Connect.Controllers {
             }
             //ViewBag Username
             ViewBag.Username = Username;
-
             //get logged in user's Username
             string loggedInUser = User.Identity.Name;
 
@@ -200,6 +197,7 @@ namespace Connect.Controllers {
             ViewBag.FullName = userLoggedIn.Firstname + " " + userLoggedIn.Lastname;
             //get user id
             long userId = userLoggedIn.UserId;
+            ViewBag.UserId = userId;
             #endregion
 
             #region Get Viewing Data
@@ -242,6 +240,9 @@ namespace Connect.Controllers {
             if (recordView.GraduateYear != null) {
                 ViewBag.GraduateYear = recordView.GraduateYear;
             }
+
+            //get education list record
+            ViewBag.Education = recordView.Users.Educations.Where(user => user.User.Username == Username).ToList();
             #endregion
 
             //check the usertype
@@ -307,8 +308,6 @@ namespace Connect.Controllers {
         [HttpPost]
         public string Login(string Username, string Password) {
             string pass = FormsAuthentication.HashPasswordForStoringInConfigFile(Password, "SHA1");
-            //Init db
-            lpuContext = new LpuContext();
             //check if user exists
             if (lpuContext.Users.Any(user => user.Username.Equals(Username) && user.Password.Equals(pass))) {
                 //Login user
@@ -319,6 +318,53 @@ namespace Connect.Controllers {
             }
         }
 
+        [Authorize]
+        public ActionResult EducationPartial() {
+            EducationVM eduModel = new EducationVM();
+            ViewBag.Degree = lpuContext.Degrees;
+            return PartialView("EducationPartial", eduModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult Education(EducationVM model) {
+            if (ModelState.IsValid) {
+                Education educationDTO = new Education() {
+                    School = model.School,
+                    DegreeType = model.DegreeType,
+                    Course = model.Course,
+                    EduFrom = model.EduFrom,
+                    EduTo = model.EduTo,
+                    UserId = lpuContext.Users.Where(user => user.Username.Equals(User.Identity.Name)).Single().UserId
+                };
+                lpuContext.Educations.Add(educationDTO);
+                lpuContext.SaveChanges();
+                return Redirect("~/");
+            } else {
+                return View("~/");
+            }
+        }
+
+        [Authorize]
+        public ActionResult WorkExperiencePartial() {
+            WorkXpVM workXpVM = new WorkXpVM();
+            ViewBag.Countries = lpuContext.Countries;
+            var Months = lpuContext.Months;
+            var Years = lpuContext.Years.OrderByDescending(x => x.YearId);
+            ViewBag.FromMonth = Months;
+            ViewBag.FromYear = Years;
+            ViewBag.ToMonth = Months;
+            ViewBag.ToYear = Years;
+            return View("WorkExperiencePartial", workXpVM);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult WorkExperience(WorkXpVM workXp) {
+            WorkXp workXpDTO = new WorkXp();
+
+            return View();
+        }
         [Authorize]
         public ActionResult Logout() {
             //Signout

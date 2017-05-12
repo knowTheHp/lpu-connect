@@ -22,6 +22,14 @@
           <Property Name="User_Reciever" Type="bigint" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblCountry">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryCode" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="CountryName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblCourse">
           <Key>
             <PropertyRef Name="CourseId" />
@@ -29,12 +37,31 @@
           <Property Name="CourseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CourseName" Type="varchar" MaxLength="400" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblDegree">
+          <Key>
+            <PropertyRef Name="DegreeId" />
+          </Key>
+          <Property Name="DegreeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DegreeName" Type="varchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="tblDepartment">
           <Key>
             <PropertyRef Name="DepartmentId" />
           </Key>
           <Property Name="DepartmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DepartmentName" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblEducation">
+          <Key>
+            <PropertyRef Name="EducationId" />
+          </Key>
+          <Property Name="EducationId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="School" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DegreeType" Type="int" Nullable="false" />
+          <Property Name="EduFrom" Type="int" Nullable="false" />
+          <Property Name="EduTo" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="Course" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="tblEmailVerification">
           <Key>
@@ -73,6 +100,13 @@
           <Property Name="MessageSent" Type="datetime2" Precision="7" />
           <Property Name="Seen" Type="bit" />
         </EntityType>
+        <EntityType Name="tblMonth">
+          <Key>
+            <PropertyRef Name="MonthId" />
+          </Key>
+          <Property Name="MonthId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MonthName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblUserSignup">
           <Key>
             <PropertyRef Name="UserId" />
@@ -94,6 +128,29 @@
           <Property Name="LockDateTime" Type="datetime" />
           <Property Name="City" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblWorkExperience">
+          <Key>
+            <PropertyRef Name="WorkxpId" />
+          </Key>
+          <Property Name="WorkxpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Company" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Designation" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Country" Type="int" Nullable="false" />
+          <Property Name="FromMonth" Type="int" Nullable="false" />
+          <Property Name="FromYear" Type="int" Nullable="false" />
+          <Property Name="ToMonth" Type="int" />
+          <Property Name="ToYear" Type="int" />
+          <Property Name="IsCurrentlyWorking" Type="bit" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblYear">
+          <Key>
+            <PropertyRef Name="YearId" />
+          </Key>
+          <Property Name="YearId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="FK__tblBranch__Cours__72C60C4A">
           <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="0..1" />
           <End Role="tblBranch" Type="Self.tblBranch" Multiplicity="*" />
@@ -103,6 +160,30 @@
             </Principal>
             <Dependent Role="tblBranch">
               <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEducat__Degre__51300E55">
+          <End Role="tblDegree" Type="Self.tblDegree" Multiplicity="1" />
+          <End Role="tblEducation" Type="Self.tblEducation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDegree">
+              <PropertyRef Name="DegreeId" />
+            </Principal>
+            <Dependent Role="tblEducation">
+              <PropertyRef Name="DegreeType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEducat__UserI__5224328E">
+          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="1" />
+          <End Role="tblEducation" Type="Self.tblEducation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserSignup">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblEducation">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -190,6 +271,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tblWorkEx__Count__719CDDE7">
+          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="1" />
+          <End Role="tblWorkExperience" Type="Self.tblWorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="tblWorkExperience">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorkEx__FromM__72910220">
+          <End Role="tblMonth" Type="Self.tblMonth" Multiplicity="1" />
+          <End Role="tblWorkExperience" Type="Self.tblWorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMonth">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="tblWorkExperience">
+              <PropertyRef Name="FromMonth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorkEx__FromY__73852659">
+          <End Role="tblYear" Type="Self.tblYear" Multiplicity="1" />
+          <End Role="tblWorkExperience" Type="Self.tblWorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblYear">
+              <PropertyRef Name="YearId" />
+            </Principal>
+            <Dependent Role="tblWorkExperience">
+              <PropertyRef Name="FromYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorkEx__ToMon__74794A92">
+          <End Role="tblMonth" Type="Self.tblMonth" Multiplicity="0..1" />
+          <End Role="tblWorkExperience" Type="Self.tblWorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMonth">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="tblWorkExperience">
+              <PropertyRef Name="ToMonth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorkEx__ToYea__756D6ECB">
+          <End Role="tblYear" Type="Self.tblYear" Multiplicity="0..1" />
+          <End Role="tblWorkExperience" Type="Self.tblWorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblYear">
+              <PropertyRef Name="YearId" />
+            </Principal>
+            <Dependent Role="tblWorkExperience">
+              <PropertyRef Name="ToYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorkEx__UserI__7755B73D">
+          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="1" />
+          <End Role="tblWorkExperience" Type="Self.tblWorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserSignup">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblWorkExperience">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Fk_Reciever">
           <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="1" />
           <End Role="tblConnections" Type="Self.tblConnections" Multiplicity="*" />
@@ -217,15 +370,29 @@
         <EntityContainer Name="Connect_LPUModelStoreContainer">
           <EntitySet Name="tblBranch" EntityType="Self.tblBranch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblConnections" EntityType="Self.tblConnections" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCountry" EntityType="Self.tblCountry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCourse" EntityType="Self.tblCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDegree" EntityType="Self.tblDegree" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblDepartment" EntityType="Self.tblDepartment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEducation" EntityType="Self.tblEducation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblEmailVerification" EntityType="Self.tblEmailVerification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblLpuRecords" EntityType="Self.tblLpuRecords" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMessages" EntityType="Self.tblMessages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMonth" EntityType="Self.tblMonth" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUserSignup" EntityType="Self.tblUserSignup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblWorkExperience" EntityType="Self.tblWorkExperience" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblYear" EntityType="Self.tblYear" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__tblBranch__Cours__72C60C4A" Association="Self.FK__tblBranch__Cours__72C60C4A">
             <End Role="tblCourse" EntitySet="tblCourse" />
             <End Role="tblBranch" EntitySet="tblBranch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEducat__Degre__51300E55" Association="Self.FK__tblEducat__Degre__51300E55">
+            <End Role="tblDegree" EntitySet="tblDegree" />
+            <End Role="tblEducation" EntitySet="tblEducation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEducat__UserI__5224328E" Association="Self.FK__tblEducat__UserI__5224328E">
+            <End Role="tblUserSignup" EntitySet="tblUserSignup" />
+            <End Role="tblEducation" EntitySet="tblEducation" />
           </AssociationSet>
           <AssociationSet Name="FK__tblEmailV__UserI__0B91BA14" Association="Self.FK__tblEmailV__UserI__0B91BA14">
             <End Role="tblUserSignup" EntitySet="tblUserSignup" />
@@ -254,6 +421,30 @@
           <AssociationSet Name="FK__tblMessag__ToUse__41EDCAC5" Association="Self.FK__tblMessag__ToUse__41EDCAC5">
             <End Role="tblUserSignup" EntitySet="tblUserSignup" />
             <End Role="tblMessages" EntitySet="tblMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorkEx__Count__719CDDE7" Association="Self.FK__tblWorkEx__Count__719CDDE7">
+            <End Role="tblCountry" EntitySet="tblCountry" />
+            <End Role="tblWorkExperience" EntitySet="tblWorkExperience" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorkEx__FromM__72910220" Association="Self.FK__tblWorkEx__FromM__72910220">
+            <End Role="tblMonth" EntitySet="tblMonth" />
+            <End Role="tblWorkExperience" EntitySet="tblWorkExperience" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorkEx__FromY__73852659" Association="Self.FK__tblWorkEx__FromY__73852659">
+            <End Role="tblYear" EntitySet="tblYear" />
+            <End Role="tblWorkExperience" EntitySet="tblWorkExperience" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorkEx__ToMon__74794A92" Association="Self.FK__tblWorkEx__ToMon__74794A92">
+            <End Role="tblMonth" EntitySet="tblMonth" />
+            <End Role="tblWorkExperience" EntitySet="tblWorkExperience" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorkEx__ToYea__756D6ECB" Association="Self.FK__tblWorkEx__ToYea__756D6ECB">
+            <End Role="tblYear" EntitySet="tblYear" />
+            <End Role="tblWorkExperience" EntitySet="tblWorkExperience" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorkEx__UserI__7755B73D" Association="Self.FK__tblWorkEx__UserI__7755B73D">
+            <End Role="tblUserSignup" EntitySet="tblUserSignup" />
+            <End Role="tblWorkExperience" EntitySet="tblWorkExperience" />
           </AssociationSet>
           <AssociationSet Name="Fk_Reciever" Association="Self.Fk_Reciever">
             <End Role="tblUserSignup" EntitySet="tblUserSignup" />
@@ -331,6 +522,8 @@
           <NavigationProperty Name="Receiver" Relationship="Connect_LPUModel.Fk_Sender" FromRole="User" ToRole="tblConnection" />
           <NavigationProperty Name="From" Relationship="Connect_LPUModel.FK__tblMessag__FromU__40F9A68C" FromRole="User" ToRole="tblMessage" />
           <NavigationProperty Name="To" Relationship="Connect_LPUModel.FK__tblMessag__ToUse__41EDCAC5" FromRole="User" ToRole="tblMessage" />
+          <NavigationProperty Name="Educations" Relationship="Connect_LPUModel.FK__tblEducat__UserI__5224328E" FromRole="User" ToRole="tblEducation" />
+          <NavigationProperty Name="tblWorkExperiences" Relationship="Connect_LPUModel.FK__tblWorkEx__UserI__6EC0713C" FromRole="User" ToRole="tblWorkExperience" />
           </EntityType>
         <Association Name="FK__tblBranch__Cours__72C60C4A">
           <End Role="tblCourse" Type="Connect_LPUModel.Course" Multiplicity="0..1" />
@@ -404,6 +597,44 @@
           <AssociationSet Name="FK__tblMessag__ToUse__41EDCAC5" Association="Connect_LPUModel.FK__tblMessag__ToUse__41EDCAC5">
             <End Role="User" EntitySet="Users" />
             <End Role="tblMessage" EntitySet="Messages" />
+          </AssociationSet>
+          <EntitySet Name="Degrees" EntityType="Connect_LPUModel.Degree" />
+          <EntitySet Name="Educations" EntityType="Connect_LPUModel.Education" />
+          <AssociationSet Name="FK__tblEducat__Degre__51300E55" Association="Connect_LPUModel.FK__tblEducat__Degre__51300E55">
+            <End Role="tblDegree" EntitySet="Degrees" />
+            <End Role="tblEducation" EntitySet="Educations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEducat__UserI__5224328E" Association="Connect_LPUModel.FK__tblEducat__UserI__5224328E">
+            <End Role="User" EntitySet="Users" />
+            <End Role="tblEducation" EntitySet="Educations" />
+          </AssociationSet>
+          <EntitySet Name="Countries" EntityType="Connect_LPUModel.Country" />
+          <EntitySet Name="Months" EntityType="Connect_LPUModel.Month" />
+          <EntitySet Name="WorkXps" EntityType="Connect_LPUModel.WorkXp" />
+          <EntitySet Name="Years1" EntityType="Connect_LPUModel.Year" />
+          <AssociationSet Name="FK__tblWorkEx__Count__690797E6" Association="Connect_LPUModel.FK__tblWorkEx__Count__690797E6">
+            <End Role="tblCountry" EntitySet="Countries" />
+            <End Role="tblWorkExperience" EntitySet="WorkXps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorkEx__FromM__69FBBC1F" Association="Connect_LPUModel.FK__tblWorkEx__FromM__69FBBC1F">
+            <End Role="tblMonth" EntitySet="Months" />
+            <End Role="tblWorkExperience" EntitySet="WorkXps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorkEx__ToMon__6BE40491" Association="Connect_LPUModel.FK__tblWorkEx__ToMon__6BE40491">
+            <End Role="tblMonth" EntitySet="Months" />
+            <End Role="tblWorkExperience" EntitySet="WorkXps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorkEx__UserI__6EC0713C" Association="Connect_LPUModel.FK__tblWorkEx__UserI__6EC0713C">
+            <End Role="User" EntitySet="Users" />
+            <End Role="tblWorkExperience" EntitySet="WorkXps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorkEx__FromY__6AEFE058" Association="Connect_LPUModel.FK__tblWorkEx__FromY__6AEFE058">
+            <End Role="tblYear" EntitySet="Years1" />
+            <End Role="tblWorkExperience" EntitySet="WorkXps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorkEx__ToYea__6CD828CA" Association="Connect_LPUModel.FK__tblWorkEx__ToYea__6CD828CA">
+            <End Role="tblYear" EntitySet="Years1" />
+            <End Role="tblWorkExperience" EntitySet="WorkXps" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Record">
@@ -547,6 +778,173 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Degree">
+          <Key>
+            <PropertyRef Name="DegreeId" />
+          </Key>
+          <Property Name="DegreeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DegreeName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Educations" Relationship="Connect_LPUModel.FK__tblEducat__Degre__51300E55" FromRole="tblDegree" ToRole="tblEducation" />
+        </EntityType>
+        <EntityType Name="Education">
+          <Key>
+            <PropertyRef Name="EducationId" />
+          </Key>
+          <Property Name="EducationId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="School" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DegreeType" Type="Int32" Nullable="false" />
+          <Property Name="EduFrom" Type="Int32" Nullable="false" />
+          <Property Name="EduTo" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Degree" Relationship="Connect_LPUModel.FK__tblEducat__Degre__51300E55" FromRole="tblEducation" ToRole="tblDegree" />
+          <NavigationProperty Name="User" Relationship="Connect_LPUModel.FK__tblEducat__UserI__5224328E" FromRole="tblEducation" ToRole="User" />
+          <Property Name="Course" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__tblEducat__Degre__51300E55">
+          <End Type="Connect_LPUModel.Degree" Role="tblDegree" Multiplicity="1" />
+          <End Type="Connect_LPUModel.Education" Role="tblEducation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDegree">
+              <PropertyRef Name="DegreeId" />
+            </Principal>
+            <Dependent Role="tblEducation">
+              <PropertyRef Name="DegreeType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEducat__UserI__5224328E">
+          <End Type="Connect_LPUModel.User" Role="User" Multiplicity="1" />
+          <End Type="Connect_LPUModel.Education" Role="tblEducation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblEducation">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryCode" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="WorkXp" Relationship="Connect_LPUModel.FK__tblWorkEx__Count__690797E6" FromRole="tblCountry" ToRole="tblWorkExperience" />
+        </EntityType>
+        <EntityType Name="Month">
+          <Key>
+            <PropertyRef Name="MonthId" />
+          </Key>
+          <Property Name="MonthId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MonthName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="WorkXpFrom" Relationship="Connect_LPUModel.FK__tblWorkEx__FromM__69FBBC1F" FromRole="tblMonth" ToRole="tblWorkExperience" />
+          <NavigationProperty Name="WorkXpTo" Relationship="Connect_LPUModel.FK__tblWorkEx__ToMon__6BE40491" FromRole="tblMonth" ToRole="tblWorkExperience" />
+        </EntityType>
+        <EntityType Name="WorkXp">
+          <Key>
+            <PropertyRef Name="WorkxpId" />
+          </Key>
+          <Property Name="WorkxpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Designation" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="Int32" Nullable="false" />
+          <Property Name="FromMonth" Type="Int32" Nullable="false" />
+          <Property Name="FromYear" Type="Int32" Nullable="false" />
+          <Property Name="ToMonth" Type="Int32" />
+          <Property Name="ToYear" Type="Int32" />
+          <Property Name="IsCurrentlyWorking" Type="Boolean" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Countries" Relationship="Connect_LPUModel.FK__tblWorkEx__Count__690797E6" FromRole="tblWorkExperience" ToRole="tblCountry" />
+          <NavigationProperty Name="MonthFrom" Relationship="Connect_LPUModel.FK__tblWorkEx__FromM__69FBBC1F" FromRole="tblWorkExperience" ToRole="tblMonth" />
+          <NavigationProperty Name="MonthTo" Relationship="Connect_LPUModel.FK__tblWorkEx__ToMon__6BE40491" FromRole="tblWorkExperience" ToRole="tblMonth" />
+          <NavigationProperty Name="User" Relationship="Connect_LPUModel.FK__tblWorkEx__UserI__6EC0713C" FromRole="tblWorkExperience" ToRole="User" />
+          <NavigationProperty Name="WorkXpStart" Relationship="Connect_LPUModel.FK__tblWorkEx__FromY__6AEFE058" FromRole="tblWorkExperience" ToRole="tblYear" />
+          <NavigationProperty Name="WorkXpEnd" Relationship="Connect_LPUModel.FK__tblWorkEx__ToYea__6CD828CA" FromRole="tblWorkExperience" ToRole="tblYear" />
+          <Property Name="Company" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Year">
+          <Key>
+            <PropertyRef Name="YearId" />
+          </Key>
+          <Property Name="YearId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="YearName" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WorkXpStart" Relationship="Connect_LPUModel.FK__tblWorkEx__FromY__6AEFE058" FromRole="tblYear" ToRole="tblWorkExperience" />
+          <NavigationProperty Name="WorkXpEnd" Relationship="Connect_LPUModel.FK__tblWorkEx__ToYea__6CD828CA" FromRole="tblYear" ToRole="tblWorkExperience" />
+        </EntityType>
+        <Association Name="FK__tblWorkEx__Count__690797E6">
+          <End Type="Connect_LPUModel.Country" Role="tblCountry" Multiplicity="1" />
+          <End Type="Connect_LPUModel.WorkXp" Role="tblWorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="tblWorkExperience">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorkEx__FromM__69FBBC1F">
+          <End Type="Connect_LPUModel.Month" Role="tblMonth" Multiplicity="1" />
+          <End Type="Connect_LPUModel.WorkXp" Role="tblWorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMonth">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="tblWorkExperience">
+              <PropertyRef Name="FromMonth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorkEx__ToMon__6BE40491">
+          <End Type="Connect_LPUModel.Month" Role="tblMonth" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.WorkXp" Role="tblWorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMonth">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="tblWorkExperience">
+              <PropertyRef Name="ToMonth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorkEx__UserI__6EC0713C">
+          <End Type="Connect_LPUModel.User" Role="User" Multiplicity="1" />
+          <End Type="Connect_LPUModel.WorkXp" Role="tblWorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblWorkExperience">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorkEx__FromY__6AEFE058">
+          <End Type="Connect_LPUModel.Year" Role="tblYear" Multiplicity="1" />
+          <End Type="Connect_LPUModel.WorkXp" Role="tblWorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblYear">
+              <PropertyRef Name="YearId" />
+            </Principal>
+            <Dependent Role="tblWorkExperience">
+              <PropertyRef Name="FromYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorkEx__ToYea__6CD828CA">
+          <End Type="Connect_LPUModel.Year" Role="tblYear" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.WorkXp" Role="tblWorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblYear">
+              <PropertyRef Name="YearId" />
+            </Principal>
+            <Dependent Role="tblWorkExperience">
+              <PropertyRef Name="ToYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -647,6 +1045,69 @@
                 <ScalarProperty Name="ToUser" ColumnName="ToUser" />
                 <ScalarProperty Name="FromUser" ColumnName="FromUser" />
                 <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Degrees">
+            <EntityTypeMapping TypeName="Connect_LPUModel.Degree">
+              <MappingFragment StoreEntitySet="tblDegree">
+                <ScalarProperty Name="DegreeName" ColumnName="DegreeName" />
+                <ScalarProperty Name="DegreeId" ColumnName="DegreeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Educations">
+            <EntityTypeMapping TypeName="Connect_LPUModel.Education">
+              <MappingFragment StoreEntitySet="tblEducation">
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="EduTo" ColumnName="EduTo" />
+                <ScalarProperty Name="EduFrom" ColumnName="EduFrom" />
+                <ScalarProperty Name="DegreeType" ColumnName="DegreeType" />
+                <ScalarProperty Name="School" ColumnName="School" />
+                <ScalarProperty Name="EducationId" ColumnName="EducationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="Connect_LPUModel.Country">
+              <MappingFragment StoreEntitySet="tblCountry">
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Months">
+            <EntityTypeMapping TypeName="Connect_LPUModel.Month">
+              <MappingFragment StoreEntitySet="tblMonth">
+                <ScalarProperty Name="MonthName" ColumnName="MonthName" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkXps">
+            <EntityTypeMapping TypeName="Connect_LPUModel.WorkXp">
+              <MappingFragment StoreEntitySet="tblWorkExperience">
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IsCurrentlyWorking" ColumnName="IsCurrentlyWorking" />
+                <ScalarProperty Name="ToYear" ColumnName="ToYear" />
+                <ScalarProperty Name="ToMonth" ColumnName="ToMonth" />
+                <ScalarProperty Name="FromYear" ColumnName="FromYear" />
+                <ScalarProperty Name="FromMonth" ColumnName="FromMonth" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="WorkxpId" ColumnName="WorkxpId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Years1">
+            <EntityTypeMapping TypeName="Connect_LPUModel.Year">
+              <MappingFragment StoreEntitySet="tblYear">
+                <ScalarProperty Name="YearName" ColumnName="Year" />
+                <ScalarProperty Name="YearId" ColumnName="YearId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

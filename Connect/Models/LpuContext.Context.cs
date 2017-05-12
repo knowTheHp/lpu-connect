@@ -33,5 +33,13 @@ namespace Connect.Models
         public virtual DbSet<Record> Records { get; set; }
         public virtual DbSet<Connection> Connections { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<Degree> Degrees { get; set; }
+        public virtual DbSet<Education> Educations { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<Month> Months { get; set; }
+        public virtual DbSet<WorkXp> WorkXps { get; set; }
+        public virtual DbSet<Year> Years { get; set; }
+
+        public System.Data.Entity.DbSet<Connect.Models.ViewModel.WorkXpVM> WorkXpVMs { get; set; }
     }
 }

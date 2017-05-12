@@ -175,10 +175,19 @@
     <Compile Include="Models\Connection.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Country.cs">
+      <DependentUpon>LpuContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Course.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Degree.cs">
+      <DependentUpon>LpuContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Department.cs">
+      <DependentUpon>LpuContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Education.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LpuContext.Context.cs">
@@ -199,6 +208,9 @@
     <Compile Include="Models\Message.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Month.cs">
+      <DependentUpon>LpuContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Record.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
@@ -210,8 +222,18 @@
     <Compile Include="Models\VerifyEmail.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EducationDTO.cs" />
+    <Compile Include="Models\ViewModel\EducationVM.cs" />
     <Compile Include="Models\ViewModel\FriendRequestVM.cs" />
     <Compile Include="Models\ViewModel\RegisterVM.cs" />
+    <Compile Include="Models\ViewModel\WorkXpVM.cs" />
+    <Compile Include="Models\WorkXp.cs">
+      <DependentUpon>LpuContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkXpDTO.cs" />
+    <Compile Include="Models\Year.cs">
+      <DependentUpon>LpuContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -324,6 +346,8 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\LoginPartial.cshtml" />
     <Content Include="Views\Account\Username.cshtml" />
+    <Content Include="Views\Account\EducationPartial.cshtml" />
+    <Content Include="Views\Account\WorkExperiencePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

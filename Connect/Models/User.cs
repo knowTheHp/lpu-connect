@@ -25,6 +25,9 @@ namespace Connect.Models
             this.To = new HashSet<Message>();
             this.Educations = new HashSet<Education>();
             this.WorkXp = new HashSet<WorkXp>();
+            this.Projects = new HashSet<Project>();
+            this.Intro = new HashSet<SelfIntro>();
+            this.Awards = new HashSet<Award>();
         }
     
         public long UserId { get; set; }
@@ -60,5 +63,11 @@ namespace Connect.Models
         public virtual ICollection<Education> Educations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkXp> WorkXp { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Project> Projects { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SelfIntro> Intro { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Award> Awards { get; set; }
     }
 }

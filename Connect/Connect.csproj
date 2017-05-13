@@ -169,6 +169,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Models\Award.cs">
+      <DependentUpon>LpuContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AwardDTO.cs" />
     <Compile Include="Models\Branch.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
@@ -190,6 +194,7 @@
     <Compile Include="Models\Education.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\IntroDTO.cs" />
     <Compile Include="Models\LpuContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -211,10 +216,17 @@
     <Compile Include="Models\Month.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Project.cs">
+      <DependentUpon>LpuContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProjectDTO.cs" />
     <Compile Include="Models\Record.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RecordDTO.cs" />
+    <Compile Include="Models\SelfIntro.cs">
+      <DependentUpon>LpuContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
@@ -223,8 +235,11 @@
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EducationDTO.cs" />
+    <Compile Include="Models\ViewModel\AwardVM.cs" />
     <Compile Include="Models\ViewModel\EducationVM.cs" />
     <Compile Include="Models\ViewModel\FriendRequestVM.cs" />
+    <Compile Include="Models\ViewModel\SelfIntroVM.cs" />
+    <Compile Include="Models\ViewModel\ProjectVM.cs" />
     <Compile Include="Models\ViewModel\RegisterVM.cs" />
     <Compile Include="Models\ViewModel\WorkXpVM.cs" />
     <Compile Include="Models\WorkXp.cs">
@@ -348,6 +363,9 @@
     <Content Include="Views\Account\Username.cshtml" />
     <Content Include="Views\Account\EducationPartial.cshtml" />
     <Content Include="Views\Account\WorkExperiencePartial.cshtml" />
+    <Content Include="Views\Account\ProjectPartial.cshtml" />
+    <Content Include="Views\Account\IntroPartial.cshtml" />
+    <Content Include="Views\Account\AwardPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

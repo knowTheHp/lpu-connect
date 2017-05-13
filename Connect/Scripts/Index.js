@@ -21,10 +21,16 @@
     //Toggle Currently Working
     $(function () {
         $('#isWorking').change(function () {
-            $('#toggleFromMonthAndYear').toggle(!this.checked);
+            $('#toggleToMonthAndYear').toggle(!this.checked);
         }).change(); //ensure visible state matches initially
     });
-    //
+
+    //Toggle Project On-Going
+    $(function () {
+        $('#projectOnGoing').change(function () {
+            $('#toggleMonthAndYear').toggle(!this.checked);
+        }).change(); //ensure visible state matches initially
+    });
 
     //Start Branch
     $('#Course').change(function () {

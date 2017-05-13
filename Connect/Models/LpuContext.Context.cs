@@ -39,5 +39,8 @@ namespace Connect.Models
         public virtual DbSet<Month> Months { get; set; }
         public virtual DbSet<WorkXp> WorkXps { get; set; }
         public virtual DbSet<Year> Years { get; set; }
+        public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<SelfIntro> SelfIntroes { get; set; }
+        public virtual DbSet<Award> Awards { get; set; }
     }
 }

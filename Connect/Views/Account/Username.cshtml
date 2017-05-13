@@ -80,18 +80,23 @@
             }
             <!-- #endregion Followers-->
             <!-- #endregion Connect Button-->
-        </div><!--//profile-container-->
+        </div>
+        <!--profile-container-->
 
         <div class="contact-container container-block">
             <ul class="list-unstyled contact-list">
+                <!-- #region City region -->
                 <li class="email">
                     <i class="fa fa-home"></i>
                     <span>@ViewBag.City</span>
                 </li>
+                <!-- #endregion -->
+                <!-- #region Email -->
                 <li class="email">
                     <i class="glyphicon glyphicon-envelope"></i>
                     <a href="mailto: @ViewBag.Email">&nbsp;@ViewBag.Email</a>
                 </li>
+                <!-- #endregion -->
             </ul>
         </div>
 
@@ -121,11 +126,24 @@
     </div><!--//sidebar-wrapper-->
     <div class="main-wrapper">
 
+        <!-- #region User Intro -->
         <section class="section summary-section">
-            <h2 class="section-title">
+            <h2 class="section-title" style="display:inline-block">
                 <i class="fa fa-comment"></i>Bio
             </h2>
-        </section><!--//section-->
+            @if (ViewBag.Intro == null) {
+                if (ViewBag.UserType == "owner") {
+                    @Html.Action("IntroPartial", "Account")
+                }
+            } else {
+                if(ViewBag.Intro != null) {
+                <span style="display:block" class="h5">@ViewBag.Intro</span>
+                } else {
+                    <span style="display:block" class="h5">Add Intro</span>
+                }
+            }
+        </section>
+        <!-- #endregion -->
         <!-- #Education region -->
         <section class="section education-section">
             <h2 class="section-title" style="display:inline-block">
@@ -138,10 +156,10 @@
                 if (ViewBag.Education != null) {
                     foreach (var item in ViewBag.Education) {
                         <div class="item">
-                            <h4 class="degree">@item.Degree.DegreeName</h4>
-                            <h5 class="meta">@item.School</h5>
-                            <h5 class="meta">@item.Course</h5>
-                            <div class="meta">@item.EduFrom - @item.EduTo</div>
+                            <h5 class="degree">@item.Degree.DegreeName</h5>
+                            <h5 class="h5">@item.School</h5>
+                            <h5 class="h5">@item.Course</h5>
+                            <h5 class="h5">@item.EduFrom - @item.EduTo</h5>
                         </div>
                     }
                 } else {
@@ -149,8 +167,8 @@
                 }
             }
         </section>
-
-
+        <!-- #endregion -->
+        <!-- #region WorkXP -->
         <section class="section experiences-section">
             <h2 class="section-title" style="display:inline-block">
                 <i class="fa fa-briefcase"></i>Experiences
@@ -158,12 +176,11 @@
             @if (ViewBag.UserType == "owner") {
                 @Html.Action("WorkExperiencePartial", "Account")
             }
-
             @if (ViewBag.UserType != null) {
                 if (ViewBag.WorkXp != null) {
                     foreach (var item in ViewBag.WorkXp) {
                         <div class="item">
-                            <h5 class="degree">Company - <span class="h5">@item.Company</span></h5>
+                            <h5 class="meta">Company - <span class="h5">@item.Company</span></h5>
                             <h5 class="meta">Designation - <span class="h5">@item.Designation</span></h5>
                             <h5 class="meta">City - <span class="h5">@item.City</span></h5>
                             <h5 class="meta">Country - <span class="h5">@item.Countries.CountryName</span></h5>
@@ -181,102 +198,84 @@
                     <p>No record</p>
                 }
             }
-        </section><!--//section--><section class="section projects-section">
-            <h2 class="section-title">
+        </section>
+        <!-- #endregion -->
+        <!-- #region Project -->
+        <section class="section projects-section">
+            <h2 class="section-title" style="display:inline-block">
                 <i class="fa fa-archive"></i>Projects
             </h2>
-            <div class="item">
-                <span class="project-title"><a href="https://github.com/syntacticalpro/LPU-Connect" target="_blank">LPU Connect</a></span> -
-                <span class="project-tagline">A web-based application that will connect all the students and faculties of Lovely Professional University with each other. The main objective of this application is to remove the connection gap between the students and faculties of same and different departments.</span>
-            </div><!--//item-->
-            <div class="item">
-                <span class="project-title"><a href="http://www.syntacticalpro.com/" target="_blank">Hotel Prabhat</a></span> -
-                <span class="project-tagline">
-                    A web-based application coming soon
-                </span>
-            </div><!--//item-->
-            <div class="item">
-                <span class="project-title"><a href="http://www.syntacticalpro.com/" target="_blank">Hotel Prabhat</a></span> -
-                <span class="project-tagline">A cross-platfrom mobile application coming soon </span>
-            </div><!--//item-->
-            <div class="item">
-                <span class="project-title"><a href="http://www.syntacticalpro.com/" target="_blank">Hotel Prabhat</a></span> -
-                <span class="project-tagline">A billing system application coming soon</span>
-            </div><!--//item-->
-            <div class="item">
-                <span class="project-title"><a href="http://www.syntacticalpro.com/" target="_blank">Android War</a></span> -
-                <span class="project-tagline">A cross platform mobile game coming soon</span>
-            </div><!--//item-->
-            <div class="item">
-                <span class="project-title"><a href="http://www.syntacticalpro.com/" target="_blank">AI Platformer</a></span> -
-                <span class="project-tagline">A cross platform mobile game coming soon</span>
-            </div><!--//item-->
-        </section><!--//section--><br /><section class="skills-section section">
-            <h2 class="section-title">
-                <i class="fa fa-rocket"></i>Skills &amp; Proficiency
-            </h2>
-            <div class="skillset">
-                <div class="item">
-                    <h3 class="level-title">C#.Net</h3>
-                    <div class="level-bar">
-                        <div class="level-bar-inner" data-level="85%">
+            @if (ViewBag.UserType == "owner") {
+                @Html.Action("ProjectPartial", "Account")
+            }
+            @if (ViewBag.UserType != null) {
+                if (ViewBag.Projects != null) {
+                    foreach (var item in ViewBag.Projects) {
+                        <div class="item">
+                            <h5 class="meta"><a href="@item.ProjectUrl" target="_blank">@item.ProjectName</a></h5>
+                            <span class="project-tagline">@item.ProjectDescription</span>
+                            <h5 class="meta">From - <span class="h5">@item.FromMonth.MonthName @item.FromYear.YearName</span></h5>
+                            @if (@item.ProjectOnGoing) {
+                                <h5 class="meta">In development!</h5>
+                            } else {
+                                if (item.ToMonth.MonthName != null && @item.ToYear.YearName != null) {
+                                    <h5 class="meta">To - <span class="h5">@item.ToMonth.MonthName @item.ToYear.YearName</span></h5>
+                                }
+                            }
                         </div>
-                    </div><!--//level-bar-->
-                </div><!--//item-->
-
-                <div class="item">
-                    <h3 class="level-title">Xamarin.Forms</h3>
-                    <div class="level-bar">
-                        <div class="level-bar-inner" data-level="88%">
-                        </div>
-                    </div><!--//level-bar-->
-                </div><!--//item-->
-
-                <div class="item">
-                    <h3 class="level-title">ASP.NET Core</h3>
-                    <div class="level-bar">
-                        <div class="level-bar-inner" data-level="75%">
-                        </div>
-                    </div><!--//level-bar-->
-                </div><!--//item-->
-
-                <div class="item">
-                    <h3 class="level-title">AngularJs 2</h3>
-                    <div class="level-bar">
-                        <div class="level-bar-inner" data-level="80%">
-                        </div>
-                    </div><!--//level-bar-->
-                </div><!--//item-->
-
-                <div class="item">
-                    <h3 class="level-title">HTML5 &amp; CSS</h3>
-                    <div class="level-bar">
-                        <div class="level-bar-inner" data-level="60%">
-                        </div>
-                    </div><!--//level-bar-->
-                </div><!--//item-->
-
-                <div class="item">
-                    <h3 class="level-title">Unity3D</h3>
-                    <div class="level-bar">
-                        <div class="level-bar-inner" data-level="70%">
-                        </div>
-                    </div><!--//level-bar-->
-                </div><!--//item-->
-            </div>
-        </section><!--//skills-section--><section class="section-project section">
-            <h2 class="section-title">
+                    }
+                } else {
+                    <p>No record</p>
+                }
+            }
+        </section>
+        <!-- #endregion -->
+        <!-- #region Skills -->
+        @*<section class="skills-section section">
+                <h2 class="section-title">
+                    <i class="fa fa-rocket"></i>Skills &amp; Proficiency
+                </h2>
+                @if (ViewBag.UserType == "owner") {
+                    @Html.Action("SkillsPartial", "Account")
+                }
+                <div class="skillset">
+                    <div class="item">
+                        @if(ViewBag.Skills != null) {
+                            foreach (var item in ViewBag.Skills) {
+                        <h3 class="level-title">@ViewBag.Skills</h3>
+                            }
+                        } else {
+                            <h3>Add Skills</h3>
+                        }
+                    </div>
+                </div>
+            </section>*@
+        <!-- #endregion -->
+        <!-- #region Achievements -->
+        <section class="section-project section">
+            <h2 class="section-title" style="display:inline-block">
                 <i class="fa fa-trophy"></i>Accomplishment
             </h2>
+
+            @if (ViewBag.UserType == "owner") {
+                @Html.Action("AwardPartial", "Account")
+            }
+            @foreach (var item in ViewBag.Awards) {
             <div class="skillset">
                 <div class="item">
-                    <span class="project-title"><a href="#" target="_blank">MVP</a></span> -
-                    <span class="project-tagline">Awarded as Most the Valuable Professional twice csharpcorner.com for the year 2015 &amp; 2016.</span>
-                </div><!--//item-->
+                    <h5 class="meta">@item.Name</h5>
+                    <h5 class="meta">Issuer - <span class="h5">@item.Issuer</span></h5>
+                    <h5 class="project-tagline">Desciption - <span class="h5">@item.Description</span></h5>
+                    <h5 class="meta">Period - <span class="h5">@item.Month.MonthName @item.Year.YearName</span></h5>
+                </div>
             </div>
-        </section><!--//Recognition-->
-    </div><!--//main-body-->
-</div><!--SignalR Region-->@section Scripts{
+            }
+        </section>
+        <!-- #endregion -->
+    </div>
+</div>
+
+@section Scripts{
     <script src="~/assets/js/main.js"></script>
     <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
     <script src="~/signalr/hubs"></script>

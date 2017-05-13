@@ -7,7 +7,7 @@
 <script src="@Url.Content("~/Scripts/jquery-3.1.1.min.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
-<button id="educationModal" data-target="#workxpModal" data-toggle="modal" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>Add</button>
+<button id="workXpModal" data-target="#workxpModal" data-toggle="modal" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>Add</button>
 <div class="modal fade" id="workxpModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -67,8 +67,15 @@
                                 @Html.ValidationMessageFor(model => model.FromYear, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                @Html.CheckBox("IsCurrentlyWorking", false, new { @class = "control-label", @id = "isWorking" })
+                                @Html.LabelFor(model => model.IsCurrentlyWorking, htmlAttributes: new { @class = "control-label" })
+                                @Html.ValidationMessageFor(model => model.IsCurrentlyWorking, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-                        <div id="toggleFromMonthAndYear">
+                        <div id="toggleToMonthAndYear">
                         <div class="form-group">
                             @Html.Label("To", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
@@ -83,14 +90,6 @@
                                 @Html.ValidationMessageFor(model => model.ToYear, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                @Html.CheckBox("IsCurrentlyWorking", false, new { @class = "control-label",@id="isWorking" })
-                                @Html.LabelFor(model => model.IsCurrentlyWorking, htmlAttributes: new { @class = "control-label" })
-                                @Html.ValidationMessageFor(model => model.IsCurrentlyWorking, "", new { @class = "text-danger" })
-                            </div>
                         </div>
 
                         <div class="form-group">

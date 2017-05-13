@@ -19,6 +19,9 @@ namespace Connect.Models
         {
             this.WorkXpStart = new HashSet<WorkXp>();
             this.WorkXpEnd = new HashSet<WorkXp>();
+            this.ProjectStart = new HashSet<Project>();
+            this.ProjectEnd = new HashSet<Project>();
+            this.Awards = new HashSet<Award>();
         }
     
         public int YearId { get; set; }
@@ -28,5 +31,11 @@ namespace Connect.Models
         public virtual ICollection<WorkXp> WorkXpStart { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkXp> WorkXpEnd { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Project> ProjectStart { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Project> ProjectEnd { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Award> Awards { get; set; }
     }
 }

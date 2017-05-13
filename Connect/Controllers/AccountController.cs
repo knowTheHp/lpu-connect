@@ -241,14 +241,31 @@ namespace Connect.Controllers {
                 ViewBag.GraduateYear = recordView.GraduateYear;
             }
 
+
+            //get intro
+            var intro= recordView.Users.Intro.Where(user => user.User.Username == Username).FirstOrDefault();
+            if (intro !=null) {
+                ViewBag.Intro = intro.Intro;
+            } else {
+                ViewBag.intro = null;
+            }
+
             //get education list record
             ViewBag.Education = recordView.Users.Educations.Where(user => user.User.Username == Username).ToList();
 
             //get workXp
             ViewBag.WorkXp = recordView.Users.WorkXp.Where(user => user.User.Username == Username).ToList();
+
+            //get Project
+            ViewBag.Projects = recordView.Users.Projects.Where(user => user.User.Username == Username).ToList();
+
+            //get awards
+            ViewBag.Awards = recordView.Users.Awards.Where(user => user.User.Username == Username).ToList();
+
+            //get skills
+            //ViewBag.Skills
             #endregion
 
-            WorkXp xp = new WorkXp();
             //check the usertype
             string userType = "guest";
             if (Username.Equals(loggedInUser)) {
@@ -305,10 +322,13 @@ namespace Connect.Controllers {
             return View();
         }
 
+        #region Login View
         public ActionResult LoginPartial() {
             return PartialView();
         }
+        #endregion
 
+        #region Login Validation
         [HttpPost]
         public string Login(string Username, string Password) {
             string pass = FormsAuthentication.HashPasswordForStoringInConfigFile(Password, "SHA1");
@@ -321,14 +341,38 @@ namespace Connect.Controllers {
                 return "problem";
             }
         }
+        #endregion
 
+        #region IntroPartial
+        public ActionResult IntroPartial() {
+            SelfIntroVM intro = new SelfIntroVM();
+            return PartialView("IntroPartial",intro);
+        }
+        #endregion
+
+        #region Intro Validation and Insertion
+        public ActionResult Intro(SelfIntroVM introVM) {
+            SelfIntro selfIntro = new SelfIntro() {
+                Intro = introVM.Intro,
+                UserId = lpuContext.Users.Where(user => user.Username.Equals(User.Identity.Name)).Single().UserId
+            };
+            lpuContext.SelfIntroes.Add(selfIntro);
+            lpuContext.SaveChanges();
+            return Redirect("~/");
+        }
+        #endregion
+
+        #region Education View
         [Authorize]
         public ActionResult EducationPartial() {
             EducationVM eduModel = new EducationVM();
             ViewBag.Degree = lpuContext.Degrees;
             return PartialView("EducationPartial", eduModel);
         }
+        #endregion
 
+
+        #region Education Validation and Insertion
         [HttpPost]
         [Authorize]
         public ActionResult Education(EducationVM model) {
@@ -348,7 +392,9 @@ namespace Connect.Controllers {
                 return View("~/");
             }
         }
+        #endregion
 
+        #region WorkXp View
         [Authorize]
         public ActionResult WorkExperiencePartial() {
             WorkXpVM workXpVM = new WorkXpVM();
@@ -361,7 +407,10 @@ namespace Connect.Controllers {
             ViewBag.ToYear = Years;
             return View("WorkExperiencePartial", workXpVM);
         }
+        #endregion
 
+
+        #region WorkXp Validation and Insertion
         [Authorize]
         [HttpPost]
         public ActionResult WorkExperience(WorkXpVM workXp) {
@@ -381,12 +430,72 @@ namespace Connect.Controllers {
             lpuContext.SaveChanges();
             return Redirect("~/");
         }
+        #endregion
 
+        #region Project View
+        public ActionResult ProjectPartial() {
+            ProjectVM projectVM = new ProjectVM();
+            var Months = lpuContext.Months;
+            var Years = lpuContext.Years.OrderByDescending(x => x.YearId);
+            ViewBag.FromMonth = Months;
+            ViewBag.FromYear = Years;
+            ViewBag.ToMonth = Months;
+            ViewBag.ToYear = Years;
+            return View("ProjectPartial", projectVM);
+        }
+        #endregion
+
+        #region Project Validation and Insertion
+        public ActionResult Project(ProjectVM projectVM) {
+            Project project = new Project() {
+                ProjectName = projectVM.ProjectName,
+                ProjectDescription = projectVM.ProjectDescription,
+                ProjectUrl = projectVM.ProjectUrl,
+                ProjectStartMonth = projectVM.ProjectStartMonth,
+                ProjectStartYear = projectVM.ProjectStartYear,
+                ProjectOnGoing = projectVM.ProjectOnGoing,
+                ProjectEndMonth = projectVM.ProjectEndMonth,
+                ProjectEndYear = projectVM.ProjectEndYear,
+                UserId = lpuContext.Users.Where(user => user.Username.Equals(User.Identity.Name)).Single().UserId
+            };
+            lpuContext.Projects.Add(project);
+            lpuContext.SaveChanges();
+            return Redirect("~/");
+        }
+        #endregion
+
+        #region Awards View
+        public ActionResult AwardPartial() {
+            AwardVM awardVM = new AwardVM();
+            ViewBag.Month = lpuContext.Months;
+            ViewBag.Year = lpuContext.Years.OrderByDescending(x => x.YearId);
+            return PartialView("AwardPartial", awardVM);
+        }
+        #endregion
+
+        #region Awards Validation and Insertion
+        public ActionResult Award(AwardVM awardVM) {
+            Award award = new Award() {
+                Name = awardVM.Name,
+                Issuer = awardVM.Issuer,
+                Description = awardVM.Description,
+                AwardMonth = awardVM.AwardMonth,
+                AwardYear = awardVM.AwardYear,
+                UserId = lpuContext.Users.Where(user => user.Username.Equals(User.Identity.Name)).Single().UserId
+            };
+            lpuContext.Awards.Add(award);
+            lpuContext.SaveChanges();
+            return Redirect("~/");
+        }
+        #endregion
+
+        #region Logout
         [Authorize]
         public ActionResult Logout() {
             //Signout
             FormsAuthentication.SignOut();
             return Redirect("~/");
         }
+        #endregion
     }
 }

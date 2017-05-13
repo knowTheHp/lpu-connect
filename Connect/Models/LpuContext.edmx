@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Connect_LPUModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblAwards">
+          <Key>
+            <PropertyRef Name="AwardId" />
+          </Key>
+          <Property Name="AwardId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Issuer" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="AwardMonth" Type="int" />
+          <Property Name="AwardYear" Type="int" />
+          <Property Name="UserId" Type="bigint" />
+        </EntityType>
         <EntityType Name="tblBranch">
           <Key>
             <PropertyRef Name="BranchId" />
@@ -107,6 +119,29 @@
           <Property Name="MonthId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MonthName" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblProject">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ProjectDescription" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="ProjectUrl" Type="varchar" MaxLength="1000" />
+          <Property Name="ProjectStartMonth" Type="int" Nullable="false" />
+          <Property Name="ProjectStartYear" Type="int" Nullable="false" />
+          <Property Name="ProjectOnGoing" Type="bit" />
+          <Property Name="ProjectEndMonth" Type="int" />
+          <Property Name="ProjectEndYear" Type="int" />
+          <Property Name="UserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tblSelfIntro">
+          <Key>
+            <PropertyRef Name="IntroId" />
+          </Key>
+          <Property Name="IntroId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Intro" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="UserId" Type="bigint" />
+        </EntityType>
         <EntityType Name="tblUserSignup">
           <Key>
             <PropertyRef Name="UserId" />
@@ -151,6 +186,42 @@
           <Property Name="YearId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Year" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK__tblAwards__Award__0E391C95">
+          <End Role="tblMonth" Type="Self.tblMonth" Multiplicity="0..1" />
+          <End Role="tblAwards" Type="Self.tblAwards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMonth">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="tblAwards">
+              <PropertyRef Name="AwardMonth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblAwards__Award__0F2D40CE">
+          <End Role="tblYear" Type="Self.tblYear" Multiplicity="0..1" />
+          <End Role="tblAwards" Type="Self.tblAwards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblYear">
+              <PropertyRef Name="YearId" />
+            </Principal>
+            <Dependent Role="tblAwards">
+              <PropertyRef Name="AwardYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblAwards__UserI__10216507">
+          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="0..1" />
+          <End Role="tblAwards" Type="Self.tblAwards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserSignup">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblAwards">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tblBranch__Cours__72C60C4A">
           <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="0..1" />
           <End Role="tblBranch" Type="Self.tblBranch" Multiplicity="*" />
@@ -271,6 +342,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tblProjec__Proje__7A3223E8">
+          <End Role="tblMonth" Type="Self.tblMonth" Multiplicity="1" />
+          <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMonth">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="tblProject">
+              <PropertyRef Name="ProjectStartMonth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProjec__Proje__7B264821">
+          <End Role="tblYear" Type="Self.tblYear" Multiplicity="1" />
+          <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblYear">
+              <PropertyRef Name="YearId" />
+            </Principal>
+            <Dependent Role="tblProject">
+              <PropertyRef Name="ProjectStartYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProjec__Proje__7D0E9093">
+          <End Role="tblMonth" Type="Self.tblMonth" Multiplicity="0..1" />
+          <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMonth">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="tblProject">
+              <PropertyRef Name="ProjectEndMonth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProjec__Proje__7E02B4CC">
+          <End Role="tblYear" Type="Self.tblYear" Multiplicity="0..1" />
+          <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblYear">
+              <PropertyRef Name="YearId" />
+            </Principal>
+            <Dependent Role="tblProject">
+              <PropertyRef Name="ProjectEndYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProjec__UserI__7EF6D905">
+          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="0..1" />
+          <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserSignup">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblProject">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSelfIn__UserI__01D345B0">
+          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="0..1" />
+          <End Role="tblSelfIntro" Type="Self.tblSelfIntro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserSignup">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblSelfIntro">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tblWorkEx__Count__719CDDE7">
           <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="1" />
           <End Role="tblWorkExperience" Type="Self.tblWorkExperience" Multiplicity="*" />
@@ -368,6 +511,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Connect_LPUModelStoreContainer">
+          <EntitySet Name="tblAwards" EntityType="Self.tblAwards" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblBranch" EntityType="Self.tblBranch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblConnections" EntityType="Self.tblConnections" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCountry" EntityType="Self.tblCountry" Schema="dbo" store:Type="Tables" />
@@ -379,9 +523,23 @@
           <EntitySet Name="tblLpuRecords" EntityType="Self.tblLpuRecords" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMessages" EntityType="Self.tblMessages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMonth" EntityType="Self.tblMonth" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProject" EntityType="Self.tblProject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSelfIntro" EntityType="Self.tblSelfIntro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUserSignup" EntityType="Self.tblUserSignup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblWorkExperience" EntityType="Self.tblWorkExperience" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblYear" EntityType="Self.tblYear" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblAwards__Award__0E391C95" Association="Self.FK__tblAwards__Award__0E391C95">
+            <End Role="tblMonth" EntitySet="tblMonth" />
+            <End Role="tblAwards" EntitySet="tblAwards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblAwards__Award__0F2D40CE" Association="Self.FK__tblAwards__Award__0F2D40CE">
+            <End Role="tblYear" EntitySet="tblYear" />
+            <End Role="tblAwards" EntitySet="tblAwards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblAwards__UserI__10216507" Association="Self.FK__tblAwards__UserI__10216507">
+            <End Role="tblUserSignup" EntitySet="tblUserSignup" />
+            <End Role="tblAwards" EntitySet="tblAwards" />
+          </AssociationSet>
           <AssociationSet Name="FK__tblBranch__Cours__72C60C4A" Association="Self.FK__tblBranch__Cours__72C60C4A">
             <End Role="tblCourse" EntitySet="tblCourse" />
             <End Role="tblBranch" EntitySet="tblBranch" />
@@ -421,6 +579,30 @@
           <AssociationSet Name="FK__tblMessag__ToUse__41EDCAC5" Association="Self.FK__tblMessag__ToUse__41EDCAC5">
             <End Role="tblUserSignup" EntitySet="tblUserSignup" />
             <End Role="tblMessages" EntitySet="tblMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProjec__Proje__7A3223E8" Association="Self.FK__tblProjec__Proje__7A3223E8">
+            <End Role="tblMonth" EntitySet="tblMonth" />
+            <End Role="tblProject" EntitySet="tblProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProjec__Proje__7B264821" Association="Self.FK__tblProjec__Proje__7B264821">
+            <End Role="tblYear" EntitySet="tblYear" />
+            <End Role="tblProject" EntitySet="tblProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProjec__Proje__7D0E9093" Association="Self.FK__tblProjec__Proje__7D0E9093">
+            <End Role="tblMonth" EntitySet="tblMonth" />
+            <End Role="tblProject" EntitySet="tblProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProjec__Proje__7E02B4CC" Association="Self.FK__tblProjec__Proje__7E02B4CC">
+            <End Role="tblYear" EntitySet="tblYear" />
+            <End Role="tblProject" EntitySet="tblProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProjec__UserI__7EF6D905" Association="Self.FK__tblProjec__UserI__7EF6D905">
+            <End Role="tblUserSignup" EntitySet="tblUserSignup" />
+            <End Role="tblProject" EntitySet="tblProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSelfIn__UserI__01D345B0" Association="Self.FK__tblSelfIn__UserI__01D345B0">
+            <End Role="tblUserSignup" EntitySet="tblUserSignup" />
+            <End Role="tblSelfIntro" EntitySet="tblSelfIntro" />
           </AssociationSet>
           <AssociationSet Name="FK__tblWorkEx__Count__719CDDE7" Association="Self.FK__tblWorkEx__Count__719CDDE7">
             <End Role="tblCountry" EntitySet="tblCountry" />
@@ -524,6 +706,9 @@
           <NavigationProperty Name="To" Relationship="Connect_LPUModel.FK__tblMessag__ToUse__41EDCAC5" FromRole="User" ToRole="tblMessage" />
           <NavigationProperty Name="Educations" Relationship="Connect_LPUModel.FK__tblEducat__UserI__5224328E" FromRole="User" ToRole="tblEducation" />
           <NavigationProperty Name="WorkXp" Relationship="Connect_LPUModel.FK__tblWorkEx__UserI__6EC0713C" FromRole="User" ToRole="tblWorkExperience" />
+          <NavigationProperty Name="Projects" Relationship="Connect_LPUModel.FK__tblProjec__UserI__7EF6D905" FromRole="User" ToRole="tblProject" />
+          <NavigationProperty Name="Intro" Relationship="Connect_LPUModel.FK__tblSelfIn__UserI__01D345B0" FromRole="User" ToRole="tblSelfIntro" />
+          <NavigationProperty Name="Awards" Relationship="Connect_LPUModel.FK__tblAwards__UserI__0697FACD" FromRole="User" ToRole="tblAward" />
           </EntityType>
         <Association Name="FK__tblBranch__Cours__72C60C4A">
           <End Role="tblCourse" Type="Connect_LPUModel.Course" Multiplicity="0..1" />
@@ -635,6 +820,45 @@
           <AssociationSet Name="FK__tblWorkEx__ToYea__6CD828CA" Association="Connect_LPUModel.FK__tblWorkEx__ToYea__6CD828CA">
             <End Role="tblYear" EntitySet="Years1" />
             <End Role="tblWorkExperience" EntitySet="WorkXps" />
+          </AssociationSet>
+          <EntitySet Name="Projects" EntityType="Connect_LPUModel.Project" />
+          <AssociationSet Name="FK__tblProjec__Proje__7A3223E8" Association="Connect_LPUModel.FK__tblProjec__Proje__7A3223E8">
+            <End Role="Month" EntitySet="Months" />
+            <End Role="tblProject" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProjec__Proje__7D0E9093" Association="Connect_LPUModel.FK__tblProjec__Proje__7D0E9093">
+            <End Role="Month" EntitySet="Months" />
+            <End Role="tblProject" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProjec__Proje__7B264821" Association="Connect_LPUModel.FK__tblProjec__Proje__7B264821">
+            <End Role="Year" EntitySet="Years1" />
+            <End Role="tblProject" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProjec__Proje__7E02B4CC" Association="Connect_LPUModel.FK__tblProjec__Proje__7E02B4CC">
+            <End Role="Year" EntitySet="Years1" />
+            <End Role="tblProject" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProjec__UserI__7EF6D905" Association="Connect_LPUModel.FK__tblProjec__UserI__7EF6D905">
+            <End Role="User" EntitySet="Users" />
+            <End Role="tblProject" EntitySet="Projects" />
+          </AssociationSet>
+          <EntitySet Name="SelfIntroes" EntityType="Connect_LPUModel.SelfIntro" />
+          <AssociationSet Name="FK__tblSelfIn__UserI__01D345B0" Association="Connect_LPUModel.FK__tblSelfIn__UserI__01D345B0">
+            <End Role="User" EntitySet="Users" />
+            <End Role="tblSelfIntro" EntitySet="SelfIntroes" />
+          </AssociationSet>
+          <EntitySet Name="Awards" EntityType="Connect_LPUModel.Award" />
+          <AssociationSet Name="FK__tblAwards__Award__04AFB25B" Association="Connect_LPUModel.FK__tblAwards__Award__04AFB25B">
+            <End Role="Month" EntitySet="Months" />
+            <End Role="tblAward" EntitySet="Awards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblAwards__Award__05A3D694" Association="Connect_LPUModel.FK__tblAwards__Award__05A3D694">
+            <End Role="Year" EntitySet="Years1" />
+            <End Role="tblAward" EntitySet="Awards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblAwards__UserI__0697FACD" Association="Connect_LPUModel.FK__tblAwards__UserI__0697FACD">
+            <End Role="User" EntitySet="Users" />
+            <End Role="tblAward" EntitySet="Awards" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Record">
@@ -841,6 +1065,9 @@
           <Property Name="MonthName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="WorkXpFrom" Relationship="Connect_LPUModel.FK__tblWorkEx__FromM__69FBBC1F" FromRole="tblMonth" ToRole="tblWorkExperience" />
           <NavigationProperty Name="WorkXpTo" Relationship="Connect_LPUModel.FK__tblWorkEx__ToMon__6BE40491" FromRole="tblMonth" ToRole="tblWorkExperience" />
+          <NavigationProperty Name="ProjectFrom" Relationship="Connect_LPUModel.FK__tblProjec__Proje__7A3223E8" FromRole="Month" ToRole="tblProject" />
+          <NavigationProperty Name="ProjectTo" Relationship="Connect_LPUModel.FK__tblProjec__Proje__7D0E9093" FromRole="Month" ToRole="tblProject" />
+          <NavigationProperty Name="Awards" Relationship="Connect_LPUModel.FK__tblAwards__Award__04AFB25B" FromRole="Month" ToRole="tblAward" />
         </EntityType>
         <EntityType Name="WorkXp">
           <Key>
@@ -872,6 +1099,9 @@
           <Property Name="YearName" Type="Int32" Nullable="false" />
           <NavigationProperty Name="WorkXpStart" Relationship="Connect_LPUModel.FK__tblWorkEx__FromY__6AEFE058" FromRole="tblYear" ToRole="tblWorkExperience" />
           <NavigationProperty Name="WorkXpEnd" Relationship="Connect_LPUModel.FK__tblWorkEx__ToYea__6CD828CA" FromRole="tblYear" ToRole="tblWorkExperience" />
+          <NavigationProperty Name="ProjectStart" Relationship="Connect_LPUModel.FK__tblProjec__Proje__7B264821" FromRole="Year" ToRole="tblProject" />
+          <NavigationProperty Name="ProjectEnd" Relationship="Connect_LPUModel.FK__tblProjec__Proje__7E02B4CC" FromRole="Year" ToRole="tblProject" />
+          <NavigationProperty Name="Awards" Relationship="Connect_LPUModel.FK__tblAwards__Award__05A3D694" FromRole="Year" ToRole="tblAward" />
         </EntityType>
         <Association Name="FK__tblWorkEx__Count__690797E6">
           <End Type="Connect_LPUModel.Country" Role="tblCountry" Multiplicity="1" />
@@ -942,6 +1172,158 @@
             </Principal>
             <Dependent Role="tblWorkExperience">
               <PropertyRef Name="ToYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectDescription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectUrl" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectStartMonth" Type="Int32" Nullable="false" />
+          <Property Name="ProjectStartYear" Type="Int32" Nullable="false" />
+          <Property Name="ProjectOnGoing" Type="Boolean" />
+          <Property Name="ProjectEndMonth" Type="Int32" />
+          <Property Name="ProjectEndYear" Type="Int32" />
+          <Property Name="UserId" Type="Int64" />
+          <NavigationProperty Name="FromMonth" Relationship="Connect_LPUModel.FK__tblProjec__Proje__7A3223E8" FromRole="tblProject" ToRole="Month" />
+          <NavigationProperty Name="ToMonth" Relationship="Connect_LPUModel.FK__tblProjec__Proje__7D0E9093" FromRole="tblProject" ToRole="Month" />
+          <NavigationProperty Name="FromYear" Relationship="Connect_LPUModel.FK__tblProjec__Proje__7B264821" FromRole="tblProject" ToRole="Year" />
+          <NavigationProperty Name="ToYear" Relationship="Connect_LPUModel.FK__tblProjec__Proje__7E02B4CC" FromRole="tblProject" ToRole="Year" />
+          <NavigationProperty Name="User" Relationship="Connect_LPUModel.FK__tblProjec__UserI__7EF6D905" FromRole="tblProject" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__tblProjec__Proje__7A3223E8">
+          <End Type="Connect_LPUModel.Month" Role="Month" Multiplicity="1" />
+          <End Type="Connect_LPUModel.Project" Role="tblProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Month">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="tblProject">
+              <PropertyRef Name="ProjectStartMonth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProjec__Proje__7D0E9093">
+          <End Type="Connect_LPUModel.Month" Role="Month" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.Project" Role="tblProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Month">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="tblProject">
+              <PropertyRef Name="ProjectEndMonth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProjec__Proje__7B264821">
+          <End Type="Connect_LPUModel.Year" Role="Year" Multiplicity="1" />
+          <End Type="Connect_LPUModel.Project" Role="tblProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="YearId" />
+            </Principal>
+            <Dependent Role="tblProject">
+              <PropertyRef Name="ProjectStartYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProjec__Proje__7E02B4CC">
+          <End Type="Connect_LPUModel.Year" Role="Year" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.Project" Role="tblProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="YearId" />
+            </Principal>
+            <Dependent Role="tblProject">
+              <PropertyRef Name="ProjectEndYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProjec__UserI__7EF6D905">
+          <End Type="Connect_LPUModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.Project" Role="tblProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblProject">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SelfIntro">
+          <Key>
+            <PropertyRef Name="IntroId" />
+          </Key>
+          <Property Name="IntroId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Intro" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Int64" />
+          <NavigationProperty Name="User" Relationship="Connect_LPUModel.FK__tblSelfIn__UserI__01D345B0" FromRole="tblSelfIntro" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__tblSelfIn__UserI__01D345B0">
+          <End Type="Connect_LPUModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.SelfIntro" Role="tblSelfIntro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblSelfIntro">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Award">
+          <Key>
+            <PropertyRef Name="AwardId" />
+          </Key>
+          <Property Name="AwardId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Issuer" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="AwardMonth" Type="Int32" />
+          <Property Name="AwardYear" Type="Int32" />
+          <Property Name="UserId" Type="Int64" />
+          <NavigationProperty Name="Month" Relationship="Connect_LPUModel.FK__tblAwards__Award__04AFB25B" FromRole="tblAward" ToRole="Month" />
+          <NavigationProperty Name="Year" Relationship="Connect_LPUModel.FK__tblAwards__Award__05A3D694" FromRole="tblAward" ToRole="Year" />
+          <NavigationProperty Name="User" Relationship="Connect_LPUModel.FK__tblAwards__UserI__0697FACD" FromRole="tblAward" ToRole="User" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__tblAwards__Award__04AFB25B">
+          <End Type="Connect_LPUModel.Month" Role="Month" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.Award" Role="tblAward" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Month">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="tblAward">
+              <PropertyRef Name="AwardMonth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblAwards__Award__05A3D694">
+          <End Type="Connect_LPUModel.Year" Role="Year" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.Award" Role="tblAward" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="YearId" />
+            </Principal>
+            <Dependent Role="tblAward">
+              <PropertyRef Name="AwardYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblAwards__UserI__0697FACD">
+          <End Type="Connect_LPUModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.Award" Role="tblAward" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblAward">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1108,6 +1490,44 @@
               <MappingFragment StoreEntitySet="tblYear">
                 <ScalarProperty Name="YearName" ColumnName="Year" />
                 <ScalarProperty Name="YearId" ColumnName="YearId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="Connect_LPUModel.Project">
+              <MappingFragment StoreEntitySet="tblProject">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProjectEndYear" ColumnName="ProjectEndYear" />
+                <ScalarProperty Name="ProjectEndMonth" ColumnName="ProjectEndMonth" />
+                <ScalarProperty Name="ProjectOnGoing" ColumnName="ProjectOnGoing" />
+                <ScalarProperty Name="ProjectStartYear" ColumnName="ProjectStartYear" />
+                <ScalarProperty Name="ProjectStartMonth" ColumnName="ProjectStartMonth" />
+                <ScalarProperty Name="ProjectUrl" ColumnName="ProjectUrl" />
+                <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SelfIntroes">
+            <EntityTypeMapping TypeName="Connect_LPUModel.SelfIntro">
+              <MappingFragment StoreEntitySet="tblSelfIntro">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Intro" ColumnName="Intro" />
+                <ScalarProperty Name="IntroId" ColumnName="IntroId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Awards">
+            <EntityTypeMapping TypeName="Connect_LPUModel.Award">
+              <MappingFragment StoreEntitySet="tblAwards">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AwardYear" ColumnName="AwardYear" />
+                <ScalarProperty Name="AwardMonth" ColumnName="AwardMonth" />
+                <ScalarProperty Name="Issuer" ColumnName="Issuer" />
+                <ScalarProperty Name="AwardId" ColumnName="AwardId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

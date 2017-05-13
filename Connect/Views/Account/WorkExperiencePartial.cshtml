@@ -68,6 +68,7 @@
                             </div>
                         </div>
 
+                        <div id="toggleFromMonthAndYear">
                         <div class="form-group">
                             @Html.Label("To", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
@@ -82,10 +83,11 @@
                                 @Html.ValidationMessageFor(model => model.ToYear, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                        </div>
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                @Html.CheckBox("IsCurrentlyWorking", false, new { @class = "control-label" })
+                                @Html.CheckBox("IsCurrentlyWorking", false, new { @class = "control-label",@id="isWorking" })
                                 @Html.LabelFor(model => model.IsCurrentlyWorking, htmlAttributes: new { @class = "control-label" })
                                 @Html.ValidationMessageFor(model => model.IsCurrentlyWorking, "", new { @class = "text-danger" })
                             </div>

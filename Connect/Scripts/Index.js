@@ -20,8 +20,8 @@
 
     //Toggle Currently Working
     $(function () {
-        $('.always').change(function () {
-            $('#dates').toggle(!this.checked);
+        $('#isWorking').change(function () {
+            $('#toggleFromMonthAndYear').toggle(!this.checked);
         }).change(); //ensure visible state matches initially
     });
     //
@@ -71,8 +71,8 @@
         $.post(url, { username: username, password: password }, function (data) {
             var response = data.trim();
             document.location.href = "/";
-            if (response == "ok") {
-
+            if (response === "ok") {
+                //
             } else {
                 $("#validationVisible").show();
             }

@@ -141,8 +141,8 @@
                             <h4 class="degree">@item.Degree.DegreeName</h4>
                             <h5 class="meta">@item.School</h5>
                             <h5 class="meta">@item.Course</h5>
-            <div class="meta">@item.EduFrom - @item.EduTo</div>
-        </div><!--//item-->
+                            <div class="meta">@item.EduFrom - @item.EduTo</div>
+                        </div>
                     }
                 } else {
                     <p>No record</p>
@@ -158,9 +158,30 @@
             @if (ViewBag.UserType == "owner") {
                 @Html.Action("WorkExperiencePartial", "Account")
             }
-        </section><!--//section-->
 
-        <section class="section projects-section">
+            @if (ViewBag.UserType != null) {
+                if (ViewBag.WorkXp != null) {
+                    foreach (var item in ViewBag.WorkXp) {
+                        <div class="item">
+                            <h5 class="degree">Company - <span class="h5">@item.Company</span></h5>
+                            <h5 class="meta">Designation - <span class="h5">@item.Designation</span></h5>
+                            <h5 class="meta">City - <span class="h5">@item.City</span></h5>
+                            <h5 class="meta">Country - <span class="h5">@item.Countries.CountryName</span></h5>
+                            <h5 class="meta">From - <span class="h5">@item.MonthFrom.MonthName @item.WorkXpStart.YearName</span></h5>
+                            @if (@item.IsCurrentlyWorking) {
+                                <h5 class="meta">Currently Working here!</h5>
+                            } else {
+                                if (@item.MonthTo.MonthName != null && @item.WorkXpEnd.YearName != null) {
+                                    <h5 class="meta">To - <span class="h5">@item.MonthTo.MonthName @item.WorkXpEnd.YearName</span></h5>
+                                }
+                            }
+                        </div>
+                    }
+                } else {
+                    <p>No record</p>
+                }
+            }
+        </section><!--//section--><section class="section projects-section">
             <h2 class="section-title">
                 <i class="fa fa-archive"></i>Projects
             </h2>
@@ -190,11 +211,7 @@
                 <span class="project-title"><a href="http://www.syntacticalpro.com/" target="_blank">AI Platformer</a></span> -
                 <span class="project-tagline">A cross platform mobile game coming soon</span>
             </div><!--//item-->
-        </section><!--//section-->
-
-        <br />
-
-        <section class="skills-section section">
+        </section><!--//section--><br /><section class="skills-section section">
             <h2 class="section-title">
                 <i class="fa fa-rocket"></i>Skills &amp; Proficiency
             </h2>
@@ -247,8 +264,7 @@
                     </div><!--//level-bar-->
                 </div><!--//item-->
             </div>
-        </section><!--//skills-section-->
-        <section class="section-project section">
+        </section><!--//skills-section--><section class="section-project section">
             <h2 class="section-title">
                 <i class="fa fa-trophy"></i>Accomplishment
             </h2>
@@ -260,14 +276,7 @@
             </div>
         </section><!--//Recognition-->
     </div><!--//main-body-->
-</div>
-
-
-
-
-
-<!--SignalR Region-->
-@section Scripts{
+</div><!--SignalR Region-->@section Scripts{
     <script src="~/assets/js/main.js"></script>
     <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
     <script src="~/signalr/hubs"></script>

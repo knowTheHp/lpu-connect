@@ -243,8 +243,12 @@ namespace Connect.Controllers {
 
             //get education list record
             ViewBag.Education = recordView.Users.Educations.Where(user => user.User.Username == Username).ToList();
+
+            //get workXp
+            ViewBag.WorkXp = recordView.Users.WorkXp.Where(user => user.User.Username == Username).ToList();
             #endregion
 
+            WorkXp xp = new WorkXp();
             //check the usertype
             string userType = "guest";
             if (Username.Equals(loggedInUser)) {
@@ -361,10 +365,23 @@ namespace Connect.Controllers {
         [Authorize]
         [HttpPost]
         public ActionResult WorkExperience(WorkXpVM workXp) {
-            WorkXp workXpDTO = new WorkXp();
-
-            return View();
+            WorkXp workXpDTO = new WorkXp() {
+                Company = workXp.Company,
+                Designation = workXp.Designation,
+                City = workXp.City,
+                Country = workXp.Country,
+                FromMonth = workXp.FromMonth,
+                FromYear = workXp.FromYear,
+                ToMonth = workXp.ToMonth,
+                ToYear = workXp.ToYear,
+                IsCurrentlyWorking = workXp.IsCurrentlyWorking,
+                UserId = lpuContext.Users.Where(user => user.Username.Equals(User.Identity.Name)).Single().UserId
+            };
+            lpuContext.WorkXps.Add(workXpDTO);
+            lpuContext.SaveChanges();
+            return Redirect("~/");
         }
+
         [Authorize]
         public ActionResult Logout() {
             //Signout

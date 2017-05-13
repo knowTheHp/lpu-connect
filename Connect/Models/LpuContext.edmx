@@ -523,7 +523,7 @@
           <NavigationProperty Name="From" Relationship="Connect_LPUModel.FK__tblMessag__FromU__40F9A68C" FromRole="User" ToRole="tblMessage" />
           <NavigationProperty Name="To" Relationship="Connect_LPUModel.FK__tblMessag__ToUse__41EDCAC5" FromRole="User" ToRole="tblMessage" />
           <NavigationProperty Name="Educations" Relationship="Connect_LPUModel.FK__tblEducat__UserI__5224328E" FromRole="User" ToRole="tblEducation" />
-          <NavigationProperty Name="tblWorkExperiences" Relationship="Connect_LPUModel.FK__tblWorkEx__UserI__6EC0713C" FromRole="User" ToRole="tblWorkExperience" />
+          <NavigationProperty Name="WorkXp" Relationship="Connect_LPUModel.FK__tblWorkEx__UserI__6EC0713C" FromRole="User" ToRole="tblWorkExperience" />
           </EntityType>
         <Association Name="FK__tblBranch__Cours__72C60C4A">
           <End Role="tblCourse" Type="Connect_LPUModel.Course" Multiplicity="0..1" />

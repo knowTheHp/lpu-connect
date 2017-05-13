@@ -39,7 +39,5 @@ namespace Connect.Models
         public virtual DbSet<Month> Months { get; set; }
         public virtual DbSet<WorkXp> WorkXps { get; set; }
         public virtual DbSet<Year> Years { get; set; }
-
-        public System.Data.Entity.DbSet<Connect.Models.ViewModel.WorkXpVM> WorkXpVMs { get; set; }
     }
 }

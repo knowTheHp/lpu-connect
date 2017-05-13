@@ -30,7 +30,7 @@ namespace Connect.Models
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<VerifyEmail> VerifyEmails { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Record> Records { get; set; }
+        public virtual DbSet<Record> Records1 { get; set; }
         public virtual DbSet<Connection> Connections { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<Degree> Degrees { get; set; }
@@ -38,9 +38,11 @@ namespace Connect.Models
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Month> Months { get; set; }
         public virtual DbSet<WorkXp> WorkXps { get; set; }
-        public virtual DbSet<Year> Years { get; set; }
+        public virtual DbSet<Year> Years1 { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<SelfIntro> SelfIntroes { get; set; }
         public virtual DbSet<Award> Awards { get; set; }
+        public virtual DbSet<Skill> Skills { get; set; }
+        public virtual DbSet<tblUserSkill> tblUserSkills { get; set; }
     }
 }

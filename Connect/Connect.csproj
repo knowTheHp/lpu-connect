@@ -227,6 +227,12 @@
     <Compile Include="Models\SelfIntro.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Skill.cs">
+      <DependentUpon>LpuContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblUserSkill.cs">
+      <DependentUpon>LpuContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>

@@ -140,7 +140,7 @@ namespace Connect.Controllers {
                     }
 
                     //step 13: Save
-                    lpuContext.Records.Add(recordDTO);
+                    lpuContext.Records1.Add(recordDTO);
                     lpuContext.SaveChanges();
 
                     //Step 14: Get the inserted id
@@ -201,7 +201,7 @@ namespace Connect.Controllers {
             #endregion
 
             #region Get Viewing Data
-            Record recordView = lpuContext.Records.Where(user => user.Users.Username.Equals(Username)).FirstOrDefault();
+            Record recordView = lpuContext.Records1.Where(user => user.Users.Username.Equals(Username)).FirstOrDefault();
             //get fullname
             ViewBag.FullName = recordView.Users.Firstname + " " + recordView.Users.Lastname;
             //get image
@@ -400,7 +400,7 @@ namespace Connect.Controllers {
             WorkXpVM workXpVM = new WorkXpVM();
             ViewBag.Countries = lpuContext.Countries;
             var Months = lpuContext.Months;
-            var Years = lpuContext.Years.OrderByDescending(x => x.YearId);
+            var Years = lpuContext.Years1.OrderByDescending(x => x.YearId);
             ViewBag.FromMonth = Months;
             ViewBag.FromYear = Years;
             ViewBag.ToMonth = Months;
@@ -436,7 +436,7 @@ namespace Connect.Controllers {
         public ActionResult ProjectPartial() {
             ProjectVM projectVM = new ProjectVM();
             var Months = lpuContext.Months;
-            var Years = lpuContext.Years.OrderByDescending(x => x.YearId);
+            var Years = lpuContext.Years1.OrderByDescending(x => x.YearId);
             ViewBag.FromMonth = Months;
             ViewBag.FromYear = Years;
             ViewBag.ToMonth = Months;
@@ -464,11 +464,24 @@ namespace Connect.Controllers {
         }
         #endregion
 
+        #region Skills View
+        public ActionResult SkillPartial() {
+
+            return PartialView("SkillPartial");
+        }
+        #endregion
+
+        #region Skills Validation and Insertion
+        public ActionResult Skill() {
+            return Redirect("~/");
+        }
+        #endregion
+
         #region Awards View
         public ActionResult AwardPartial() {
             AwardVM awardVM = new AwardVM();
             ViewBag.Month = lpuContext.Months;
-            ViewBag.Year = lpuContext.Years.OrderByDescending(x => x.YearId);
+            ViewBag.Year = lpuContext.Years1.OrderByDescending(x => x.YearId);
             return PartialView("AwardPartial", awardVM);
         }
         #endregion

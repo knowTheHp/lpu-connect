@@ -28,6 +28,7 @@ namespace Connect.Models
             this.Projects = new HashSet<Project>();
             this.Intro = new HashSet<SelfIntro>();
             this.Awards = new HashSet<Award>();
+            this.Skills = new HashSet<tblUserSkill>();
         }
     
         public long UserId { get; set; }
@@ -69,5 +70,7 @@ namespace Connect.Models
         public virtual ICollection<SelfIntro> Intro { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Award> Awards { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblUserSkill> Skills { get; set; }
     }
 }

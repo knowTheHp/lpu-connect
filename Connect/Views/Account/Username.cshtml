@@ -148,9 +148,9 @@
             <h2 class="section-title" style="display:inline-block">
                 <i class="fa fa-graduation-cap"></i>Education
             </h2>
-                @if (ViewBag.UserType == "owner") {
-                    @Html.Action("EducationPartial", "Account")
-                }
+            @if (ViewBag.UserType == "owner") {
+                @Html.Action("EducationPartial", "Account")
+            }
             @if (ViewBag.UserType != null) {
                 if (ViewBag.Education != null) {
                     foreach (var item in ViewBag.Education) {
@@ -172,9 +172,9 @@
             <h2 class="section-title" style="display:inline-block">
                 <i class="fa fa-briefcase"></i>Experiences
             </h2>
-                @if (ViewBag.UserType == "owner") {
-                    @Html.Action("WorkExperiencePartial", "Account")
-                }
+            @if (ViewBag.UserType == "owner") {
+                @Html.Action("WorkExperiencePartial", "Account")
+            }
             @if (ViewBag.UserType != null) {
                 if (ViewBag.WorkXp != null) {
                     foreach (var item in ViewBag.WorkXp) {
@@ -204,9 +204,9 @@
             <h2 class="section-title" style="display:inline-block">
                 <i class="fa fa-archive"></i>Projects
             </h2>
-                @if (ViewBag.UserType == "owner") {
-                    @Html.Action("ProjectPartial", "Account")
-                }
+            @if (ViewBag.UserType == "owner") {
+                @Html.Action("ProjectPartial", "Account")
+            }
             @if (ViewBag.UserType != null) {
                 if (ViewBag.Projects != null) {
                     foreach (var item in ViewBag.Projects) {
@@ -234,14 +234,14 @@
             <h2 class="section-title" style="display:inline-block">
                 <i class="fa fa-rocket"></i>Skills &amp; Proficiency
             </h2>
-                @if (ViewBag.UserType == "owner") {
-                    @Html.Action("SkillPartial", "Account")
-                }
+            @if (ViewBag.UserType == "owner") {
+                @Html.Action("SkillPartial", "Account")
+            }
             @if (ViewBag.Skills != null) {
                 foreach (var item in ViewBag.Skills) {
-                        <div class="item">
-                            <h5 class="h5">@item.Skill.SkillName</h5>
-                        </div>
+                    <div class="item">
+                        <h5 class="h5">@item.Skill.SkillName</h5>
+                    </div>
                 }
             } else {
                 <h3>Add Skills</h3>
@@ -253,9 +253,9 @@
             <h2 class="section-title" style="display:inline-block">
                 <i class="fa fa-trophy"></i>Accomplishment
             </h2>
-                @if (ViewBag.UserType == "owner") {
-                    @Html.Action("AwardPartial", "Account")
-                }
+            @if (ViewBag.UserType == "owner") {
+                @Html.Action("AwardPartial", "Account")
+            }
 
             @foreach (var item in ViewBag.Awards) {
                 <div class="skillset">
@@ -271,7 +271,9 @@
         <!-- #endregion -->
     </div>
 </div>
-
+<div class="chat @User.Identity.Name">
+    <ul></ul>
+</div>
 @section Scripts{
     <script src="~/assets/js/main.js"></script>
     <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
@@ -317,6 +319,47 @@
                 }
             }
             //End In Connection
+
+            //Get online friends
+            hub.client.getonlinefriends = function (user, data) {
+                var result = JSON.parse(data);
+                for (var i = 0; i < result.length; i++) {
+                    var obj = result[i];
+                    $(".chat." + user + ">ul").append('<li class="cf' + obj.id + '" data-id="' + obj.id + '"><img src="uploads/' + obj.id + obj.friend + '.jpg"/>' + obj.friend +'</li>');
+                    var chatbox = $(".chatbox").clone();
+                    chatbox.attr("data-id", obj.id);
+                    chatbox.attr("id", "cb" + obj.id);
+                    chatbox.addClass("hidden");
+                    chat.find("a.sendchat").attr("data-friend", obj.friend);
+                    chat.find("a.sendchat").attr("data-id", obj.id);
+                    chat.find("div.chatboxtext").attr("id", "cbtext" + obj.id);
+                    $("#chb" + user).append(chatbox);
+                    $("#chb" + use + "#cb" + obj.id + " h4 > span").html('<img src="uploads/' + obj.id + user + '.jpg"/>');
+                }
+            }
+            //end get online friends
+
+            //get loggedin online friends++
+            hub.updatechat = function (user, data) {
+                var result = JSON.parse(data);
+                $(".chat." + user + ">ul").empty();
+                for (var i = 0; i < result.length; i++) {
+                    var obj = result[i];
+                    $(".chat." + user + "> ul").append('<li class="cf' + obj.id + '" data-id="' + obj.id + '"><img src="uploads/' + obj.id + obj.friend + '.jpg"/>' + obj.friend + '</li>');
+
+                    if (!($(".chatboxholder #cb" + obj.id).length)) {
+                    var chatbox = $(".chatbox").clone();
+                    chatbox.attr("data-id", obj.id);
+                    chatbox.attr("id", "cb" + obj.id);
+                    chatbox.addClass("hidden");
+                    chat.find("a.sendchat").attr("data-friend", obj.friend);
+                    chat.find("a.sendchat").attr("data-id", obj.id);
+                    chat.find("div.chatboxtext").attr("id", "cbtext" + obj.id);
+                    $("#chb" + user).append(chatbox);
+                    $("#chb" + use + "#cb" + obj.id + " h4 > span").html('<img src="uploads/' + obj.id + user + '.jpg"/>');
+                    }
+                }
+            }
 
             //Connect to hub
             $.connection.hub.start().done(function () {

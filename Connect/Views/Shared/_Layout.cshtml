@@ -69,6 +69,14 @@
     <div class="container body-content">
         @RenderBody()
     </div>
+    <div class="chatboxholder" id="chb@(User.Identity.Name)"></div>
+    <div class="chatbox">
+        <h4><span></span></h4>
+        <div class="chatboxtext"></div>
+        <textarea class="chattextarea"></textarea>
+        <br />
+        <a href="#" class="sendchat">Send</a>
+    </div>
     <footer class="navbar-fixed-bottom">
         <p>&copy; @DateTime.Now.Year - LPU Connect</p>
     </footer>

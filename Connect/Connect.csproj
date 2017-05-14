@@ -213,6 +213,9 @@
     <Compile Include="Models\Month.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Online.cs">
+      <DependentUpon>LpuContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Project.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
@@ -232,16 +235,17 @@
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserDTO.cs" />
+    <Compile Include="Models\EducationDTO.cs" />
     <Compile Include="Models\UserSkills.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VerifyEmail.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EducationDTO.cs" />
     <Compile Include="Models\ViewModel\AwardVM.cs" />
     <Compile Include="Models\ViewModel\EducationVM.cs" />
     <Compile Include="Models\ViewModel\FriendRequestVM.cs" />
+    <Compile Include="Models\ViewModel\OnlineVM.cs" />
     <Compile Include="Models\ViewModel\SelfIntroVM.cs" />
     <Compile Include="Models\ViewModel\ProjectVM.cs" />
     <Compile Include="Models\ViewModel\RegisterVM.cs" />

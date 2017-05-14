@@ -202,11 +202,12 @@ ul#liveSearchul {
     color: antiquewhite;
     border: 1px solid antiquewhite;
     list-style: none;
+    overflow: scroll;
 }
 
     ul#liveSearchul li {
-        width: 280px;
         padding: 8px;
+        width: 280px;
     }
 
     ul#liveSearchul a {
@@ -254,7 +255,7 @@ ul#liveSearchul {
     width: 280px;
     display: block;
     padding: 10px;
-    color:black;
+    color: black;
 }
 
     .frnotifli img {
@@ -282,12 +283,13 @@ ul#liveSearchul {
     border-collapse: separate;
     top: 12px;
     font-size: 20px;
-    color:black;
+    color: black;
 }
-.msgTextArea{
-    width:1000px;
-    height:100px;
-    color:black;
+
+.msgTextArea {
+    width: 1000px;
+    height: 100px;
+    color: black;
 }
 
 #Intro {
@@ -309,7 +311,7 @@ ul#liveSearchul {
     text-decoration: none;
 }
 
-.msgNotif{
+.msgNotif {
     right: -450px;
     display: inline-block;
     padding: 8px 2px 0px 2px;
@@ -318,9 +320,83 @@ ul#liveSearchul {
     text-decoration: none;
 }
 
+
+.chat {
+    width:250px;
+    position: fixed;
+    bottom: 0;
+    right: 1px;
+    display: table;
+    border-collapse: separate;
+    font-size: 15px;
+}
+
+.chat img{
+    width:50px;
+   height:50px;
+}
+
+    .chat ul li {
+        cursor: pointer;
+        margin: 10px;
+        list-style: none;
+    }
+
+.chatboxholder {
+    position: fixed;
+    bottom: 0;
+    right: 130px;
+    width: 100%;
+    height: 50px;
+}
+
+.chatbox {
+    position: absolute;
+}
+    .chatbox h4 {
+        position: absolute;
+        top: -65px;
+        left: 0;
+        z-index: 5;
+        background: #222;
+        width: 100%;
+        padding: 5px;
+    }
+
+    .chatbox img {
+        width: 300px !important;
+        margin-bottom: 15px;
+    }
+
+.chatboxtext {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+    background: white;
+    width: 90%;
+    height: 270px;
+    z-index: 1;
+    margin: 0 auto;
+    max-height: 270px;
+    overflow: scroll;
+    padding: 10px;
+}
+
+.chattextarea {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: 40px;
+    width: 90%;
+    height: 60px;
+    padding: 10px;
+}
+
 .red {
     color: red;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 /*End friend req*/

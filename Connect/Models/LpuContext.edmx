@@ -109,6 +109,14 @@
           <Property Name="MonthId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MonthName" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblOnline">
+          <Key>
+            <PropertyRef Name="OnlineId" />
+          </Key>
+          <Property Name="OnlineId" Type="bigint" Nullable="false" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="ConnectionId" Type="varchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="tblProject">
           <Key>
             <PropertyRef Name="ProjectId" />
@@ -323,6 +331,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tblOnline__UserI__4865BE2A">
+          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="0..1" />
+          <End Role="tblOnline" Type="Self.tblOnline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserSignup">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblOnline">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tblProjec__Proje__7A3223E8">
           <End Role="tblMonth" Type="Self.tblMonth" Multiplicity="1" />
           <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
@@ -527,6 +547,7 @@
           <EntitySet Name="tblEmailVerification" EntityType="Self.tblEmailVerification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblLpuRecords" EntityType="Self.tblLpuRecords" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMonth" EntityType="Self.tblMonth" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOnline" EntityType="Self.tblOnline" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProject" EntityType="Self.tblProject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSelfIntro" EntityType="Self.tblSelfIntro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSkills" EntityType="Self.tblSkills" Schema="dbo" store:Type="Tables" />
@@ -577,6 +598,10 @@
           <AssociationSet Name="FK__tblLpuRec__UserI__208CD6FA" Association="Self.FK__tblLpuRec__UserI__208CD6FA">
             <End Role="tblUserSignup" EntitySet="tblUserSignup" />
             <End Role="tblLpuRecords" EntitySet="tblLpuRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblOnline__UserI__4865BE2A" Association="Self.FK__tblOnline__UserI__4865BE2A">
+            <End Role="tblUserSignup" EntitySet="tblUserSignup" />
+            <End Role="tblOnline" EntitySet="tblOnline" />
           </AssociationSet>
           <AssociationSet Name="FK__tblProjec__Proje__7A3223E8" Association="Self.FK__tblProjec__Proje__7A3223E8">
             <End Role="tblMonth" EntitySet="tblMonth" />
@@ -714,6 +739,7 @@
           <NavigationProperty Name="Intro" Relationship="Connect_LPUModel.FK__tblSelfIn__UserI__01D345B0" FromRole="User" ToRole="tblSelfIntro" />
           <NavigationProperty Name="Awards" Relationship="Connect_LPUModel.FK__tblAwards__UserI__0697FACD" FromRole="User" ToRole="tblAward" />
           <NavigationProperty Name="Skills" Relationship="Connect_LPUModel.FK__tblUserSk__UserI__2BC97F7C" FromRole="User" ToRole="tblUserSkill" />
+          <NavigationProperty Name="Onlines" Relationship="Connect_LPUModel.FK__tblOnline__UserI__4865BE2A" FromRole="User" ToRole="tblOnline" />
           </EntityType>
         <Association Name="FK__tblBranch__Cours__72C60C4A">
           <End Role="tblCourse" Type="Connect_LPUModel.Course" Multiplicity="0..1" />
@@ -865,6 +891,11 @@
           <AssociationSet Name="FK__tblUserSk__UserI__2BC97F7C" Association="Connect_LPUModel.FK__tblUserSk__UserI__2BC97F7C">
             <End Role="User" EntitySet="Users" />
             <End Role="tblUserSkill" EntitySet="UserSkills" />
+          </AssociationSet>
+          <EntitySet Name="Onlines" EntityType="Connect_LPUModel.Online" />
+          <AssociationSet Name="FK__tblOnline__UserI__4865BE2A" Association="Connect_LPUModel.FK__tblOnline__UserI__4865BE2A">
+            <End Role="User" EntitySet="Users" />
+            <End Role="tblOnline" EntitySet="Onlines" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Record">
@@ -1339,6 +1370,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Online">
+          <Key>
+            <PropertyRef Name="OnlineId" />
+          </Key>
+          <Property Name="OnlineId" Type="Int64" Nullable="false" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="ConnectionId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="Connect_LPUModel.FK__tblOnline__UserI__4865BE2A" FromRole="tblOnline" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__tblOnline__UserI__4865BE2A">
+          <End Type="Connect_LPUModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Connect_LPUModel.Online" Role="tblOnline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblOnline">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1546,6 +1598,15 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="SkillId" ColumnName="SkillId" />
                 <ScalarProperty Name="UserSkillId" ColumnName="UserSkillId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Onlines">
+            <EntityTypeMapping TypeName="Connect_LPUModel.Online">
+              <MappingFragment StoreEntitySet="tblOnline">
+                <ScalarProperty Name="ConnectionId" ColumnName="ConnectionId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="OnlineId" ColumnName="OnlineId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -85,6 +85,11 @@ namespace Connect.Controllers {
                     City = userModel.City,
                     Password = FormsAuthentication.HashPasswordForStoringInConfigFile(userModel.Password, "SHA1")
                 };
+
+                VerifyEmail emailDTO = new VerifyEmail {
+                    UserId = userDTO.UserId
+                };
+
                 if (UserRole == "1") {
                     recordDTO = new Record() {
                         LpuId = userModel.LpuId,
@@ -141,6 +146,7 @@ namespace Connect.Controllers {
 
                     //step 13: Save
                     lpuContext.Records1.Add(recordDTO);
+                    lpuContext.VerifyEmails.Add(emailDTO);
                     lpuContext.SaveChanges();
 
                     //Step 14: Get the inserted id

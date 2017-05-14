@@ -27,6 +27,7 @@ namespace Connect.Models
             this.Intro = new HashSet<SelfIntro>();
             this.Awards = new HashSet<Award>();
             this.Skills = new HashSet<UserSkills>();
+            this.Onlines = new HashSet<Online>();
         }
     
         public long UserId { get; set; }
@@ -66,5 +67,7 @@ namespace Connect.Models
         public virtual ICollection<Award> Awards { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserSkills> Skills { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Online> Onlines { get; set; }
     }
 }

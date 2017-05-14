@@ -42,7 +42,7 @@ namespace Connect.Models
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<SelfIntro> SelfIntroes { get; set; }
         public virtual DbSet<Award> Awards { get; set; }
-        public virtual DbSet<Skill> Skills { get; set; }
-        public virtual DbSet<tblUserSkill> tblUserSkills { get; set; }
+        public virtual DbSet<Skills> Skills { get; set; }
+        public virtual DbSet<UserSkills> UserSkills { get; set; }
     }
 }

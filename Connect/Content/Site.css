@@ -289,7 +289,12 @@ ul#liveSearchul {
     color:black;
 }
 
-#Project, #Description, #Intro {
+#Intro {
+    width: 1000px;
+    height: 100px;
+}
+
+#ProjectDescription {
     width: 1000px;
     height: 100px;
 }

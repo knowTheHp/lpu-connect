@@ -227,16 +227,17 @@
     <Compile Include="Models\SelfIntro.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Skill.cs">
+    <Compile Include="Models\Skills.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tblUserSkill.cs">
-      <DependentUpon>LpuContext.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\SkillsDTO.cs" />
     <Compile Include="Models\User.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserDTO.cs" />
+    <Compile Include="Models\UserSkills.cs">
+      <DependentUpon>LpuContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VerifyEmail.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
@@ -247,6 +248,7 @@
     <Compile Include="Models\ViewModel\SelfIntroVM.cs" />
     <Compile Include="Models\ViewModel\ProjectVM.cs" />
     <Compile Include="Models\ViewModel\RegisterVM.cs" />
+    <Compile Include="Models\ViewModel\SkillsVM.cs" />
     <Compile Include="Models\ViewModel\WorkXpVM.cs" />
     <Compile Include="Models\WorkXp.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
@@ -372,6 +374,7 @@
     <Content Include="Views\Account\ProjectPartial.cshtml" />
     <Content Include="Views\Account\IntroPartial.cshtml" />
     <Content Include="Views\Account\AwardPartial.cshtml" />
+    <Content Include="Views\Account\SkillPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,21 +12,13 @@ namespace Connect.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblUserSkill
+    public partial class UserSkills
     {
-        public long SkillsId { get; set; }
-        public long SkillOne { get; set; }
-        public long SkillTwo { get; set; }
-        public Nullable<long> SkillThree { get; set; }
-        public Nullable<long> SkillFour { get; set; }
-        public Nullable<long> SkillFive { get; set; }
+        public long UserSkillId { get; set; }
+        public long SkillId { get; set; }
         public Nullable<long> UserId { get; set; }
     
-        public virtual Skill SkillsOne { get; set; }
-        public virtual Skill SkillsTwo { get; set; }
-        public virtual Skill SkillsThree { get; set; }
-        public virtual Skill SkillsFour { get; set; }
-        public virtual Skill SkillsFive { get; set; }
+        public virtual Skills Skill { get; set; }
         public virtual User User { get; set; }
     }
 }

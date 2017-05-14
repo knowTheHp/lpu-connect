@@ -135,12 +135,11 @@
                 if (ViewBag.UserType == "owner") {
                     @Html.Action("IntroPartial", "Account")
                 }
-            } else {
-                if(ViewBag.Intro != null) {
+            }
+            @if (ViewBag.Intro != null) {
                 <span style="display:block" class="h5">@ViewBag.Intro</span>
-                } else {
-                    <span style="display:block" class="h5">Add Intro</span>
-                }
+            } else {
+                <span style="display:block" class="h5">Add Intro</span>
             }
         </section>
         <!-- #endregion -->
@@ -149,9 +148,9 @@
             <h2 class="section-title" style="display:inline-block">
                 <i class="fa fa-graduation-cap"></i>Education
             </h2>
-            @if (ViewBag.UserType == "owner") {
-                @Html.Action("EducationPartial", "Account")
-            }
+                @if (ViewBag.UserType == "owner") {
+                    @Html.Action("EducationPartial", "Account")
+                }
             @if (ViewBag.UserType != null) {
                 if (ViewBag.Education != null) {
                     foreach (var item in ViewBag.Education) {
@@ -173,9 +172,9 @@
             <h2 class="section-title" style="display:inline-block">
                 <i class="fa fa-briefcase"></i>Experiences
             </h2>
-            @if (ViewBag.UserType == "owner") {
-                @Html.Action("WorkExperiencePartial", "Account")
-            }
+                @if (ViewBag.UserType == "owner") {
+                    @Html.Action("WorkExperiencePartial", "Account")
+                }
             @if (ViewBag.UserType != null) {
                 if (ViewBag.WorkXp != null) {
                     foreach (var item in ViewBag.WorkXp) {
@@ -205,9 +204,9 @@
             <h2 class="section-title" style="display:inline-block">
                 <i class="fa fa-archive"></i>Projects
             </h2>
-            @if (ViewBag.UserType == "owner") {
-                @Html.Action("ProjectPartial", "Account")
-            }
+                @if (ViewBag.UserType == "owner") {
+                    @Html.Action("ProjectPartial", "Account")
+                }
             @if (ViewBag.UserType != null) {
                 if (ViewBag.Projects != null) {
                     foreach (var item in ViewBag.Projects) {
@@ -231,44 +230,42 @@
         </section>
         <!-- #endregion -->
         <!-- #region Skills -->
-        @*<section class="skills-section section">
-                <h2 class="section-title">
-                    <i class="fa fa-rocket"></i>Skills &amp; Proficiency
-                </h2>
+        <section class="skills-section section">
+            <h2 class="section-title" style="display:inline-block">
+                <i class="fa fa-rocket"></i>Skills &amp; Proficiency
+            </h2>
                 @if (ViewBag.UserType == "owner") {
-                    @Html.Action("SkillsPartial", "Account")
+                    @Html.Action("SkillPartial", "Account")
                 }
-                <div class="skillset">
-                    <div class="item">
-                        @if(ViewBag.Skills != null) {
-                            foreach (var item in ViewBag.Skills) {
-                        <h3 class="level-title">@ViewBag.Skills</h3>
-                            }
-                        } else {
-                            <h3>Add Skills</h3>
-                        }
-                    </div>
-                </div>
-            </section>*@
+            @if (ViewBag.Skills != null) {
+                foreach (var item in ViewBag.Skills) {
+                        <div class="item">
+                            <h5 class="h5">@item.Skill.SkillName</h5>
+                        </div>
+                }
+            } else {
+                <h3>Add Skills</h3>
+            }
+        </section>
         <!-- #endregion -->
         <!-- #region Achievements -->
         <section class="section-project section">
             <h2 class="section-title" style="display:inline-block">
                 <i class="fa fa-trophy"></i>Accomplishment
             </h2>
+                @if (ViewBag.UserType == "owner") {
+                    @Html.Action("AwardPartial", "Account")
+                }
 
-            @if (ViewBag.UserType == "owner") {
-                @Html.Action("AwardPartial", "Account")
-            }
             @foreach (var item in ViewBag.Awards) {
-            <div class="skillset">
-                <div class="item">
-                    <h5 class="meta">@item.Name</h5>
-                    <h5 class="meta">Issuer - <span class="h5">@item.Issuer</span></h5>
-                    <h5 class="project-tagline">Desciption - <span class="h5">@item.Description</span></h5>
-                    <h5 class="meta">Period - <span class="h5">@item.Month.MonthName @item.Year.YearName</span></h5>
+                <div class="skillset">
+                    <div class="item">
+                        <h5 class="meta">@item.Name</h5>
+                        <h5 class="meta">Issuer - <span class="h5">@item.Issuer</span></h5>
+                        <h5 class="project-tagline">Desciption - <span class="h5">@item.Description</span></h5>
+                        <h5 class="meta">Period - <span class="h5">@item.Month.MonthName @item.Year.YearName</span></h5>
+                    </div>
                 </div>
-            </div>
             }
         </section>
         <!-- #endregion -->
@@ -282,6 +279,7 @@
     <script src="~/Scripts/Username.js"></script>
     <script src="~/Scripts/Index.js"></script>
     <script>
+        @Html.Raw(ViewBag.StartupScript)
         $(document).ready(function () {
             //setup hub connection
             var hub = $.connection.echo;

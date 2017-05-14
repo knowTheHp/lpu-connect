@@ -36,13 +36,9 @@
         <AssociationConnector Association="Connect_LPUModel.FK__tblWorkEx__FromM__69FBBC1F" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblWorkEx__ToMon__6BE40491" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblWorkEx__UserI__6EC0713C" ManuallyRouted="true" >
-          <ConnectorPoint PointX="5.375" PointY="2.4031250961920927" />
-          <ConnectorPoint PointX="4.9308397921983884" PointY="2.4031250961920927" />
-          <ConnectorPoint PointX="4.9308397921983884" PointY="7" />
-          <ConnectorPoint PointX="5.7743054461505139" PointY="7" />
-          <ConnectorPoint PointX="5.7743054461505139" PointY="10.125" />
-          <ConnectorPoint PointX="4.9308397921983884" PointY="10.125" />
-          <ConnectorPoint PointX="4.9308397921983884" PointY="10.5" />
+          <ConnectorPoint PointX="5.8125" PointY="6.9032194010416656" />
+          <ConnectorPoint PointX="5.8125" PointY="12.549085286458332" />
+          <ConnectorPoint PointX="5.375" PointY="12.549085286458332" />
         </AssociationConnector>
         <AssociationConnector Association="Connect_LPUModel.FK__tblWorkEx__FromY__6AEFE058" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblWorkEx__ToYea__6CD828CA" />
@@ -58,14 +54,10 @@
         <AssociationConnector Association="Connect_LPUModel.FK__tblAwards__Award__04AFB25B" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblAwards__Award__05A3D694" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblAwards__UserI__0697FACD" />
-        <EntityTypeShape EntityType="Connect_LPUModel.Skill" Width="1.5" PointX="10.375" PointY="12.5" />
-        <EntityTypeShape EntityType="Connect_LPUModel.tblUserSkill" Width="1.5" PointX="12.625" PointY="6" />
-        <AssociationConnector Association="Connect_LPUModel.FK__tblUserSk__Skill__1F63A897" />
-        <AssociationConnector Association="Connect_LPUModel.FK__tblUserSk__Skill__2057CCD0" />
-        <AssociationConnector Association="Connect_LPUModel.FK__tblUserSk__Skill__214BF109" />
-        <AssociationConnector Association="Connect_LPUModel.FK__tblUserSk__Skill__22401542" />
-        <AssociationConnector Association="Connect_LPUModel.FK__tblUserSk__Skill__2334397B" />
-        <AssociationConnector Association="Connect_LPUModel.FK__tblUserSk__UserI__24285DB4" />
+        <EntityTypeShape EntityType="Connect_LPUModel.Skills" Width="1.5" PointX="4.75" PointY="16.125" />
+        <EntityTypeShape EntityType="Connect_LPUModel.UserSkills" Width="1.5" PointX="0.625" PointY="0.625" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblUserSk__Skill__2AD55B43" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblUserSk__UserI__2BC97F7C" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

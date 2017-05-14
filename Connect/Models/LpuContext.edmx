@@ -172,14 +172,10 @@
         </EntityType>
         <EntityType Name="tblUserSkills">
           <Key>
-            <PropertyRef Name="SkillsId" />
+            <PropertyRef Name="UserSkillId" />
           </Key>
-          <Property Name="SkillsId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SkillOne" Type="bigint" Nullable="false" />
-          <Property Name="SkillTwo" Type="bigint" Nullable="false" />
-          <Property Name="SkillThree" Type="bigint" />
-          <Property Name="SkillFour" Type="bigint" />
-          <Property Name="SkillFive" Type="bigint" />
+          <Property Name="UserSkillId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SkillId" Type="bigint" Nullable="false" />
           <Property Name="UserId" Type="bigint" />
         </EntityType>
         <EntityType Name="tblWorkExperience">
@@ -433,7 +429,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblUserSk__Skill__1F63A897">
+        <Association Name="FK__tblUserSk__Skill__2AD55B43">
           <End Role="tblSkills" Type="Self.tblSkills" Multiplicity="1" />
           <End Role="tblUserSkills" Type="Self.tblUserSkills" Multiplicity="*" />
           <ReferentialConstraint>
@@ -441,59 +437,11 @@
               <PropertyRef Name="SkillId" />
             </Principal>
             <Dependent Role="tblUserSkills">
-              <PropertyRef Name="SkillOne" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblUserSk__Skill__2057CCD0">
-          <End Role="tblSkills" Type="Self.tblSkills" Multiplicity="1" />
-          <End Role="tblUserSkills" Type="Self.tblUserSkills" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblSkills">
               <PropertyRef Name="SkillId" />
-            </Principal>
-            <Dependent Role="tblUserSkills">
-              <PropertyRef Name="SkillTwo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblUserSk__Skill__214BF109">
-          <End Role="tblSkills" Type="Self.tblSkills" Multiplicity="0..1" />
-          <End Role="tblUserSkills" Type="Self.tblUserSkills" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblSkills">
-              <PropertyRef Name="SkillId" />
-            </Principal>
-            <Dependent Role="tblUserSkills">
-              <PropertyRef Name="SkillThree" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblUserSk__Skill__22401542">
-          <End Role="tblSkills" Type="Self.tblSkills" Multiplicity="0..1" />
-          <End Role="tblUserSkills" Type="Self.tblUserSkills" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblSkills">
-              <PropertyRef Name="SkillId" />
-            </Principal>
-            <Dependent Role="tblUserSkills">
-              <PropertyRef Name="SkillFour" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblUserSk__Skill__2334397B">
-          <End Role="tblSkills" Type="Self.tblSkills" Multiplicity="0..1" />
-          <End Role="tblUserSkills" Type="Self.tblUserSkills" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblSkills">
-              <PropertyRef Name="SkillId" />
-            </Principal>
-            <Dependent Role="tblUserSkills">
-              <PropertyRef Name="SkillFive" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblUserSk__UserI__24285DB4">
+        <Association Name="FK__tblUserSk__UserI__2BC97F7C">
           <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="0..1" />
           <End Role="tblUserSkills" Type="Self.tblUserSkills" Multiplicity="*" />
           <ReferentialConstraint>
@@ -697,27 +645,11 @@
             <End Role="tblUserSignup" EntitySet="tblUserSignup" />
             <End Role="tblSelfIntro" EntitySet="tblSelfIntro" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblUserSk__Skill__1F63A897" Association="Self.FK__tblUserSk__Skill__1F63A897">
+          <AssociationSet Name="FK__tblUserSk__Skill__2AD55B43" Association="Self.FK__tblUserSk__Skill__2AD55B43">
             <End Role="tblSkills" EntitySet="tblSkills" />
             <End Role="tblUserSkills" EntitySet="tblUserSkills" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblUserSk__Skill__2057CCD0" Association="Self.FK__tblUserSk__Skill__2057CCD0">
-            <End Role="tblSkills" EntitySet="tblSkills" />
-            <End Role="tblUserSkills" EntitySet="tblUserSkills" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblUserSk__Skill__214BF109" Association="Self.FK__tblUserSk__Skill__214BF109">
-            <End Role="tblSkills" EntitySet="tblSkills" />
-            <End Role="tblUserSkills" EntitySet="tblUserSkills" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblUserSk__Skill__22401542" Association="Self.FK__tblUserSk__Skill__22401542">
-            <End Role="tblSkills" EntitySet="tblSkills" />
-            <End Role="tblUserSkills" EntitySet="tblUserSkills" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblUserSk__Skill__2334397B" Association="Self.FK__tblUserSk__Skill__2334397B">
-            <End Role="tblSkills" EntitySet="tblSkills" />
-            <End Role="tblUserSkills" EntitySet="tblUserSkills" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblUserSk__UserI__24285DB4" Association="Self.FK__tblUserSk__UserI__24285DB4">
+          <AssociationSet Name="FK__tblUserSk__UserI__2BC97F7C" Association="Self.FK__tblUserSk__UserI__2BC97F7C">
             <End Role="tblUserSignup" EntitySet="tblUserSignup" />
             <End Role="tblUserSkills" EntitySet="tblUserSkills" />
           </AssociationSet>
@@ -826,7 +758,7 @@
           <NavigationProperty Name="Projects" Relationship="Connect_LPUModel.FK__tblProjec__UserI__7EF6D905" FromRole="User" ToRole="tblProject" />
           <NavigationProperty Name="Intro" Relationship="Connect_LPUModel.FK__tblSelfIn__UserI__01D345B0" FromRole="User" ToRole="tblSelfIntro" />
           <NavigationProperty Name="Awards" Relationship="Connect_LPUModel.FK__tblAwards__UserI__0697FACD" FromRole="User" ToRole="tblAward" />
-          <NavigationProperty Name="Skills" Relationship="Connect_LPUModel.FK__tblUserSk__UserI__24285DB4" FromRole="User" ToRole="tblUserSkill" />
+          <NavigationProperty Name="Skills" Relationship="Connect_LPUModel.FK__tblUserSk__UserI__2BC97F7C" FromRole="User" ToRole="tblUserSkill" />
           </EntityType>
         <Association Name="FK__tblBranch__Cours__72C60C4A">
           <End Role="tblCourse" Type="Connect_LPUModel.Course" Multiplicity="0..1" />
@@ -978,31 +910,15 @@
             <End Role="User" EntitySet="Users" />
             <End Role="tblAward" EntitySet="Awards" />
           </AssociationSet>
-          <EntitySet Name="Skills" EntityType="Connect_LPUModel.Skill" />
-          <EntitySet Name="tblUserSkills" EntityType="Connect_LPUModel.tblUserSkill" />
-          <AssociationSet Name="FK__tblUserSk__Skill__1F63A897" Association="Connect_LPUModel.FK__tblUserSk__Skill__1F63A897">
+          <EntitySet Name="Skills" EntityType="Connect_LPUModel.Skills" />
+          <EntitySet Name="UserSkills" EntityType="Connect_LPUModel.UserSkills" />
+          <AssociationSet Name="FK__tblUserSk__Skill__2AD55B43" Association="Connect_LPUModel.FK__tblUserSk__Skill__2AD55B43">
             <End Role="tblSkill" EntitySet="Skills" />
-            <End Role="tblUserSkill" EntitySet="tblUserSkills" />
+            <End Role="tblUserSkill" EntitySet="UserSkills" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblUserSk__Skill__2057CCD0" Association="Connect_LPUModel.FK__tblUserSk__Skill__2057CCD0">
-            <End Role="tblSkill" EntitySet="Skills" />
-            <End Role="tblUserSkill" EntitySet="tblUserSkills" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblUserSk__Skill__214BF109" Association="Connect_LPUModel.FK__tblUserSk__Skill__214BF109">
-            <End Role="tblSkill" EntitySet="Skills" />
-            <End Role="tblUserSkill" EntitySet="tblUserSkills" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblUserSk__Skill__22401542" Association="Connect_LPUModel.FK__tblUserSk__Skill__22401542">
-            <End Role="tblSkill" EntitySet="Skills" />
-            <End Role="tblUserSkill" EntitySet="tblUserSkills" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblUserSk__Skill__2334397B" Association="Connect_LPUModel.FK__tblUserSk__Skill__2334397B">
-            <End Role="tblSkill" EntitySet="Skills" />
-            <End Role="tblUserSkill" EntitySet="tblUserSkills" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblUserSk__UserI__24285DB4" Association="Connect_LPUModel.FK__tblUserSk__UserI__24285DB4">
+          <AssociationSet Name="FK__tblUserSk__UserI__2BC97F7C" Association="Connect_LPUModel.FK__tblUserSk__UserI__2BC97F7C">
             <End Role="User" EntitySet="Users" />
-            <End Role="tblUserSkill" EntitySet="tblUserSkills" />
+            <End Role="tblUserSkill" EntitySet="UserSkills" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Record">
@@ -1471,99 +1387,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Skill">
+        <EntityType Name="Skills">
           <Key>
             <PropertyRef Name="SkillId" />
           </Key>
           <Property Name="SkillId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SkillName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SkillOne" Relationship="Connect_LPUModel.FK__tblUserSk__Skill__1F63A897" FromRole="tblSkill" ToRole="tblUserSkill" />
-          <NavigationProperty Name="SkillTwo" Relationship="Connect_LPUModel.FK__tblUserSk__Skill__2057CCD0" FromRole="tblSkill" ToRole="tblUserSkill" />
-          <NavigationProperty Name="SkillThree" Relationship="Connect_LPUModel.FK__tblUserSk__Skill__214BF109" FromRole="tblSkill" ToRole="tblUserSkill" />
-          <NavigationProperty Name="SkillFour" Relationship="Connect_LPUModel.FK__tblUserSk__Skill__22401542" FromRole="tblSkill" ToRole="tblUserSkill" />
-          <NavigationProperty Name="SkillFive" Relationship="Connect_LPUModel.FK__tblUserSk__Skill__2334397B" FromRole="tblSkill" ToRole="tblUserSkill" />
+          <NavigationProperty Name="UserSkills" Relationship="Connect_LPUModel.FK__tblUserSk__Skill__2AD55B43" FromRole="tblSkill" ToRole="tblUserSkill" />
         </EntityType>
-        <EntityType Name="tblUserSkill">
+        <EntityType Name="UserSkills">
           <Key>
-            <PropertyRef Name="SkillsId" />
+            <PropertyRef Name="UserSkillId" />
           </Key>
-          <Property Name="SkillsId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SkillOne" Type="Int64" Nullable="false" />
-          <Property Name="SkillTwo" Type="Int64" Nullable="false" />
-          <Property Name="SkillThree" Type="Int64" />
-          <Property Name="SkillFour" Type="Int64" />
-          <Property Name="SkillFive" Type="Int64" />
+          <Property Name="UserSkillId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SkillId" Type="Int64" Nullable="false" />
           <Property Name="UserId" Type="Int64" />
-          <NavigationProperty Name="SkillsOne" Relationship="Connect_LPUModel.FK__tblUserSk__Skill__1F63A897" FromRole="tblUserSkill" ToRole="tblSkill" />
-          <NavigationProperty Name="SkillsTwo" Relationship="Connect_LPUModel.FK__tblUserSk__Skill__2057CCD0" FromRole="tblUserSkill" ToRole="tblSkill" />
-          <NavigationProperty Name="SkillsThree" Relationship="Connect_LPUModel.FK__tblUserSk__Skill__214BF109" FromRole="tblUserSkill" ToRole="tblSkill" />
-          <NavigationProperty Name="SkillsFour" Relationship="Connect_LPUModel.FK__tblUserSk__Skill__22401542" FromRole="tblUserSkill" ToRole="tblSkill" />
-          <NavigationProperty Name="SkillsFive" Relationship="Connect_LPUModel.FK__tblUserSk__Skill__2334397B" FromRole="tblUserSkill" ToRole="tblSkill" />
-          <NavigationProperty Name="User" Relationship="Connect_LPUModel.FK__tblUserSk__UserI__24285DB4" FromRole="tblUserSkill" ToRole="User" />
+          <NavigationProperty Name="Skill" Relationship="Connect_LPUModel.FK__tblUserSk__Skill__2AD55B43" FromRole="tblUserSkill" ToRole="tblSkill" />
+          <NavigationProperty Name="User" Relationship="Connect_LPUModel.FK__tblUserSk__UserI__2BC97F7C" FromRole="tblUserSkill" ToRole="User" />
         </EntityType>
-        <Association Name="FK__tblUserSk__Skill__1F63A897">
-          <End Type="Connect_LPUModel.Skill" Role="tblSkill" Multiplicity="1" />
-          <End Type="Connect_LPUModel.tblUserSkill" Role="tblUserSkill" Multiplicity="*" />
+        <Association Name="FK__tblUserSk__Skill__2AD55B43">
+          <End Type="Connect_LPUModel.Skills" Role="tblSkill" Multiplicity="1" />
+          <End Type="Connect_LPUModel.UserSkills" Role="tblUserSkill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblSkill">
               <PropertyRef Name="SkillId" />
             </Principal>
             <Dependent Role="tblUserSkill">
-              <PropertyRef Name="SkillOne" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblUserSk__Skill__2057CCD0">
-          <End Type="Connect_LPUModel.Skill" Role="tblSkill" Multiplicity="1" />
-          <End Type="Connect_LPUModel.tblUserSkill" Role="tblUserSkill" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblSkill">
               <PropertyRef Name="SkillId" />
-            </Principal>
-            <Dependent Role="tblUserSkill">
-              <PropertyRef Name="SkillTwo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblUserSk__Skill__214BF109">
-          <End Type="Connect_LPUModel.Skill" Role="tblSkill" Multiplicity="0..1" />
-          <End Type="Connect_LPUModel.tblUserSkill" Role="tblUserSkill" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblSkill">
-              <PropertyRef Name="SkillId" />
-            </Principal>
-            <Dependent Role="tblUserSkill">
-              <PropertyRef Name="SkillThree" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblUserSk__Skill__22401542">
-          <End Type="Connect_LPUModel.Skill" Role="tblSkill" Multiplicity="0..1" />
-          <End Type="Connect_LPUModel.tblUserSkill" Role="tblUserSkill" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblSkill">
-              <PropertyRef Name="SkillId" />
-            </Principal>
-            <Dependent Role="tblUserSkill">
-              <PropertyRef Name="SkillFour" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblUserSk__Skill__2334397B">
-          <End Type="Connect_LPUModel.Skill" Role="tblSkill" Multiplicity="0..1" />
-          <End Type="Connect_LPUModel.tblUserSkill" Role="tblUserSkill" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblSkill">
-              <PropertyRef Name="SkillId" />
-            </Principal>
-            <Dependent Role="tblUserSkill">
-              <PropertyRef Name="SkillFive" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblUserSk__UserI__24285DB4">
+        <Association Name="FK__tblUserSk__UserI__2BC97F7C">
           <End Type="Connect_LPUModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="Connect_LPUModel.tblUserSkill" Role="tblUserSkill" Multiplicity="*" />
+          <End Type="Connect_LPUModel.UserSkills" Role="tblUserSkill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1778,23 +1634,19 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Skills">
-            <EntityTypeMapping TypeName="Connect_LPUModel.Skill">
+            <EntityTypeMapping TypeName="Connect_LPUModel.Skills">
               <MappingFragment StoreEntitySet="tblSkills">
                 <ScalarProperty Name="SkillName" ColumnName="SkillName" />
                 <ScalarProperty Name="SkillId" ColumnName="SkillId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblUserSkills">
-            <EntityTypeMapping TypeName="Connect_LPUModel.tblUserSkill">
+          <EntitySetMapping Name="UserSkills">
+            <EntityTypeMapping TypeName="Connect_LPUModel.UserSkills">
               <MappingFragment StoreEntitySet="tblUserSkills">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="SkillFive" ColumnName="SkillFive" />
-                <ScalarProperty Name="SkillFour" ColumnName="SkillFour" />
-                <ScalarProperty Name="SkillThree" ColumnName="SkillThree" />
-                <ScalarProperty Name="SkillTwo" ColumnName="SkillTwo" />
-                <ScalarProperty Name="SkillOne" ColumnName="SkillOne" />
-                <ScalarProperty Name="SkillsId" ColumnName="SkillsId" />
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+                <ScalarProperty Name="UserSkillId" ColumnName="UserSkillId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

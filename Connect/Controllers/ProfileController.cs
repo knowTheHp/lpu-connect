@@ -19,7 +19,7 @@ namespace Connect.Controllers {
         [Authorize]
         public JsonResult Search(string searchVal) {
             //create list
-            List<User> users = lpuContext.Users.Where(user => user.Username.StartsWith(searchVal) && user.Username != User.Identity.Name).ToArray().Select(user => new User(user)).ToList();
+            List<User> users = lpuContext.Users.Where(user => user.Firstname.StartsWith(searchVal) || user.Lastname.StartsWith(searchVal) || user.Username.StartsWith(searchVal) || user.City.StartsWith(searchVal) && user.Username != User.Identity.Name).ToArray().Select(user => new User(user)).ToList();
             //return json
             return Json(users);
         }
@@ -106,7 +106,7 @@ namespace Connect.Controllers {
             long UserId = loggedInUser.UserId;
 
             //get friend userId
-            User friendData = lpuContext.Users.Where(user => user.Username==friend).FirstOrDefault();
+            User friendData = lpuContext.Users.Where(user => user.Username == friend).FirstOrDefault();
             long friendId = friendData.UserId;
 
             Message messages = new Message() {

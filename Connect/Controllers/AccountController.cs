@@ -243,8 +243,8 @@ namespace Connect.Controllers {
 
 
             //get intro
-            var intro= recordView.Users.Intro.Where(user => user.User.Username == Username).FirstOrDefault();
-            if (intro !=null) {
+            var intro = recordView.Users.Intro.Where(user => user.User.Username == Username).FirstOrDefault();
+            if (intro != null) {
                 ViewBag.Intro = intro.Intro;
             } else {
                 ViewBag.intro = null;
@@ -263,7 +263,7 @@ namespace Connect.Controllers {
             ViewBag.Awards = recordView.Users.Awards.Where(user => user.User.Username == Username).ToList();
 
             //get skills
-            //ViewBag.Skills
+            ViewBag.Skills = recordView.Users.Skills.Where(user => user.User.Username == Username).ToList();
             #endregion
 
             //check the usertype
@@ -346,7 +346,7 @@ namespace Connect.Controllers {
         #region IntroPartial
         public ActionResult IntroPartial() {
             SelfIntroVM intro = new SelfIntroVM();
-            return PartialView("IntroPartial",intro);
+            return PartialView("IntroPartial", intro);
         }
         #endregion
 
@@ -370,7 +370,6 @@ namespace Connect.Controllers {
             return PartialView("EducationPartial", eduModel);
         }
         #endregion
-
 
         #region Education Validation and Insertion
         [HttpPost]
@@ -466,13 +465,20 @@ namespace Connect.Controllers {
 
         #region Skills View
         public ActionResult SkillPartial() {
-
-            return PartialView("SkillPartial");
+            SkillsVM skillsVM = new SkillsVM();
+            ViewBag.Skills = lpuContext.Skills;
+            return PartialView("SkillPartial", skillsVM);
         }
         #endregion
 
         #region Skills Validation and Insertion
-        public ActionResult Skill() {
+        public ActionResult Skill(SkillsVM skillsVM) {
+            UserSkills userSkills = new UserSkills() {
+                SkillId = skillsVM.SkillId,
+                UserId = lpuContext.Users.Where(user => user.Username.Equals(User.Identity.Name)).Single().UserId
+            };
+            lpuContext.UserSkills.Add(userSkills);
+            lpuContext.SaveChanges();
             return Redirect("~/");
         }
         #endregion

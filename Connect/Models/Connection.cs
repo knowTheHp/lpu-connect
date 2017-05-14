@@ -18,6 +18,7 @@ namespace Connect.Models
         public long User_Sender { get; set; }
         public long User_Receiver { get; set; }
         public bool Active { get; set; }
+        public string Message { get; set; }
     
         public virtual User Sender { get; set; }
         public virtual User Receiver { get; set; }

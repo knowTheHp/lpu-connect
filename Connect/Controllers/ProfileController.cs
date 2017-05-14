@@ -26,10 +26,11 @@ namespace Connect.Controllers {
 
         [HttpPost]
         [Authorize]
-        public void Connect(string friend) {
+        public void Connect(string friend, string message) {
             //get user id
             User self = lpuContext.Users.Where(x => x.Username.Equals(User.Identity.Name)).FirstOrDefault();
             long selfId = self.UserId;
+
             //get friend id
             User user = lpuContext.Users.Where(x => x.Username.Equals(friend)).FirstOrDefault();
             long friendId = user.UserId;
@@ -38,9 +39,9 @@ namespace Connect.Controllers {
             Connection connect = new Connection() {
                 User_Sender = selfId,
                 User_Receiver = friendId,
+                Message = message,
                 Active = false
             };
-
             //add and save in db
             lpuContext.Connections.Add(connect);
             lpuContext.SaveChanges();
@@ -95,28 +96,6 @@ namespace Connect.Controllers {
             Connection senderData = lpuContext.Connections.Where(sender => sender.User_Sender == friendId && sender.User_Receiver == UserId).FirstOrDefault();
             //decline request
             lpuContext.Connections.Remove(senderData);
-            lpuContext.SaveChanges();
-        }
-
-        [HttpPost]
-        [Authorize]
-        public void SendMessage(string friend, string message) {
-            //get loggedIn userId
-            User loggedInUser = lpuContext.Users.Where(user => user.Username.Equals(User.Identity.Name)).FirstOrDefault();
-            long UserId = loggedInUser.UserId;
-
-            //get friend userId
-            User friendData = lpuContext.Users.Where(user => user.Username == friend).FirstOrDefault();
-            long friendId = friendData.UserId;
-
-            Message messages = new Message() {
-                FromUser = UserId,
-                ToUser = friendId,
-                Conversations = message,
-                MessageSent = DateTime.Now,
-                Seen = false
-            };
-            lpuContext.Messages.Add(messages);
             lpuContext.SaveChanges();
         }
     }

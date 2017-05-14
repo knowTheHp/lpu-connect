@@ -305,7 +305,7 @@
             //In Connection
             hub.client.connectionCount = function (loggedInUser, userData, count, countTwo) {
                 if (count > 0) {
-                    $("span.friendCount." +loggedInUser+"> span").text(count);
+                    $("span.friendCount." + loggedInUser + "> span").text(count);
                 } else {
                     $("span.friendCount." + loggedInUser + "> span").text("0");
                 }
@@ -321,111 +321,77 @@
             //Connect to hub
             $.connection.hub.start().done(function () {
 
-            //Connect request
+                //Connect request
                 $("button.connect").click(function (e) {
                     e.preventDefault();
                     $(this).modal('hide');
-                var friend = '@ViewBag.Username';
-                var url = "/profile/connect";
-                $.post(url, {
-                    friend: friend
-                }, function (data) {
-                    $(".isFriendDiv").removeClass("alert-info").addClass("alert-warning").html("<p>Pending request</p>");
-                }).done(function () {
-                    hub.server.notify(friend);
+                    var friend = '@ViewBag.Username';
+                    var message = $('#msgarea').val();
+                    var url = "/profile/connect";
+                    $.post(url, {
+                        friend: friend, message: message
+                    }, function (data) {
+                        $(".isFriendDiv").removeClass("alert-info").addClass("alert-warning").html("<p>Pending request</p>");
+                    }).done(function () {
+                        hub.server.notify(friend);
                     });
-            });
-            //end connect
-
-            //Accept request
-            $("body").on("click", "a.accept", function (e) {
-                e.preventDefault();
-                var $this = $(this);
-                var friendId = $this.data("id");
-                var url = "profile/AcceptRequest";
-                $.post(url, { friendId: friendId }, function (data) {
-                }).done(function () {
-                    $this.parent().fadeOut("fast");
-                    //display total request
-                    hub.server.requestCount();
-                    //display total connected users
-                    hub.server.connectionCount(friendId);
                 });
-            });
-            //End accept request
+                //end connect
 
-            //Decline request
-            $("body").on("click", "a.decline", function (e) {
-                e.preventDefault();
-                var $this = $(this);
-                var friendId = $this.data("id");
-                var url = "profile/DeclineRequest";
-                $.post(url, { friendId: friendId }, function (data) {
-                }).done(function () {
-                    $this.parent().fadeOut("fast");
-                    hub.server.requestCount();
-                });
-            });
-            //End decline request
-
-                //Send Message
-            $("body").on("click", "button.sendmsg", function (e) {
-                e.preventDefault();
-                var $this = $(this);
-                $(this).modal('hide');
-                var friend = '@ViewBag.Username';
-                var message = $("#msgarea").val();
-                var url = "profile/SendMessage";
-                $.post(url, { friend: friend, message: message }, function (data) {
-                }).done(function () {
-                    //hub.server.notifyofMessage(friend);
+                //Accept request
+                $("body").on("click", "a.accept", function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    var friendId = $this.data("id");
+                    var url = "profile/AcceptRequest";
+                    $.post(url, { friendId: friendId }, function (data) {
+                    }).done(function () {
+                        $this.parent().fadeOut("fast");
+                        //display total request
+                        hub.server.requestCount();
+                        //display total connected users
+                        hub.server.connectionCount(friendId);
                     });
-            });
-            //End send message
-
-            //Show Unread messages
-            $("body").on("click", ".notif", function () {
-                $("ul#ulMsg").empty();
-                var url = "profile/DisplayUnreadMessages";
-                $.post(url, {}, function (data) {
-                    if (data.length > 0) {
-                        $("ul#ulMsg").append("");
-                    }
-                    for (var i = 0; i < data.length; i++) {
-                        var obj = data[i];
-                        $("ul#ulMsg").append('<li class=msgnotifli> </li>');
-                    }
                 });
-            });
-            $("body").on("click", "ul#reqNotifyul li.close", function () {
-                $("ul#ulMsg").empty();
-            });
-            //end show Unread msgs
-            });
-            //End hub
+                //End accept request
 
-            //Show FriendRequests
-            $("body").on("click", ".notif", function () {
-                $("ul#reqNotifyul").empty();
-                var url = "profile/FriendRequest";
-                $.post(url, {}, function (data) {
-                    if (data.length > 0) {
-                        $("ul#reqNotifyul").append("");
-                    }
-                    for (var i = 0; i < data.length; i++) {
-                        var obj = data[i];
-                        $("ul#reqNotifyul").append('<li class=frnotifli><a href="/' + obj.Username
-                            + '"><img src="uploads/' + obj.UserId + obj.Username + '.jpg" />' + ' ' + obj.Firstname +
-                            ' ' + obj.Lastname + '</a> ' + '<a class=accept href=# data-id="' +
-                            obj.UserId + '"><span class="glyphicon glyphicon-ok"></span></a>' +
-                            ' ' + '<a class=decline href=# data-id="' + obj.UserId + '"><span class="glyphicon glyphicon-remove"></span></a> </li>');
-                    }
+                //Decline request
+                $("body").on("click", "a.decline", function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    var friendId = $this.data("id");
+                    var url = "profile/DeclineRequest";
+                    $.post(url, { friendId: friendId }, function (data) {
+                    }).done(function () {
+                        $this.parent().fadeOut("fast");
+                        hub.server.requestCount();
+                    });
                 });
+                //End decline request
+
+                //Show FriendRequests
+                $("body").on("click", ".notif", function () {
+                    $("ul#reqNotifyul").empty();
+                    var url = "profile/FriendRequest";
+                    $.post(url, {}, function (data) {
+                        if (data.length > 0) {
+                            $("ul#reqNotifyul").append("");
+                        }
+                        for (var i = 0; i < data.length; i++) {
+                            var obj = data[i];
+                            $("ul#reqNotifyul").append('<li class=frnotifli><a href="/' + obj.Username
+                                + '"><img src="uploads/' + obj.UserId + obj.Username + '.jpg" />' + ' ' + obj.Firstname +
+                                ' ' + obj.Lastname + '</a> ' + '<a class=accept href=# data-id="' +
+                                obj.UserId + '"><span class="glyphicon glyphicon-ok"></span></a>' +
+                                ' ' + '<a class=decline href=# data-id="' + obj.UserId + '"><span class="glyphicon glyphicon-remove"></span></a> </li>');
+                        }
+                    });
+                });
+                $("body").on("click", "ul#reqNotifyul li.close", function () {
+                    $("ul#reqNotifyul").empty();
+                });
+                //end show FriendRequests
             });
-            $("body").on("click", "ul#reqNotifyul li.close", function () {
-                $("ul#reqNotifyul").empty();
-            });
-            //end show FriendRequests
         });
     </script>
 }

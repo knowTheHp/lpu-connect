@@ -238,7 +238,7 @@ ul#liveSearchul {
 
 
 /*Friend req*/
-#reqNotifyul {
+#reqNotifyul, #ulMsg {
     right: 200px;
     text-decoration: none;
     position: absolute;
@@ -250,10 +250,11 @@ ul#liveSearchul {
     list-style: none;
 }
 
-.frnotifli {
+.frnotifli, .frmsgli {
     width: 280px;
     display: block;
     padding: 10px;
+    color:black;
 }
 
     .frnotifli img {
@@ -300,6 +301,15 @@ ul#liveSearchul {
 }
 
 .notif {
+    right: -450px;
+    display: inline-block;
+    padding: 8px 2px 0px 2px;
+    font-size: 16px;
+    color: black;
+    text-decoration: none;
+}
+
+.msgNotif{
     right: -450px;
     display: inline-block;
     padding: 8px 2px 0px 2px;

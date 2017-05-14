@@ -20,10 +20,6 @@
         <EntityTypeShape EntityType="Connect_LPUModel.Connection" Width="1.5" PointX="10" PointY="4.25" />
         <AssociationConnector Association="Connect_LPUModel.Fk_Reciever" />
         <AssociationConnector Association="Connect_LPUModel.Fk_Sender" />
-        <EntityTypeShape EntityType="Connect_LPUModel.Message" Width="1.5" PointX="3.25" PointY="2.625" />
-        <AssociationConnector Association="Connect_LPUModel.FK__tblMessag__FromU__40F9A68C" />
-        <AssociationConnector Association="Connect_LPUModel.FK__tblMessag__ToUse__41EDCAC5" ManuallyRouted="false" >
-        </AssociationConnector>
         <EntityTypeShape EntityType="Connect_LPUModel.Degree" Width="1.5" PointX="2.25" PointY="7.75" />
         <EntityTypeShape EntityType="Connect_LPUModel.Education" Width="1.5" PointX="4.125" PointY="7.25" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblEducat__Degre__51300E55" />

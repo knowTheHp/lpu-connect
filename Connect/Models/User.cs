@@ -21,8 +21,6 @@ namespace Connect.Models
             this.Records = new HashSet<Record>();
             this.Sender = new HashSet<Connection>();
             this.Receiver = new HashSet<Connection>();
-            this.From = new HashSet<Message>();
-            this.To = new HashSet<Message>();
             this.Educations = new HashSet<Education>();
             this.WorkXp = new HashSet<WorkXp>();
             this.Projects = new HashSet<Project>();
@@ -56,10 +54,6 @@ namespace Connect.Models
         public virtual ICollection<Connection> Sender { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Connection> Receiver { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Message> From { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Message> To { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Education> Educations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

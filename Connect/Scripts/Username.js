@@ -34,6 +34,17 @@
     });
     //end close button
 
+    //close button for message
+    $("body").keydown(function (e) {
+        if (e.keyCode === 27) {
+            $("#ulMsg").fadeOut();
+        }
+    });
+    $("body").on("click", ".msgNotif", function () {
+        $("ul#ulMsg").show();
+    });
+    //end close button
+
     //show connect modal
     $("#connectModal").on("click", function () {
         $('#connectionRequestModal').modal('show');

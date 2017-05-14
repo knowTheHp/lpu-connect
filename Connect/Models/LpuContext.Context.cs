@@ -32,7 +32,6 @@ namespace Connect.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Record> Records1 { get; set; }
         public virtual DbSet<Connection> Connections { get; set; }
-        public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<Degree> Degrees { get; set; }
         public virtual DbSet<Education> Educations { get; set; }
         public virtual DbSet<Country> Countries { get; set; }

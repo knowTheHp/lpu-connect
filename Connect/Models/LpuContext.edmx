@@ -32,6 +32,7 @@
           <Property Name="ConnectionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="User_Sender" Type="bigint" Nullable="false" />
           <Property Name="User_Reciever" Type="bigint" Nullable="false" />
+          <Property Name="Message" Type="varchar" MaxLength="500" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tblCountry">
@@ -100,17 +101,6 @@
           <Property Name="EntryYear" Type="varchar" MaxLength="10" />
           <Property Name="GraduateYear" Type="varchar" MaxLength="10" />
           <Property Name="UserId" Type="bigint" />
-        </EntityType>
-        <EntityType Name="tblMessages">
-          <Key>
-            <PropertyRef Name="MessageId" />
-          </Key>
-          <Property Name="MessageId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FromUser" Type="bigint" />
-          <Property Name="ToUser" Type="bigint" />
-          <Property Name="Conversations" Type="nvarchar(max)" />
-          <Property Name="MessageSent" Type="datetime2" Precision="7" />
-          <Property Name="Seen" Type="bit" />
         </EntityType>
         <EntityType Name="tblMonth">
           <Key>
@@ -333,30 +323,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblMessag__FromU__40F9A68C">
-          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="0..1" />
-          <End Role="tblMessages" Type="Self.tblMessages" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUserSignup">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblMessages">
-              <PropertyRef Name="FromUser" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblMessag__ToUse__41EDCAC5">
-          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="0..1" />
-          <End Role="tblMessages" Type="Self.tblMessages" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUserSignup">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblMessages">
-              <PropertyRef Name="ToUser" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__tblProjec__Proje__7A3223E8">
           <End Role="tblMonth" Type="Self.tblMonth" Multiplicity="1" />
           <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
@@ -560,7 +526,6 @@
           <EntitySet Name="tblEducation" EntityType="Self.tblEducation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblEmailVerification" EntityType="Self.tblEmailVerification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblLpuRecords" EntityType="Self.tblLpuRecords" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblMessages" EntityType="Self.tblMessages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMonth" EntityType="Self.tblMonth" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProject" EntityType="Self.tblProject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSelfIntro" EntityType="Self.tblSelfIntro" Schema="dbo" store:Type="Tables" />
@@ -612,14 +577,6 @@
           <AssociationSet Name="FK__tblLpuRec__UserI__208CD6FA" Association="Self.FK__tblLpuRec__UserI__208CD6FA">
             <End Role="tblUserSignup" EntitySet="tblUserSignup" />
             <End Role="tblLpuRecords" EntitySet="tblLpuRecords" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblMessag__FromU__40F9A68C" Association="Self.FK__tblMessag__FromU__40F9A68C">
-            <End Role="tblUserSignup" EntitySet="tblUserSignup" />
-            <End Role="tblMessages" EntitySet="tblMessages" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblMessag__ToUse__41EDCAC5" Association="Self.FK__tblMessag__ToUse__41EDCAC5">
-            <End Role="tblUserSignup" EntitySet="tblUserSignup" />
-            <End Role="tblMessages" EntitySet="tblMessages" />
           </AssociationSet>
           <AssociationSet Name="FK__tblProjec__Proje__7A3223E8" Association="Self.FK__tblProjec__Proje__7A3223E8">
             <End Role="tblMonth" EntitySet="tblMonth" />
@@ -751,8 +708,6 @@
           <NavigationProperty Name="Records" Relationship="Connect_LPUModel.FK__tblLpuRec__UserI__19DFD96B" FromRole="User" ToRole="tblLpuRecord" />
           <NavigationProperty Name="Sender" Relationship="Connect_LPUModel.Fk_Reciever" FromRole="User" ToRole="tblConnection" />
           <NavigationProperty Name="Receiver" Relationship="Connect_LPUModel.Fk_Sender" FromRole="User" ToRole="tblConnection" />
-          <NavigationProperty Name="From" Relationship="Connect_LPUModel.FK__tblMessag__FromU__40F9A68C" FromRole="User" ToRole="tblMessage" />
-          <NavigationProperty Name="To" Relationship="Connect_LPUModel.FK__tblMessag__ToUse__41EDCAC5" FromRole="User" ToRole="tblMessage" />
           <NavigationProperty Name="Educations" Relationship="Connect_LPUModel.FK__tblEducat__UserI__5224328E" FromRole="User" ToRole="tblEducation" />
           <NavigationProperty Name="WorkXp" Relationship="Connect_LPUModel.FK__tblWorkEx__UserI__6EC0713C" FromRole="User" ToRole="tblWorkExperience" />
           <NavigationProperty Name="Projects" Relationship="Connect_LPUModel.FK__tblProjec__UserI__7EF6D905" FromRole="User" ToRole="tblProject" />
@@ -823,15 +778,6 @@
           <AssociationSet Name="Fk_Sender" Association="Connect_LPUModel.Fk_Sender">
             <End Role="User" EntitySet="Users" />
             <End Role="tblConnection" EntitySet="Connections" />
-          </AssociationSet>
-          <EntitySet Name="Messages" EntityType="Connect_LPUModel.Message" />
-          <AssociationSet Name="FK__tblMessag__FromU__40F9A68C" Association="Connect_LPUModel.FK__tblMessag__FromU__40F9A68C">
-            <End Role="User" EntitySet="Users" />
-            <End Role="tblMessage" EntitySet="Messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblMessag__ToUse__41EDCAC5" Association="Connect_LPUModel.FK__tblMessag__ToUse__41EDCAC5">
-            <End Role="User" EntitySet="Users" />
-            <End Role="tblMessage" EntitySet="Messages" />
           </AssociationSet>
           <EntitySet Name="Degrees" EntityType="Connect_LPUModel.Degree" />
           <EntitySet Name="Educations" EntityType="Connect_LPUModel.Education" />
@@ -1000,6 +946,7 @@
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Sender" Relationship="Connect_LPUModel.Fk_Reciever" FromRole="tblConnection" ToRole="User" />
           <NavigationProperty Name="Receiver" Relationship="Connect_LPUModel.Fk_Sender" FromRole="tblConnection" ToRole="User" />
+          <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="Fk_Reciever">
           <End Type="Connect_LPUModel.User" Role="User" Multiplicity="1" />
@@ -1022,43 +969,6 @@
             </Principal>
             <Dependent Role="tblConnection">
               <PropertyRef Name="User_Sender" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Message">
-          <Key>
-            <PropertyRef Name="MessageId" />
-          </Key>
-          <Property Name="MessageId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FromUser" Type="Int64" />
-          <Property Name="ToUser" Type="Int64" />
-          <Property Name="Conversations" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MessageSent" Type="DateTime" Precision="7" />
-          <Property Name="Seen" Type="Boolean" />
-          <NavigationProperty Name="From" Relationship="Connect_LPUModel.FK__tblMessag__FromU__40F9A68C" FromRole="tblMessage" ToRole="User" />
-          <NavigationProperty Name="To" Relationship="Connect_LPUModel.FK__tblMessag__ToUse__41EDCAC5" FromRole="tblMessage" ToRole="User" />
-        </EntityType>
-        <Association Name="FK__tblMessag__FromU__40F9A68C">
-          <End Type="Connect_LPUModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="Connect_LPUModel.Message" Role="tblMessage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblMessage">
-              <PropertyRef Name="FromUser" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblMessag__ToUse__41EDCAC5">
-          <End Type="Connect_LPUModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="Connect_LPUModel.Message" Role="tblMessage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblMessage">
-              <PropertyRef Name="ToUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1513,22 +1423,11 @@
           <EntitySetMapping Name="Connections">
             <EntityTypeMapping TypeName="Connect_LPUModel.Connection">
               <MappingFragment StoreEntitySet="tblConnections">
+                <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="User_Receiver" ColumnName="User_Reciever" />
                 <ScalarProperty Name="User_Sender" ColumnName="User_Sender" />
                 <ScalarProperty Name="ConnectionId" ColumnName="ConnectionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Messages">
-            <EntityTypeMapping TypeName="Connect_LPUModel.Message">
-              <MappingFragment StoreEntitySet="tblMessages">
-                <ScalarProperty Name="Seen" ColumnName="Seen" />
-                <ScalarProperty Name="MessageSent" ColumnName="MessageSent" />
-                <ScalarProperty Name="Conversations" ColumnName="Conversations" />
-                <ScalarProperty Name="ToUser" ColumnName="ToUser" />
-                <ScalarProperty Name="FromUser" ColumnName="FromUser" />
-                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -31,25 +31,6 @@
                     </ul>
                     <ul class="navbar-right">
                         <li id="profileData">
-                            @if (ViewBag.MessageCount != 0) {
-                                <div class="messageIcon">
-                                    <span class="red @User.Identity.Name">
-                                        <i class="glyphicon glyphicon-comment msgnotif"></i>
-                                        <span>@ViewBag.MessageCount</span>
-                                    </span>
-                                </div>
-                            } else {
-                                <div class="messageIcon">
-                                    <span class="@User.Identity.Name">
-                                        <i class="glyphicon glyphicon-comment msgnotif"></i>
-                                        <span></span>
-                                    </span>
-                                </div>
-                            }
-                            <ul id="ulMsg"></ul>
-
-                        </li>
-                        <li id="profileData">
                             @if (ViewBag.Requests != null) {
                                 <div class="requestIcon">
                                     <span class="notif red @User.Identity.Name">

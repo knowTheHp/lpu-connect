@@ -3,6 +3,7 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System.Diagnostics;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace Connect {
     [HubName("echo")]
@@ -17,8 +18,7 @@ namespace Connect {
             //get friendId
             User friendData = lpuContext.Users.Where(user => user.Username.Equals(friend)).FirstOrDefault();
             long friendId = friendData.UserId;
-
-            //get friend count
+             //get friend count
             int friendCount = lpuContext.Connections.Count(user => user.User_Receiver == friendId && user.Active == false);
 
             //set client
@@ -59,6 +59,6 @@ namespace Connect {
             var clients = Clients.All;
             //call JS function
             clients.connectionCount(Context.User.Identity.Name, username, loggedInUserCount, userFriendCount);
-        }
+        } 
     }
 }

@@ -136,9 +136,15 @@
                 if (ViewBag.UserType == "owner") {
                     @Html.Action("IntroPartial", "Account")
                 }
+            } else {
+                if (ViewBag.UserType == "owner") {
+                    @Html.Action("IntroUpdatePartial", "Account", new { id = ViewBag.IntroId }) 
+                }
             }
             @if (ViewBag.Intro != null) {
-                <span style="display:block" class="h5">@ViewBag.Intro</span>
+                <span style="display:block" class="h5">
+                    @ViewBag.Intro
+                </span>
             } else {
                 <span style="display:block" class="h5">Add Intro</span>
             }
@@ -156,7 +162,12 @@
                 if (ViewBag.Education != null) {
                     foreach (var item in ViewBag.Education) {
                         <div class="item">
-                            <h5 class="degree">@item.Degree.DegreeName</h5>
+                            <h5 class="degree">
+                                @item.Degree.DegreeName
+                                @if (ViewBag.UserType == "owner") {
+                                    @*@Html.ActionLink(" ", "IntroUpdate", "Acount", new { id = item.EducationId, @class = "glyphicon glyphicon-pencil" })*@
+                                }
+                            </h5>
                             <h5 class="h5">@item.School</h5>
                             <h5 class="h5">@item.Course</h5>
                             <h5 class="h5">@item.EduFrom - @item.EduTo</h5>
@@ -180,7 +191,12 @@
                 if (ViewBag.WorkXp != null) {
                     foreach (var item in ViewBag.WorkXp) {
                         <div class="item">
-                            <h5 class="meta">Company - <span class="h5">@item.Company</span></h5>
+                            <h5 class="meta">
+                                @item.Company
+                                @if (ViewBag.UserType == "owner") {
+                                    @*@Html.ActionLink(" ", "IntroUpdate", "Acount", new { @id = item.WorkxpId, @class = "glyphicon glyphicon-pencil" })*@
+                                }
+                            </h5>
                             <h5 class="meta">Designation - <span class="h5">@item.Designation</span></h5>
                             <h5 class="meta">City - <span class="h5">@item.City</span></h5>
                             <h5 class="meta">Country - <span class="h5">@item.Countries.CountryName</span></h5>
@@ -212,7 +228,12 @@
                 if (ViewBag.Projects != null) {
                     foreach (var item in ViewBag.Projects) {
                         <div class="item">
-                            <h5 class="meta"><a href="@item.ProjectUrl" target="_blank">@item.ProjectName</a></h5>
+                            <h5 class="meta">
+                                <a href="@item.ProjectUrl" target="_blank">@item.ProjectName</a>
+                                @if (ViewBag.UserType == "owner") {
+                                    @*@Html.ActionLink(" ", "IntroUpdate", "Acount", new { @id = item.ProjectId, @class = "glyphicon glyphicon-pencil" })*@
+                                }
+                            </h5>
                             <span class="project-tagline">@item.ProjectDescription</span>
                             <h5 class="meta">From - <span class="h5">@item.FromMonth.MonthName @item.FromYear.YearName</span></h5>
                             @if (@item.ProjectOnGoing) {
@@ -241,7 +262,13 @@
             @if (ViewBag.Skills != null) {
                 foreach (var item in ViewBag.Skills) {
                     <div class="item">
-                        <h5 class="h5">@item.Skill.SkillName</h5>
+                        <h5 class="h5">
+                            @item.Skill.SkillName
+
+                            @if (ViewBag.UserType == "owner") {
+                                @*@Html.ActionLink(" ", "IntroUpdate", "Acount", new { @id = item.UserSkillId, @class = "glyphicon glyphicon-pencil" })*@
+                            }
+                        </h5>
                     </div>
                 }
             } else {
@@ -261,7 +288,12 @@
             @foreach (var item in ViewBag.Awards) {
                 <div class="skillset">
                     <div class="item">
-                        <h5 class="meta">@item.Name</h5>
+                        <h5 class="meta">
+                            @item.Name
+                            @if (ViewBag.UserType == "owner") {
+                                @*@Html.ActionLink(" ", "IntroUpdate", "Acount", new { @id = item.AwardId, @class = "glyphicon glyphicon-pencil" })*@
+                            }
+                        </h5>
                         <h5 class="meta">Issuer - <span class="h5">@item.Issuer</span></h5>
                         <h5 class="project-tagline">Desciption - <span class="h5">@item.Description</span></h5>
                         <h5 class="meta">Period - <span class="h5">@item.Month.MonthName @item.Year.YearName</span></h5>
@@ -282,7 +314,6 @@
     <script src="~/Scripts/Username.js"></script>
     <script src="~/Scripts/Index.js"></script>
     <script>
-        @Html.Raw(ViewBag.StartupScript)
         $(document).ready(function () {
             //setup hub connection
             var hub = $.connection.echo;
@@ -326,7 +357,7 @@
                 var result = JSON.parse(data);
                 for (var i = 0; i < result.length; i++) {
                     var obj = result[i];
-                    $(".chat." + user + "> ul").append('<li class="cf list-group-item list-group-item-success' + obj.id + '" data-id="' + obj.id + '"><img src="uploads/' + obj.id + obj.friend + '.jpg" /> ' + obj.friend + '</li>');
+                    $(".chat." + user + "> ul").append('<li class="cf list-group-item list-group-success' + obj.id + '" data-id="' + obj.id + '"><img src="uploads/' + obj.id + obj.friend + '.jpg" /> ' + obj.friend + '</li>');
                     var chatbox = $(".chatbox").clone();
                     chatbox.attr("data-id", obj.id);
                     chatbox.attr("id", "cb" + obj.id);
@@ -341,12 +372,12 @@
             //end get online friends
 
             //Update friends online
-            hub.client.updatechat = function (user, data) {
+            hub.client.updateChat = function (user, data) {
                 var result = JSON.parse(data);
                 $(".chat." + user + "> ul").empty();
                 for (var i = 0; i < result.length; i++) {
                     var obj = result[i];
-                    $(".chat." + user + "> ul").append('<li class="cf list-group-item list-group-item-success' + obj.id + '" data-id="' + obj.id + '"><img src="uploads/' + obj.id + obj.friend + '.jpg" /> ' + obj.friend + '</li>');
+                    $(".chat." + user + "> ul").append('<li class="cf list-group-item list-group-success' + obj.id + '" data-id="' + obj.id + '"><img src="uploads/' + obj.id + obj.friend + '.jpg" /> ' + obj.friend + '</li>');
                     if (!($(".chatboxholder #cb" + obj.id).length)) {
                         var chatbox = $(".chatbox").clone();
                         chatbox.attr("data-id", obj.id);
@@ -372,7 +403,6 @@
                 }
                 var b = $("#chb" + friendUsername + " div#cb" + userId + " .chatboxtext");
                 b.append("<img src=uploads/" + userId + user + ".jpg /> " + message + "<br />");
-
                 b.scrollTop(b.prop("scrollHeight"));
             }
             //

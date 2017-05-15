@@ -180,7 +180,7 @@ namespace Connect {
                 var clients = Clients.All;
 
                 // Call js function
-                clients.updatechat(username, json);
+                clients.updateChat(username, json);
             }
         }
 

@@ -337,8 +337,10 @@ ul#liveSearchul {
 
     .chat ul li {
         cursor: pointer;
-        margin: 10px;
-        list-style: none;
+        margin-left:10px;
+        margin-bottom:-2px;
+        border:none;
+        bottom:0;
     }
 
 .chatboxholder {
@@ -365,12 +367,12 @@ ul#liveSearchul {
         z-index: 5;
         background: #4B6A78;
         width: 100%;
-        padding: 5px;
+        padding: 10px;
     }
 
     .chatbox img {
         width: 30px !important;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
 
 .chatboxtext {

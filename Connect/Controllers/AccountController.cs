@@ -2,6 +2,7 @@
 using Connect.Models.Repository;
 using Connect.Models.ViewModel;
 using System;
+using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -272,16 +273,15 @@ namespace Connect.Controllers {
             if (recordView.GraduateYear != null) {
                 ViewBag.GraduateYear = recordView.GraduateYear;
             }
-
-
             //get intro
             var intro = recordView.Users.Intro.Where(user => user.User.Username == Username).FirstOrDefault();
             if (intro != null) {
                 ViewBag.Intro = intro.Intro;
+                ViewBag.IntroId = intro.IntroId;
             } else {
                 ViewBag.intro = null;
             }
-
+            
             //get education list record
             ViewBag.Education = recordView.Users.Educations.Where(user => user.User.Username == Username).ToList();
 
@@ -389,6 +389,24 @@ namespace Connect.Controllers {
             return Redirect("~/");
         }
         #endregion
+
+        #region Update Intro View
+        [HttpGet]
+        public ActionResult IntroUpdatePartial(long? id) {
+              SelfIntro selfIntro =  lpuContext.SelfIntroes.Single(intro => intro.IntroId == id);
+                return PartialView("IntroUpdatePartial", selfIntro);
+            }
+        #endregion
+
+        #region Update Intro View
+        [HttpPost]
+        public ActionResult IntroUpdate(SelfIntro intro) {
+            lpuContext.SelfIntroes.Add(intro);
+            lpuContext.SaveChanges();
+            return Redirect("~/");
+        }
+        #endregion
+
 
         #region Education View
         [Authorize]

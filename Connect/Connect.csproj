@@ -387,6 +387,7 @@
     <Content Include="Views\Account\AwardPartial.cshtml" />
     <Content Include="Views\Account\SkillPartial.cshtml" />
     <Content Include="Views\Account\VerifyEmail.cshtml" />
+    <Content Include="Views\Account\IntroUpdatePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

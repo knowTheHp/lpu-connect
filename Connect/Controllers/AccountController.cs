@@ -1,12 +1,13 @@
 ﻿using Connect.Models;
+using Connect.Models.Repository;
 using Connect.Models.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.Security;
 
 namespace Connect.Controllers {
@@ -83,13 +84,14 @@ namespace Connect.Controllers {
                     Username = userModel.Username,
                     Email = userModel.Email,
                     City = userModel.City,
+                    IsEmailVerified = false,
                     Password = FormsAuthentication.HashPasswordForStoringInConfigFile(userModel.Password, "SHA1")
                 };
-
-                VerifyEmail emailDTO = new VerifyEmail {
+                VerifyEmail emailVerification = new VerifyEmail() {
+                    UniqueId = Guid.NewGuid(),
+                    VerificationDateTime = DateTime.Now,
                     UserId = userDTO.UserId
                 };
-
                 if (UserRole == "1") {
                     recordDTO = new Record() {
                         LpuId = userModel.LpuId,
@@ -146,8 +148,10 @@ namespace Connect.Controllers {
 
                     //step 13: Save
                     lpuContext.Records1.Add(recordDTO);
-                    lpuContext.VerifyEmails.Add(emailDTO);
+                    lpuContext.VerifyEmails.Add(emailVerification);
                     lpuContext.SaveChanges();
+
+                    EmailVerification.SendEmail(userDTO.UserId,userDTO.Email, userDTO.Firstname + ' ' + userDTO.Lastname, emailVerification.UniqueId.ToString());
 
                     //Step 14: Get the inserted id
                     long userId = userDTO.UserId;
@@ -184,6 +188,28 @@ namespace Connect.Controllers {
                 throw raise;
             }
         }
+
+        #region Email Verification
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult VerifyEmail(string userId, string uid) {
+           string uniqueId = Request.QueryString["uid"];
+            if (!string.IsNullOrEmpty(uid)) {
+            VerifyEmail email = lpuContext.VerifyEmails.Where(uidCode => uidCode.UniqueId.ToString() == uniqueId).FirstOrDefault();
+            if (email.UniqueId !=null) {
+                User userEmail = lpuContext.Users.Where(user => user.UserId == Convert.ToInt64(userId)).FirstOrDefault();
+                userEmail.IsEmailVerified = true;
+                lpuContext.Users.Add(userEmail);
+                lpuContext.VerifyEmails.Remove(email);
+                lpuContext.SaveChanges();
+                    ViewBag.ValidateEmail = "Email verified";
+                } else {
+                    ViewBag.ValidateEmail = "Verification link expired";
+                }
+            }
+            return View("VerifyEmail");
+        }
+        #endregion
 
         //GET: /{Username}
         [Authorize]

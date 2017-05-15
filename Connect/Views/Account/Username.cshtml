@@ -5,6 +5,7 @@
 <link href="~/assets/css/styles.css" rel="stylesheet" />
 <link href="~/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 <div style="padding-top:32px"></div>
+<p>@ViewBag.ValidateEmail</p>
 <div class="wrapper">
     <div class="sidebar-wrapper">
         <div class="profile-container">
@@ -272,7 +273,7 @@
     </div>
 </div>
 <div class="chat @User.Identity.Name">
-    <ul></ul>
+    <ul class="list-group"></ul>
 </div>
 @section Scripts{
     <script src="~/assets/js/main.js"></script>
@@ -325,45 +326,59 @@
                 var result = JSON.parse(data);
                 for (var i = 0; i < result.length; i++) {
                     var obj = result[i];
-                    $(".chat." + user + ">ul").append('<li class="cf' + obj.id + '" data-id="' + obj.id + '"><img src="uploads/' + obj.id + obj.friend + '.jpg"/>' + obj.friend +'</li>');
+                    $(".chat." + user + "> ul").append('<li class="cf list-group-item list-group-item-success' + obj.id + '" data-id="' + obj.id + '"><img src="uploads/' + obj.id + obj.friend + '.jpg" /> ' + obj.friend + '</li>');
                     var chatbox = $(".chatbox").clone();
                     chatbox.attr("data-id", obj.id);
                     chatbox.attr("id", "cb" + obj.id);
                     chatbox.addClass("hidden");
-                    chat.find("a.sendchat").attr("data-friend", obj.friend);
-                    chat.find("a.sendchat").attr("data-id", obj.id);
-                    chat.find("div.chatboxtext").attr("id", "cbtext" + obj.id);
+                    chatbox.find("a.sendchat").attr("data-friend", obj.friend);
+                    chatbox.find("a.sendchat").attr("data-id", obj.id);
+                    chatbox.find("div.chatboxtext").attr("id", "cbtext" + obj.id);
                     $("#chb" + user).append(chatbox);
-                    $("#chb" + use + "#cb" + obj.id + " h4 > span").html('<img src="uploads/' + obj.id + user + '.jpg"/>');
+                    $("#chb" + user + " #cb" + obj.id + " h4 > span").html('<img src="uploads/' + obj.id + obj.friend + '.jpg" />');
                 }
             }
             //end get online friends
 
-            //get loggedin online friends++
-            hub.updatechat = function (user, data) {
+            //Update friends online
+            hub.client.updatechat = function (user, data) {
                 var result = JSON.parse(data);
-                $(".chat." + user + ">ul").empty();
+                $(".chat." + user + "> ul").empty();
                 for (var i = 0; i < result.length; i++) {
                     var obj = result[i];
-                    $(".chat." + user + "> ul").append('<li class="cf' + obj.id + '" data-id="' + obj.id + '"><img src="uploads/' + obj.id + obj.friend + '.jpg"/>' + obj.friend + '</li>');
-
+                    $(".chat." + user + "> ul").append('<li class="cf list-group-item list-group-item-success' + obj.id + '" data-id="' + obj.id + '"><img src="uploads/' + obj.id + obj.friend + '.jpg" /> ' + obj.friend + '</li>');
                     if (!($(".chatboxholder #cb" + obj.id).length)) {
-                    var chatbox = $(".chatbox").clone();
-                    chatbox.attr("data-id", obj.id);
-                    chatbox.attr("id", "cb" + obj.id);
-                    chatbox.addClass("hidden");
-                    chat.find("a.sendchat").attr("data-friend", obj.friend);
-                    chat.find("a.sendchat").attr("data-id", obj.id);
-                    chat.find("div.chatboxtext").attr("id", "cbtext" + obj.id);
-                    $("#chb" + user).append(chatbox);
-                    $("#chb" + use + "#cb" + obj.id + " h4 > span").html('<img src="uploads/' + obj.id + user + '.jpg"/>');
+                        var chatbox = $(".chatbox").clone();
+                        chatbox.attr("data-id", obj.id);
+                        chatbox.attr("id", "cb" + obj.id);
+                        chatbox.addClass("hidden");
+                        chatbox.find("a.sendchat").attr("data-friend", obj.friend);
+                        chatbox.find("a.sendchat").attr("data-id", obj.id);
+                        chatbox.find("div.chatboxtext").attr("id", "cbtext" + obj.id);
+                        $("#chb" + user).append(chatbox);
+                        $("#chb" + user + " #cb" + obj.id + " h4 > span").html('<img src="uploads/' + obj.id + obj.friend + '.jpg" />');
                     }
                 }
             }
+            //End update friends online
+
+            //send chat message
+            hub.client.sendChat = function (userId, user, friendId, friendUsername, message) {
+                var a = $("#chb" + user + " div#cb" + friendId + " .chatboxtext");
+                a.append("<img src=uploads/" + userId + user + ".jpg /> " + message + "<br />");
+                a.scrollTop(a.prop("scrollHeight"));
+                if ($("#chb" + friendUsername + " div#cb" + userId).hasClass("hidden")) {
+                    $('li.cf' + userId).addClass("msg");
+                }
+                var b = $("#chb" + friendUsername + " div#cb" + userId + " .chatboxtext");
+                b.append("<img src=uploads/" + userId + user + ".jpg /> " + message + "<br />");
+
+                b.scrollTop(b.prop("scrollHeight"));
+            }
+            //
 
             //Connect to hub
             $.connection.hub.start().done(function () {
-
                 //Connect request
                 $("button.connect").click(function (e) {
                     e.preventDefault();
@@ -412,6 +427,20 @@
                 });
                 //End decline request
 
+                //Send chat message
+                $("body").on("click", "a.sendchat", function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    var friendId = $this.data("id");
+                    var friendUsername = $this.data("friend");
+                    var message = $this.parent().find("textarea").val();
+                    $this.parent().find("textarea").val("");
+                    hub.server.sendChat(friendId, friendUsername, message);
+                });
+                //End chat message
+            });
+            //End SignalR
+
                 //Show FriendRequests
                 $("body").on("click", ".notif", function () {
                     $("ul#reqNotifyul").empty();
@@ -434,7 +463,28 @@
                     $("ul#reqNotifyul").empty();
                 });
                 //end show FriendRequests
+
+                //display chatbox
+                $("body").on("click", ".chat ul li", function () {
+                    var $this = $(this);
+                    if ($this.hasClass("msg")) $this.removeClass("msg");
+                    var friend = $this.text().trim();
+                    var chatboxNumber = $(".chatboxholder .chatbox:not(.hidden)").length;
+                    var id = $this.data("id");
+                    var left = 250;
+                    var cb = $(".chatboxholder #cb" + id);
+                    if (!cb.length) {
+                        cb.css("left", left * chatboxNumber);
+                    } else if (cb.hasClass("hidden")) {
+                        cb.removeClass("hidden");
+                        cb.css("right", right * chatboxNumber);
+                    } else {
+                        cb.addClass("hidden");
+                        cb.css("right", right * chatboxNumber);
+                    }
+                });
+                //end display chatbox
+                $(".afc").removeClass("hide");
             });
-        });
     </script>
 }

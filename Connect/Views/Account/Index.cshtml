@@ -55,7 +55,12 @@
                         @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger validation" })
                         <!-- #endregion -->
                         <!-- #endregion -->
+                        <div class="col-lg-offset-1 col-lg-11">
+                            @Html.CheckBox("CurrentlyWorking",new {@id="currentlyWorking" })Currently Working?
+                        </div>
+                        <!-- #endregion -->
                         <!-- #region From -->
+                        <div id="toggleTo">
                         @Html.DropDownList("FromYear", new List<SelectListItem>
                         () { new SelectListItem() { Text = "2014", Value = "2014" }, new SelectListItem { Text = "2015", Value = "2015" } }, "From Year", new { @class = "pass input" })
                         <!-- #endregion -->
@@ -64,10 +69,7 @@
                         () { new SelectListItem() { Text = "2015", Value = "2015" } }, "To Year", new { @class = "pass input" })
                         <!-- #endregion -->
                         <!-- #region Currently working -->
-                        <div class="col-lg-offset-1 col-lg-11">
-                            @Html.CheckBox("CurrentlyWorking")Currently Working?
                         </div>
-                        <!-- #endregion -->
                     </div>
                     <div class="studentInput">
                         <!-- #region Courses -->

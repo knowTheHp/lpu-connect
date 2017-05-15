@@ -5,6 +5,7 @@ namespace Connect {
     public class RouteConfig {
         public static void RegisterRoutes(RouteCollection routes) {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute("VerifyEmail", "Account/VerifyEmail", new { controller = "Account", action = "VerifyEmail",userId=UrlParameter.Optional });
             routes.MapRoute("Award", "Account/Award", new { controller = "Account", action = "Award" });
             routes.MapRoute("AwardPartial", "Account/AwardPartial", new { controller = "Account", action = "AwardPartial", eduModel = UrlParameter.Optional });
             routes.MapRoute("Skill", "Account/Skill", new { controller = "Account", action = "Skill" });

@@ -131,7 +131,7 @@ namespace Connect {
             long userId = userDTO.UserId;
 
             // Remove from db
-            if (lpuContext.Onlines.Any(x => x.OnlineId == userId)) {
+            if (lpuContext.Onlines.Any(onlineUser => onlineUser.OnlineId == userId)) {
                 Online online = lpuContext.Onlines.Find(userId);
                 lpuContext.Onlines.Remove(online);
                 lpuContext.SaveChanges();

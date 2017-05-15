@@ -70,14 +70,15 @@
         @RenderBody()
     </div>
     <div class="chatboxholder" id="chb@(User.Identity.Name)"></div>
-    <div class="chatbox">
+    <div class="chatbox hidden">
         <h4><span></span></h4>
         <div class="chatboxtext"></div>
         <textarea class="chattextarea"></textarea>
         <br />
-        <a href="#" class="sendchat">Send</a>
+        <a href="#" class="sendchat">send</a>
     </div>
-    <footer class="navbar-fixed-bottom">
+    <div style="padding-bottom:200px"></div>
+    <footer class="bottom">
         <p>&copy; @DateTime.Now.Year - LPU Connect</p>
     </footer>
 

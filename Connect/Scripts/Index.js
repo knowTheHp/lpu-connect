@@ -18,7 +18,15 @@
     });
     //End
 
-    //Toggle Currently Working
+    //Toggle Currently working for Signup
+    $(function () {
+        $('#currentlyWorking').change(function () {
+            $('#toggleTo').toggle(!this.checked);
+        }).change(); //ensure visible state matches initially
+    });
+    //
+
+    //Toggle Currently Working for WorkXP
     $(function () {
         $('#isWorking').change(function () {
             $('#toggleToMonthAndYear').toggle(!this.checked);
@@ -50,6 +58,17 @@
         });
     });
     //End
+
+    //send chat on enter key
+    $("body").on("keypress", ".chatbox textarea", function (e) {
+        if (e.which == 13) {
+            $(this).parent().find("a.sendchat").click();
+            setTimeout(function () {
+                $(this).parent().find("textarea").focus();
+            }, 0);
+        }
+    });
+    //end
 
     //Start Image Script
     function readURL(input) {

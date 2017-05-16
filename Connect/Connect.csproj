@@ -172,6 +172,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Echo.cs" />
     <Compile Include="Global.asax.cs">
@@ -284,6 +285,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\customCss.css" />
+    <Content Include="Database\Connect_LPU.mdf" />
+    <Content Include="Database\Connect_LPU_log.ldf">
+      <DependentUpon>Connect_LPU.mdf</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -387,7 +392,13 @@
     <Content Include="Views\Account\AwardPartial.cshtml" />
     <Content Include="Views\Account\SkillPartial.cshtml" />
     <Content Include="Views\Account\VerifyEmail.cshtml" />
-    <Content Include="Views\Account\IntroUpdatePartial.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Account\EducationUpdate.cshtml" />
+    <Content Include="Views\Account\IntroUpdate.cshtml" />
+    <Content Include="Views\Account\WorkExperienceUpdate.cshtml" />
+    <Content Include="Views\Account\ProjectUpdate.cshtml" />
+    <Content Include="Views\Account\SkillUpdate.cshtml" />
+    <Content Include="Views\Account\AwardUpdate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

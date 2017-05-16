@@ -25,10 +25,10 @@ namespace Connect.Models {
     public class WorkXpDTO {
         public int WorkxpId { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Designation is required")]
-        [RegularExpression("^[A-Z a-z]+$", ErrorMessage = "only characters allowed")]
+        [RegularExpression(@"^[a-z A-Z._-]+$", ErrorMessage = "invalid character(s) detected.")]
         public string Company { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Designation is required")]
-        [RegularExpression("^[A-Z a-z]+$", ErrorMessage = "only characters allowed")]
+        [RegularExpression(@"^[a-z A-Z._-]+$", ErrorMessage = "invalid character(s) detected.")]
         public string Designation { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Designation is required")]
         [RegularExpression("^[A-Z a-z]+$", ErrorMessage = "only characters allowed")]

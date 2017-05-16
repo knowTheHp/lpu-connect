@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Connect.Models.Record>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @using (Html.BeginForm("Verify", "Admin", FormMethod.Post)) {
+        <table class="table" border="1" style="border-collapse:collapse">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.LpuId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FromYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ToYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CurrentlyWorking)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EntryYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GraduateYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Branches.BranchName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Courses.CourseName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Departments.DepartmentName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Users.Username)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LpuId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FromYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ToYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CurrentlyWorking)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EntryYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GraduateYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Branches.BranchName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Courses.CourseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Departments.DepartmentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Users.Username)
+                    </td>
+                    <td>
+                        <button type="submit" id="id=@item.User_Id">Verify</button>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+</body>
+</html>

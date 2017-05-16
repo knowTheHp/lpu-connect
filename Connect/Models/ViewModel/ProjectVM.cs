@@ -37,7 +37,7 @@ namespace Connect.Models.ViewModel {
         [Display(Name = "Start Year")]
         public int ProjectStartYear { get; set; }
         [Display(Name ="OnGoing")]
-        public bool? ProjectOnGoing { get; set; }
+        public bool ProjectOnGoing { get; set; }
         [Display(Name = "End Month")]
         public int? ProjectEndMonth { get; set; }
         [Display(Name ="End Year")]

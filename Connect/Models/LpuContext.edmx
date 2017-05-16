@@ -127,7 +127,7 @@
           <Property Name="ProjectUrl" Type="varchar" MaxLength="1000" />
           <Property Name="ProjectStartMonth" Type="int" Nullable="false" />
           <Property Name="ProjectStartYear" Type="int" Nullable="false" />
-          <Property Name="ProjectOnGoing" Type="bit" />
+          <Property Name="ProjectOnGoing" Type="bit" Nullable="false" />
           <Property Name="ProjectEndMonth" Type="int" />
           <Property Name="ProjectEndYear" Type="int" />
           <Property Name="UserId" Type="bigint" />
@@ -189,7 +189,7 @@
           <Property Name="FromYear" Type="int" Nullable="false" />
           <Property Name="ToMonth" Type="int" />
           <Property Name="ToYear" Type="int" />
-          <Property Name="IsCurrentlyWorking" Type="bit" />
+          <Property Name="IsCurrentlyWorking" Type="bit" Nullable="false" />
           <Property Name="UserId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="tblYear">
@@ -343,7 +343,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblProjec__Proje__7A3223E8">
+        <Association Name="FK__tblProjec__Proje__55BFB948">
           <End Role="tblMonth" Type="Self.tblMonth" Multiplicity="1" />
           <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -355,7 +355,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblProjec__Proje__7B264821">
+        <Association Name="FK__tblProjec__Proje__56B3DD81">
           <End Role="tblYear" Type="Self.tblYear" Multiplicity="1" />
           <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -367,7 +367,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblProjec__Proje__7D0E9093">
+        <Association Name="FK__tblProjec__Proje__589C25F3">
           <End Role="tblMonth" Type="Self.tblMonth" Multiplicity="0..1" />
           <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -379,7 +379,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblProjec__Proje__7E02B4CC">
+        <Association Name="FK__tblProjec__Proje__59904A2C">
           <End Role="tblYear" Type="Self.tblYear" Multiplicity="0..1" />
           <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -391,7 +391,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblProjec__UserI__7EF6D905">
+        <Association Name="FK__tblProjec__UserI__5A846E65">
           <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="0..1" />
           <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -439,7 +439,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblWorkEx__Count__719CDDE7">
+        <Association Name="FK__tblWorkEx__Count__4D2A7347">
           <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="1" />
           <End Role="tblWorkExperience" Type="Self.tblWorkExperience" Multiplicity="*" />
           <ReferentialConstraint>
@@ -451,7 +451,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblWorkEx__FromM__72910220">
+        <Association Name="FK__tblWorkEx__FromM__4E1E9780">
           <End Role="tblMonth" Type="Self.tblMonth" Multiplicity="1" />
           <End Role="tblWorkExperience" Type="Self.tblWorkExperience" Multiplicity="*" />
           <ReferentialConstraint>
@@ -463,7 +463,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblWorkEx__FromY__73852659">
+        <Association Name="FK__tblWorkEx__FromY__4F12BBB9">
           <End Role="tblYear" Type="Self.tblYear" Multiplicity="1" />
           <End Role="tblWorkExperience" Type="Self.tblWorkExperience" Multiplicity="*" />
           <ReferentialConstraint>
@@ -475,7 +475,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblWorkEx__ToMon__74794A92">
+        <Association Name="FK__tblWorkEx__ToMon__5006DFF2">
           <End Role="tblMonth" Type="Self.tblMonth" Multiplicity="0..1" />
           <End Role="tblWorkExperience" Type="Self.tblWorkExperience" Multiplicity="*" />
           <ReferentialConstraint>
@@ -487,7 +487,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblWorkEx__ToYea__756D6ECB">
+        <Association Name="FK__tblWorkEx__ToYea__50FB042B">
           <End Role="tblYear" Type="Self.tblYear" Multiplicity="0..1" />
           <End Role="tblWorkExperience" Type="Self.tblWorkExperience" Multiplicity="*" />
           <ReferentialConstraint>
@@ -499,7 +499,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblWorkEx__UserI__7755B73D">
+        <Association Name="FK__tblWorkEx__UserI__52E34C9D">
           <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="1" />
           <End Role="tblWorkExperience" Type="Self.tblWorkExperience" Multiplicity="*" />
           <ReferentialConstraint>
@@ -603,23 +603,23 @@
             <End Role="tblUserSignup" EntitySet="tblUserSignup" />
             <End Role="tblOnline" EntitySet="tblOnline" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblProjec__Proje__7A3223E8" Association="Self.FK__tblProjec__Proje__7A3223E8">
+          <AssociationSet Name="FK__tblProjec__Proje__55BFB948" Association="Self.FK__tblProjec__Proje__55BFB948">
             <End Role="tblMonth" EntitySet="tblMonth" />
             <End Role="tblProject" EntitySet="tblProject" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblProjec__Proje__7B264821" Association="Self.FK__tblProjec__Proje__7B264821">
+          <AssociationSet Name="FK__tblProjec__Proje__56B3DD81" Association="Self.FK__tblProjec__Proje__56B3DD81">
             <End Role="tblYear" EntitySet="tblYear" />
             <End Role="tblProject" EntitySet="tblProject" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblProjec__Proje__7D0E9093" Association="Self.FK__tblProjec__Proje__7D0E9093">
+          <AssociationSet Name="FK__tblProjec__Proje__589C25F3" Association="Self.FK__tblProjec__Proje__589C25F3">
             <End Role="tblMonth" EntitySet="tblMonth" />
             <End Role="tblProject" EntitySet="tblProject" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblProjec__Proje__7E02B4CC" Association="Self.FK__tblProjec__Proje__7E02B4CC">
+          <AssociationSet Name="FK__tblProjec__Proje__59904A2C" Association="Self.FK__tblProjec__Proje__59904A2C">
             <End Role="tblYear" EntitySet="tblYear" />
             <End Role="tblProject" EntitySet="tblProject" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblProjec__UserI__7EF6D905" Association="Self.FK__tblProjec__UserI__7EF6D905">
+          <AssociationSet Name="FK__tblProjec__UserI__5A846E65" Association="Self.FK__tblProjec__UserI__5A846E65">
             <End Role="tblUserSignup" EntitySet="tblUserSignup" />
             <End Role="tblProject" EntitySet="tblProject" />
           </AssociationSet>
@@ -635,27 +635,27 @@
             <End Role="tblUserSignup" EntitySet="tblUserSignup" />
             <End Role="tblUserSkills" EntitySet="tblUserSkills" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblWorkEx__Count__719CDDE7" Association="Self.FK__tblWorkEx__Count__719CDDE7">
+          <AssociationSet Name="FK__tblWorkEx__Count__4D2A7347" Association="Self.FK__tblWorkEx__Count__4D2A7347">
             <End Role="tblCountry" EntitySet="tblCountry" />
             <End Role="tblWorkExperience" EntitySet="tblWorkExperience" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblWorkEx__FromM__72910220" Association="Self.FK__tblWorkEx__FromM__72910220">
+          <AssociationSet Name="FK__tblWorkEx__FromM__4E1E9780" Association="Self.FK__tblWorkEx__FromM__4E1E9780">
             <End Role="tblMonth" EntitySet="tblMonth" />
             <End Role="tblWorkExperience" EntitySet="tblWorkExperience" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblWorkEx__FromY__73852659" Association="Self.FK__tblWorkEx__FromY__73852659">
+          <AssociationSet Name="FK__tblWorkEx__FromY__4F12BBB9" Association="Self.FK__tblWorkEx__FromY__4F12BBB9">
             <End Role="tblYear" EntitySet="tblYear" />
             <End Role="tblWorkExperience" EntitySet="tblWorkExperience" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblWorkEx__ToMon__74794A92" Association="Self.FK__tblWorkEx__ToMon__74794A92">
+          <AssociationSet Name="FK__tblWorkEx__ToMon__5006DFF2" Association="Self.FK__tblWorkEx__ToMon__5006DFF2">
             <End Role="tblMonth" EntitySet="tblMonth" />
             <End Role="tblWorkExperience" EntitySet="tblWorkExperience" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblWorkEx__ToYea__756D6ECB" Association="Self.FK__tblWorkEx__ToYea__756D6ECB">
+          <AssociationSet Name="FK__tblWorkEx__ToYea__50FB042B" Association="Self.FK__tblWorkEx__ToYea__50FB042B">
             <End Role="tblYear" EntitySet="tblYear" />
             <End Role="tblWorkExperience" EntitySet="tblWorkExperience" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblWorkEx__UserI__7755B73D" Association="Self.FK__tblWorkEx__UserI__7755B73D">
+          <AssociationSet Name="FK__tblWorkEx__UserI__52E34C9D" Association="Self.FK__tblWorkEx__UserI__52E34C9D">
             <End Role="tblUserSignup" EntitySet="tblUserSignup" />
             <End Role="tblWorkExperience" EntitySet="tblWorkExperience" />
           </AssociationSet>
@@ -1082,7 +1082,7 @@
           <Property Name="FromYear" Type="Int32" Nullable="false" />
           <Property Name="ToMonth" Type="Int32" />
           <Property Name="ToYear" Type="Int32" />
-          <Property Name="IsCurrentlyWorking" Type="Boolean" />
+          <Property Name="IsCurrentlyWorking" Type="Boolean" Nullable="false" />
           <Property Name="UserId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Countries" Relationship="Connect_LPUModel.FK__tblWorkEx__Count__690797E6" FromRole="tblWorkExperience" ToRole="tblCountry" />
           <NavigationProperty Name="MonthFrom" Relationship="Connect_LPUModel.FK__tblWorkEx__FromM__69FBBC1F" FromRole="tblWorkExperience" ToRole="tblMonth" />
@@ -1186,7 +1186,7 @@
           <Property Name="ProjectUrl" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="ProjectStartMonth" Type="Int32" Nullable="false" />
           <Property Name="ProjectStartYear" Type="Int32" Nullable="false" />
-          <Property Name="ProjectOnGoing" Type="Boolean" />
+          <Property Name="ProjectOnGoing" Type="Boolean" Nullable="false" />
           <Property Name="ProjectEndMonth" Type="Int32" />
           <Property Name="ProjectEndYear" Type="Int32" />
           <Property Name="UserId" Type="Int64" />

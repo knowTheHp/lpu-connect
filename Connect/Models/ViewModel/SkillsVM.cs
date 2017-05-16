@@ -13,7 +13,7 @@ namespace Connect.Models.ViewModel {
         }
         [Key]
         public long SkillsId { get; set; }
-        [Display(Name = "Skill One")]
+        [Display(Name = "Skill")]
         [Required(AllowEmptyStrings =false,ErrorMessage ="Skill required")]
         public long SkillId{ get; set; }
         public long? UserId { get; set; }

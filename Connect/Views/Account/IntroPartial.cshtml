@@ -6,7 +6,7 @@
 <script src="@Url.Content("~/Scripts/jquery-3.1.1.min.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
-<button id="IntroModalButton" data-target="#introModal" data-toggle="modal" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>Add</button>
+<button id="IntroModalButton" data-target="#introModal" data-toggle="modal" class="btn btn-primary btn-sm shiftright"><i class="fa fa-plus"></i>Add</button>
 <div class="modal fade" id="introModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -17,6 +17,7 @@
             <div class="modal-body">
                 @using (Html.BeginForm("Intro", "Account", FormMethod.Post, new { @id = "introForm" })) {
                     @Html.AntiForgeryToken()
+
                     <div class="form-horizontal">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">

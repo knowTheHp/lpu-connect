@@ -7,13 +7,13 @@
 <script src="@Url.Content("~/Scripts/jquery-3.1.1.min.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
-<button id="awardModalButton" data-target="#awardModal" data-toggle="modal" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>Add</button>
+<button id="awardModalButton" data-target="#awardModal" data-toggle="modal" class="btn btn-primary btn-sm shiftright"><i class="fa fa-plus"></i>Add</button>
 <div class="modal fade" id="awardModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&nbsp;</span></button>
-                <h4 class="modal-title">Self Introduction</h4>
+                <h4 class="modal-title">Achievement Section</h4>
             </div>
             <div class="modal-body">
                 @using (Html.BeginForm("Award", "Account", FormMethod.Post, new { @id = "awardForm" })) {
@@ -40,8 +40,8 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                <br/>
+                                @Html.TextAreaFor(model => model.Description,new { @class = "form-control awardTextArea" })
+                                <span></span>
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
                         </div>

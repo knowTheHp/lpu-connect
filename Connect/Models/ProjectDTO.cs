@@ -26,7 +26,7 @@ namespace Connect.Models {
         public string ProjectName { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Project description is required")]
         [Display(Name = "Description")]
-        //[RegularExpression("^[A-Z a-z]+$", ErrorMessage = "only characters allowed")]
+        [RegularExpression(@"^[0-9 a-z A-Z\.|@_-]+$", ErrorMessage = "invalid character(s) detected.")]
         public string ProjectDescription { get; set; }
         [Display(Name = "Project URL")]
         [DataType(DataType.Url, ErrorMessage = "Enter a valid URL")]
@@ -38,7 +38,7 @@ namespace Connect.Models {
         [Display(Name = "Start Year")]
         public int ProjectStartYear { get; set; }
         [Display(Name = "Project OnGoing")]
-        public bool? ProjectOnGoing { get; set; }
+        public bool ProjectOnGoing { get; set; }
         [Display(Name = "End Month")]
         public int? ProjectEndMonth { get; set; }
         [Display(Name = "End Year")]

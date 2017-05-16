@@ -1,0 +1,51 @@
+﻿@model Connect.Models.UserSkills
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <script src="@Url.Content("~/Scripts/jquery-3.1.1.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+    <a href="#" id="skillUpdateModalButton" data-target="#skillUpdateModal" data-toggle="modal"><i class="glyphicon glyphicon-pencil"></i></a>
+    <div class="modal fade" id="skillUpdateModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&nbsp;</span></button>
+                    <h4 class="modal-title">Update Skill</h4>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("SkillUpdate", "Account", new { @id = "skillUpdateForm" })) {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.UserSkillId)
+                            @Html.HiddenFor(model => model.UserId)
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    @Html.DropDownListFor(model => model.SkillId, new SelectList(ViewBag.Skills, "SkillId", "SkillName"), "---Choose Skill---", new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.SkillId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-save">&nbsp;</i>Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

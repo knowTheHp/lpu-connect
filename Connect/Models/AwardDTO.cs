@@ -18,9 +18,9 @@ namespace Connect.Models {
 
     public class AwardDTO {
         public long AwardId { get; set; }
-        [RegularExpression("^[A-Z a-z]+$", ErrorMessage = "only characters allowed")]
         [Required(AllowEmptyStrings =false,ErrorMessage ="Cerificate name is required")]
         [Display(Name="Certificate")]
+        [RegularExpression(@"^[a-z A-Z._-]+$", ErrorMessage = "invalid character(s) detected.")]
         public string Name { get; set; }
         [Display(Name="Issuer")]
         [RegularExpression(@"^[0-9 a-z A-Z\.|@_-]+$", ErrorMessage = "invalid character(s) detected.")]

@@ -18,12 +18,12 @@ namespace Connect.Models.ViewModel {
         public long EducationId { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "School/College is required")]
         [Display(Name = "School/College")]
-        [RegularExpression("^[A-Z a-z]+$", ErrorMessage = "only characters allowed")]
+        [RegularExpression(@"^[a-z A-Z._-]+$", ErrorMessage = "invalid character(s) detected.")]
         public string School { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Degree is required")]
         [Display(Name = "Degree")]
         public int DegreeType { get; set; }
-        [RegularExpression("^[A-Z a-z]+$", ErrorMessage = "only characters allowed")]
+        [RegularExpression(@"^[0-9 a-z A-Z-+]+$", ErrorMessage = "invalid character(s) detected.")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Course is required")]
         [Display(Name = "Course")]
         public string Course { get; set; }

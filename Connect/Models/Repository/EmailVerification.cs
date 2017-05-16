@@ -30,7 +30,7 @@ namespace Connect.Models.Repository {
 
                 using (var client = new SmtpClient()) {
                     client.Connect(SmtpServer, SmtpPortNumber, false);
-                    client.Authenticate("lpuconnects@gmail.com", "Lpu@123@");
+                    client.Authenticate("lpuconnects@gmail.com", "password");
                     client.Send(mimeMessage);
                     client.Disconnect(true);
                 }

@@ -6,7 +6,7 @@
 <script src="@Url.Content("~/Scripts/jquery-3.1.1.min.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
-<button id="educationModal" data-target="#eduModal" data-toggle="modal" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>Add</button>
+<button id="educationModal" data-target="#eduModal" data-toggle="modal" class="btn btn-primary btn-sm shiftright"><i class="fa fa-plus"></i>Add</button>
 <div class="modal fade" id="eduModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -46,7 +46,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.EduFrom, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.EduFrom, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.DropDownListFor(model => model.EduFrom,new SelectList(ViewBag.FromYear, "YearName", "YearName"), "---Select Month---", new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.EduFrom, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.EduTo, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.EduTo, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.DropDownListFor(model => model.EduTo,new SelectList(ViewBag.ToYear, "YearName", "YearName"), "---Select Year---", new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.EduTo, "", new { @class = "text-danger" })
                             </div>
                         </div>

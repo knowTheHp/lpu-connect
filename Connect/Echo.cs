@@ -77,10 +77,11 @@ namespace Connect {
 
             //add to Online
             if (!lpuContext.Onlines.Any(online => online.OnlineId == userId)) {
-                Online onlineDTO = new Online();
-                onlineDTO.OnlineId = userId;
-                onlineDTO.UserId = userId;
-                onlineDTO.ConnectionId = connId;
+                Online onlineDTO = new Online() {
+                    OnlineId = userId,
+                    UserId = userId,
+                    ConnectionId = connId
+                };
                 lpuContext.Onlines.Add(onlineDTO);
                 lpuContext.SaveChanges();
             }

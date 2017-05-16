@@ -20,7 +20,7 @@ namespace Connect.Models
         public string ProjectUrl { get; set; }
         public int ProjectStartMonth { get; set; }
         public int ProjectStartYear { get; set; }
-        public Nullable<bool> ProjectOnGoing { get; set; }
+        public bool ProjectOnGoing { get; set; }
         public Nullable<int> ProjectEndMonth { get; set; }
         public Nullable<int> ProjectEndYear { get; set; }
         public Nullable<long> UserId { get; set; }

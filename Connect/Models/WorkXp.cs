@@ -22,7 +22,7 @@ namespace Connect.Models
         public int FromYear { get; set; }
         public Nullable<int> ToMonth { get; set; }
         public Nullable<int> ToYear { get; set; }
-        public Nullable<bool> IsCurrentlyWorking { get; set; }
+        public bool IsCurrentlyWorking { get; set; }
         public long UserId { get; set; }
         public string Company { get; set; }
     

@@ -2,6 +2,8 @@
 using Connect.Models.Repository;
 using Connect.Models.ViewModel;
 using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
@@ -85,6 +87,9 @@ namespace Connect.Controllers {
                     Username = userModel.Username,
                     Email = userModel.Email,
                     City = userModel.City,
+                    IsUserVerified = false,
+                    RegisteredDateTime = DateTime.Now,
+                    registeredUniqueId = Guid.NewGuid(),
                     IsEmailVerified = false,
                     Password = FormsAuthentication.HashPasswordForStoringInConfigFile(userModel.Password, "SHA1")
                 };
@@ -152,7 +157,7 @@ namespace Connect.Controllers {
                     lpuContext.VerifyEmails.Add(emailVerification);
                     lpuContext.SaveChanges();
 
-                    EmailVerification.SendEmail(userDTO.UserId,userDTO.Email, userDTO.Firstname + ' ' + userDTO.Lastname, emailVerification.UniqueId.ToString());
+                    EmailVerification.SendEmail(userDTO.UserId, userDTO.Email, userDTO.Firstname + ' ' + userDTO.Lastname, emailVerification.UniqueId.ToString());
 
                     //Step 14: Get the inserted id
                     long userId = userDTO.UserId;
@@ -194,15 +199,15 @@ namespace Connect.Controllers {
         [HttpPost]
         [AllowAnonymous]
         public ActionResult VerifyEmail(string userId, string uid) {
-           string uniqueId = Request.QueryString["uid"];
+            string uniqueId = Request.QueryString["uid"];
             if (!string.IsNullOrEmpty(uid)) {
-            VerifyEmail email = lpuContext.VerifyEmails.Where(uidCode => uidCode.UniqueId.ToString() == uniqueId).FirstOrDefault();
-            if (email.UniqueId !=null) {
-                User userEmail = lpuContext.Users.Where(user => user.UserId == Convert.ToInt64(userId)).FirstOrDefault();
-                userEmail.IsEmailVerified = true;
-                lpuContext.Users.Add(userEmail);
-                lpuContext.VerifyEmails.Remove(email);
-                lpuContext.SaveChanges();
+                VerifyEmail email = lpuContext.VerifyEmails.Where(uidCode => uidCode.UniqueId.ToString() == uniqueId).FirstOrDefault();
+                if (email.UniqueId != null) {
+                    User userEmail = lpuContext.Users.Where(user => user.UserId == Convert.ToInt64(userId)).FirstOrDefault();
+                    userEmail.IsEmailVerified = true;
+                    lpuContext.Users.Add(userEmail);
+                    lpuContext.VerifyEmails.Remove(email);
+                    lpuContext.SaveChanges();
                     ViewBag.ValidateEmail = "Email verified";
                 } else {
                     ViewBag.ValidateEmail = "Verification link expired";
@@ -281,7 +286,7 @@ namespace Connect.Controllers {
             } else {
                 ViewBag.intro = null;
             }
-            
+
             //get education list record
             ViewBag.Education = recordView.Users.Educations.Where(user => user.User.Username == Username).ToList();
 
@@ -392,27 +397,32 @@ namespace Connect.Controllers {
 
         #region Update Intro View
         [HttpGet]
-        public ActionResult IntroUpdatePartial(long? id) {
-              SelfIntro selfIntro =  lpuContext.SelfIntroes.Single(intro => intro.IntroId == id);
-                return PartialView("IntroUpdatePartial", selfIntro);
-            }
+        [Authorize]
+        public ActionResult IntroUpdate(long? id) {
+            SelfIntro selfIntro = lpuContext.SelfIntroes.Single(intro => intro.IntroId == id);
+            return View("IntroUpdate", selfIntro);
+        }
         #endregion
 
-        #region Update Intro View
+        #region Update Intro Data
         [HttpPost]
-        public ActionResult IntroUpdate(SelfIntro intro) {
-            lpuContext.SelfIntroes.Add(intro);
+        [Authorize]
+        public ActionResult IntroUpdate(SelfIntro entity) {
+            lpuContext.Configuration.ProxyCreationEnabled = false;
+            lpuContext.Entry(entity).State = EntityState.Modified;
             lpuContext.SaveChanges();
             return Redirect("~/");
         }
         #endregion
 
-
         #region Education View
+        [HttpGet]
         [Authorize]
         public ActionResult EducationPartial() {
             EducationVM eduModel = new EducationVM();
             ViewBag.Degree = lpuContext.Degrees;
+            ViewBag.FromYear = lpuContext.Years1.OrderByDescending(x => x.YearId);
+            ViewBag.ToYear = lpuContext.Years1.OrderByDescending(x => x.YearId);
             return PartialView("EducationPartial", eduModel);
         }
         #endregion
@@ -439,7 +449,31 @@ namespace Connect.Controllers {
         }
         #endregion
 
+        #region Update Education View
+        [HttpGet]
+        [Authorize]
+        public ActionResult EducationUpdate(long? id) {
+            ViewBag.Degree = lpuContext.Degrees;
+            ViewBag.FromYear = lpuContext.Years1.OrderByDescending(x => x.YearId);
+            ViewBag.ToYear = lpuContext.Years1.OrderByDescending(x => x.YearId);
+            Education eduData = lpuContext.Educations.Where(edu => edu.EducationId == id).Single();
+            return View("EducationUpdate", eduData);
+
+        }
+        #endregion
+
+        #region Update Intro Data
+        [HttpPost]
+        [Authorize]
+        public ActionResult EducationUpdate(Education entity) {
+            lpuContext.Entry(entity).State = EntityState.Modified;
+            lpuContext.SaveChanges();
+            return Redirect("~/");
+        }
+        #endregion
+
         #region WorkXp View
+        [HttpGet]
         [Authorize]
         public ActionResult WorkExperiencePartial() {
             WorkXpVM workXpVM = new WorkXpVM();
@@ -477,6 +511,32 @@ namespace Connect.Controllers {
         }
         #endregion
 
+        #region WorkXpUpdate View
+        [HttpGet]
+        [Authorize]
+        public ActionResult WorkExperienceUpdate(long? id) {
+            WorkXp workXpData = lpuContext.WorkXps.Where(workXp => workXp.WorkxpId == id).Single();
+            ViewBag.Countries = lpuContext.Countries;
+            var Months = lpuContext.Months;
+            var Years = lpuContext.Years1.OrderByDescending(x => x.YearId);
+            ViewBag.ToYear = Years;
+            ViewBag.FromMonth = Months;
+            ViewBag.FromYear = Years;
+            ViewBag.ToMonth = Months;
+            return View("WorkExperienceUpdate", workXpData);
+        }
+        #endregion
+
+        #region Update WorkXp Data
+        [HttpPost]
+        [Authorize]
+        public ActionResult WorkExperienceUpdate(WorkXp entity) {
+            lpuContext.Entry(entity).State = EntityState.Modified;
+            lpuContext.SaveChanges();
+            return Redirect("~/");
+        }
+        #endregion
+
         #region Project View
         public ActionResult ProjectPartial() {
             ProjectVM projectVM = new ProjectVM();
@@ -509,6 +569,32 @@ namespace Connect.Controllers {
         }
         #endregion
 
+        #region ProjectUpdate View
+        [HttpGet]
+        [Authorize]
+        public ActionResult ProjectUpdate(long? id) {
+            ViewBag.Countries = lpuContext.Countries;
+            ViewBag.FromMonth = lpuContext.Months;
+            ViewBag.FromYear = lpuContext.Years1.OrderByDescending(fromYear => fromYear.YearId);
+            ViewBag.ToMonth = lpuContext.Months;
+            ViewBag.ToYear = lpuContext.Years1.OrderByDescending(toYear => toYear.YearId);
+            ViewBag.Degree = lpuContext.Degrees;
+            Project projectData = lpuContext.Projects.Where(project => project.ProjectId== id).Single();
+            return View("ProjectUpdate", projectData);
+        }
+        #endregion
+
+        #region Update Project Data
+        [HttpPost]
+        [Authorize]
+        public ActionResult ProjectUpdate(Project entity) {
+            lpuContext.Entry(entity).State = EntityState.Modified;
+            lpuContext.SaveChanges();
+            return Redirect("~/");
+        }
+        #endregion
+
+
         #region Skills View
         public ActionResult SkillPartial() {
             SkillsVM skillsVM = new SkillsVM();
@@ -529,7 +615,30 @@ namespace Connect.Controllers {
         }
         #endregion
 
+        #region User Skills Update View
+        [HttpGet]
+        [Authorize]
+        public ActionResult SkillUpdate(long? id) {
+            ViewBag.Skills = lpuContext.Skills;
+            UserSkills skillData = lpuContext.UserSkills.Where(skill => skill.UserSkillId == id).Single();
+            return View("SkillUpdate", skillData);
+        }
+        #endregion
+
+        #region Update User Skills
+        [HttpPost]
+        [Authorize]
+        public ActionResult SkillUpdate(UserSkills entity) {
+            lpuContext.Entry(entity).State = EntityState.Modified;
+            lpuContext.SaveChanges();
+            return Redirect("~/");
+        }
+        #endregion
+
+
         #region Awards View
+        [HttpGet]
+        [Authorize]
         public ActionResult AwardPartial() {
             AwardVM awardVM = new AwardVM();
             ViewBag.Month = lpuContext.Months;
@@ -538,6 +647,8 @@ namespace Connect.Controllers {
         }
         #endregion
 
+        [HttpPost]
+        [Authorize]
         #region Awards Validation and Insertion
         public ActionResult Award(AwardVM awardVM) {
             Award award = new Award() {
@@ -553,6 +664,28 @@ namespace Connect.Controllers {
             return Redirect("~/");
         }
         #endregion
+
+        #region Award Update View
+        [HttpGet]
+        [Authorize]
+        public ActionResult AwardUpdate(long? id) {
+            ViewBag.Month = lpuContext.Months;
+            ViewBag.Year = lpuContext.Years1.OrderByDescending(x => x.YearId);
+            Award userAwards = lpuContext.Awards.Where(award => award.AwardId == id).Single();
+            return View("AwardUpdate", userAwards);
+        }
+        #endregion
+
+        #region Update User Award
+        [HttpPost]
+        [Authorize]
+        public ActionResult AwardUpdate(Award entity) {
+            lpuContext.Entry(entity).State = EntityState.Modified;
+            lpuContext.SaveChanges();
+            return Redirect("~/");
+        }
+        #endregion
+
 
         #region Logout
         [Authorize]

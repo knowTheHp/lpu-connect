@@ -33,12 +33,26 @@
         }).change(); //ensure visible state matches initially
     });
 
+    $(function () {
+        $('#updateIsWorking').change(function () {
+            $('#updateWorkXpToggleToMonthAndYear').toggle(!this.checked);
+        }).change(); //ensure visible state matches initially
+    });
+
     //Toggle Project On-Going
     $(function () {
         $('#projectOnGoing').change(function () {
             $('#toggleMonthAndYear').toggle(!this.checked);
         }).change(); //ensure visible state matches initially
     });
+
+    //Toggle Project Update On-Going
+    $(function () {
+        $('#projectUpdateOnGoing').change(function () {
+            $('#toggleProjectUpdateMonthAndYear').toggle(!this.checked);
+        }).change(); //ensure visible state matches initially
+    });
+
 
     //Start Branch
     $('#Course').change(function () {
@@ -61,7 +75,7 @@
 
     //send chat on enter key
     $("body").on("keypress", ".chatbox textarea", function (e) {
-        if (e.which == 13) {
+        if (e.which === 13) {
             $(this).parent().find("a.sendchat").click();
             setTimeout(function () {
                 $(this).parent().find("textarea").focus();
@@ -78,7 +92,7 @@
 
             reader.onload = function (e) {
                 $("img#profilePic").attr("src", e.target.result);
-            }
+            };
             reader.readAsDataURL(input.files[0]);
         }
     }

@@ -34,7 +34,7 @@
     });
     //end close button
 
-    //show connect modal
+    //show connectLpu@123@ modal
     $("#connectModal").on("click", function () {
         $('#connectionRequestModal').modal('show');
     });

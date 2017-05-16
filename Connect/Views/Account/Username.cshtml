@@ -126,7 +126,7 @@
         }
     </div><!--//sidebar-wrapper-->
     <div class="main-wrapper">
-
+        
         <!-- #region User Intro -->
         <section class="section summary-section">
             <h2 class="section-title" style="display:inline-block">
@@ -138,7 +138,7 @@
                 }
             } else {
                 if (ViewBag.UserType == "owner") {
-                    @Html.Action("IntroUpdatePartial", "Account", new { id = ViewBag.IntroId }) 
+                    @Html.Action("IntroUpdate", "Account", new { id = ViewBag.IntroId }) 
                 }
             }
             @if (ViewBag.Intro != null) {
@@ -165,7 +165,7 @@
                             <h5 class="degree">
                                 @item.Degree.DegreeName
                                 @if (ViewBag.UserType == "owner") {
-                                    @*@Html.ActionLink(" ", "IntroUpdate", "Acount", new { id = item.EducationId, @class = "glyphicon glyphicon-pencil" })*@
+                                    @Html.Action("EducationUpdate", "Account", new { id = item.EducationId });
                                 }
                             </h5>
                             <h5 class="h5">@item.School</h5>
@@ -194,7 +194,7 @@
                             <h5 class="meta">
                                 @item.Company
                                 @if (ViewBag.UserType == "owner") {
-                                    @*@Html.ActionLink(" ", "IntroUpdate", "Acount", new { @id = item.WorkxpId, @class = "glyphicon glyphicon-pencil" })*@
+                                    @Html.Action("WorkExperienceUpdate", "Account", new { @id = item.WorkxpId})
                                 }
                             </h5>
                             <h5 class="meta">Designation - <span class="h5">@item.Designation</span></h5>
@@ -228,18 +228,19 @@
                 if (ViewBag.Projects != null) {
                     foreach (var item in ViewBag.Projects) {
                         <div class="item">
-                            <h5 class="meta">
+                            <h5 class="meta" style="display:inline-block">
                                 <a href="@item.ProjectUrl" target="_blank">@item.ProjectName</a>
-                                @if (ViewBag.UserType == "owner") {
-                                    @*@Html.ActionLink(" ", "IntroUpdate", "Acount", new { @id = item.ProjectId, @class = "glyphicon glyphicon-pencil" })*@
-                                }
                             </h5>
+                                @if (ViewBag.UserType == "owner") {
+                                    @Html.Action("ProjectUpdate", "Account", new { @id = item.ProjectId })
+                                }
+                                <br/>
                             <span class="project-tagline">@item.ProjectDescription</span>
                             <h5 class="meta">From - <span class="h5">@item.FromMonth.MonthName @item.FromYear.YearName</span></h5>
                             @if (@item.ProjectOnGoing) {
                                 <h5 class="meta">In development!</h5>
                             } else {
-                                if (item.ToMonth.MonthName != null && @item.ToYear.YearName != null) {
+                                if (@item.ToMonth.MonthName != null && @item.ToYear.YearName != null) {
                                     <h5 class="meta">To - <span class="h5">@item.ToMonth.MonthName @item.ToYear.YearName</span></h5>
                                 }
                             }
@@ -266,7 +267,7 @@
                             @item.Skill.SkillName
 
                             @if (ViewBag.UserType == "owner") {
-                                @*@Html.ActionLink(" ", "IntroUpdate", "Acount", new { @id = item.UserSkillId, @class = "glyphicon glyphicon-pencil" })*@
+                                @Html.Action("SkillUpdate", "Account", new { @id = item.UserSkillId, @class = "glyphicon glyphicon-pencil" })
                             }
                         </h5>
                     </div>
@@ -288,12 +289,12 @@
             @foreach (var item in ViewBag.Awards) {
                 <div class="skillset">
                     <div class="item">
-                        <h5 class="meta">
+                        <h5 class="meta" style="display:inline">
                             @item.Name
-                            @if (ViewBag.UserType == "owner") {
-                                @*@Html.ActionLink(" ", "IntroUpdate", "Acount", new { @id = item.AwardId, @class = "glyphicon glyphicon-pencil" })*@
-                            }
                         </h5>
+                            @if (ViewBag.UserType == "owner") {
+                                @Html.Action("AwardUpdate", "Account", new { @id = item.AwardId })
+                            }
                         <h5 class="meta">Issuer - <span class="h5">@item.Issuer</span></h5>
                         <h5 class="project-tagline">Desciption - <span class="h5">@item.Description</span></h5>
                         <h5 class="meta">Period - <span class="h5">@item.Month.MonthName @item.Year.YearName</span></h5>
@@ -493,7 +494,6 @@
                     $("ul#reqNotifyul").empty();
                 });
                 //end show FriendRequests
-
                 //display chatbox
                 $("body").on("click", ".chat ul li", function () {
                     var $this = $(this);

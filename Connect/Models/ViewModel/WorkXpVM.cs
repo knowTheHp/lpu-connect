@@ -24,11 +24,11 @@ namespace Connect.Models.ViewModel {
         public int WorkxpId { get; set; }
         [Display(Name ="Company")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Company is required")]
-        [RegularExpression("^[A-Z a-z]+$", ErrorMessage = "only characters allowed")]
+        [RegularExpression(@"^[a-z A-Z._-]+$", ErrorMessage = "invalid character(s) detected.")]
         public string Company { get; set; }
         [Display(Name ="Designation")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Designation is required")]
-        [RegularExpression("^[A-Z a-z]+$", ErrorMessage = "only characters allowed")]
+        [RegularExpression(@"^[a-z A-Z._-]+$", ErrorMessage = "invalid character(s) detected.")]
         public string Designation { get; set; }
         [Display(Name ="City")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "City is required")]
@@ -48,7 +48,7 @@ namespace Connect.Models.ViewModel {
         [Display(Name = "To Year")]
         public int? ToYear { get; set; }
         [Display(Name ="Is Currently Working?")]
-        public bool? IsCurrentlyWorking { get; set; }
+        public bool IsCurrentlyWorking { get; set; }
         public long UserId { get; set; }
     }
 }

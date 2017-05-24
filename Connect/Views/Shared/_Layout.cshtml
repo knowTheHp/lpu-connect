@@ -22,41 +22,47 @@
             <div class="collapse navbar-collapse">
                 @if (Request.IsAuthenticated) {
                     <ul class="nav navbar-nav">
-                        <li class="livesearch navbar-left" id="livesearch">
-                            <div class="input-group">
-                                <input type="text" id="searchText" placeholder="Search and Connect" />
-                                <ul id="liveSearchul"></ul>
-                            </div>
-                        </li>
+                        @if (ViewBag.VerifiedUser == "true") {
+                            <li class="livesearch navbar-left" id="livesearch">
+                                <div class="input-group">
+                                    <input type="text" id="searchText" placeholder="Search and Connect" />
+                                    <ul id="liveSearchul"></ul>
+                                </div>
+                            </li>
+                        } else {
+                            <li>
+                                <span class="text-danger livesearch navbar-left" style="font-size:22px">Verification Pending</span>
+                            </li>
+                        }
                     </ul>
-                    <ul class="navbar-right">
-                        <li id="profileData">
-                            @if (ViewBag.Requests != null) {
-                                <div class="requestIcon">
-                                    <span class="notif red @User.Identity.Name">
-                                        <i class="fa fa-user-plus"></i>
-                                        <span>
-                                            @ViewBag.Requests
+                        <ul class="navbar-right">
+                            <li id="profileData">
+                                @if (ViewBag.Requests != null) {
+                                    <div class="requestIcon">
+                                        <span class="notif red @User.Identity.Name">
+                                            <i class="fa fa-user-plus"></i>
+                                            <span>
+                                                @ViewBag.Requests
+                                            </span>
                                         </span>
-                                    </span>
-                                </div>
-                            } else {
-                                <div class="requestIcon">
-                                    <span class="notif @User.Identity.Name">
-                                        <i class="fa fa-user-plus"></i>
-                                        <span></span>
-                                    </span>
-                                </div>
-                            }
-                            <ul id="reqNotifyul"></ul>
-                        </li>
-                        <li id="profileData">
-                            <a href="@User.Identity.Name" id="profileData">&nbsp;Profile&nbsp;</a>
-                        </li>
-                        <li id="profileData">
-                            @Html.ActionLink("Logout", "Logout", "Account", new { @id = "profileData" })
-                        </li>
-                    </ul>
+                                    </div>
+                                } else {
+                                    <div class="requestIcon">
+                                        <span class="notif @User.Identity.Name">
+                                            <i class="fa fa-user-plus"></i>
+                                            <span></span>
+                                        </span>
+                                    </div>
+                                }
+                                <ul id="reqNotifyul"></ul>
+                            </li>
+                            <li id="profileData">
+                                <a href="@User.Identity.Name" id="profileData">&nbsp;Profile&nbsp;</a>
+                            </li>
+                            <li id="profileData">
+                                @Html.ActionLink("Logout", "Logout", "Account", new { @id = "profileData" })
+                            </li>
+                        </ul>
                 } else {
                     <div class="collapse navbar-collapse" id="myNavbar">
                         @Html.Action("LoginPartial", "Account")

@@ -13,10 +13,12 @@ namespace Connect {
             routes.MapRoute("WorkExperienceUpdate", "Account/{action}/{id}", new { controller = "Account", action = "WorkExperienceUpdate", id = UrlParameter.Optional });
             routes.MapRoute("EducationUpdate", "Account/{action}/{id}", new { controller = "Account", action = "EducationUpdate", id = UrlParameter.Optional });
             routes.MapRoute("IntroUpdate", "Account/{action}/{id}", new { controller = "Account", action = "IntroUpdate", id = UrlParameter.Optional });
-            routes.MapRoute("VerifyEmail", "Account/VerifyEmail", new { controller = "Account", action = "VerifyEmail",userId=UrlParameter.Optional });
+            routes.MapRoute("VerifyEmail", "Account/{action}", new { controller = "Account", action = "VerifyEmail",uid=UrlParameter.Optional});
             routes.MapRoute("AwardPartial", "Account/AwardPartial", new { controller = "Account", action = "AwardPartial", awardModel = UrlParameter.Optional });
             routes.MapRoute("SkillPartial", "Account/SkillPartial", new { controller = "Account", action = "SkillPartial", skillModel = UrlParameter.Optional });
             routes.MapRoute("IntroPartial", "Account/IntroPartial", new { controller = "Account", action = "IntroPartial", IntroModel = UrlParameter.Optional });
+            routes.MapRoute("ForgetPasswordPartail", "Account/ForgetPassword", new { controller = "Account", action = "ForgetPassword", IntroModel = UrlParameter.Optional });
+
             routes.MapRoute("ProjectPartial", "Account/ProjectPartial", new { controller = "Account", action = "ProjectPartial", projectModel = UrlParameter.Optional });
             routes.MapRoute("WorkExperiencePartial", "Account/WorkExperiencePartial", new { controller = "Account", action = "WorkExperiencePartial", eduModel = UrlParameter.Optional });
             routes.MapRoute("EducationPartial", "Account/EducationPartial", new { controller = "Account", action = "EducationPartial", eduModel = UrlParameter.Optional });

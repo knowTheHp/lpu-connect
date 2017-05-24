@@ -56,19 +56,19 @@
                         <!-- #endregion -->
                         <!-- #endregion -->
                         <div class="col-lg-offset-1 col-lg-11">
-                            @Html.CheckBox("CurrentlyWorking",new {@id="currentlyWorking" })Currently Working?
+                            @Html.CheckBox("CurrentlyWorking", new { @id = "currentlyWorking" })Currently Working?
                         </div>
                         <!-- #endregion -->
                         <!-- #region From -->
                         <div id="toggleTo">
-                        @Html.DropDownList("FromYear", new List<SelectListItem>
+                            @Html.DropDownList("FromYear", new List<SelectListItem>
                         () { new SelectListItem() { Text = "2014", Value = "2014" }, new SelectListItem { Text = "2015", Value = "2015" } }, "From Year", new { @class = "pass input" })
-                        <!-- #endregion -->
-                        <!-- #region To -->
-                        @Html.DropDownList("ToYear", new List<SelectListItem>
+                            <!-- #endregion -->
+                            <!-- #region To -->
+                            @Html.DropDownList("ToYear", new List<SelectListItem>
                         () { new SelectListItem() { Text = "2015", Value = "2015" } }, "To Year", new { @class = "pass input" })
-                        <!-- #endregion -->
-                        <!-- #region Currently working -->
+                            <!-- #endregion -->
+                            <!-- #region Currently working -->
                         </div>
                     </div>
                     <div class="studentInput">

@@ -126,7 +126,7 @@
         }
     </div><!--//sidebar-wrapper-->
     <div class="main-wrapper">
-        
+
         <!-- #region User Intro -->
         <section class="section summary-section">
             <h2 class="section-title" style="display:inline-block">
@@ -138,7 +138,7 @@
                 }
             } else {
                 if (ViewBag.UserType == "owner") {
-                    @Html.Action("IntroUpdate", "Account", new { id = ViewBag.IntroId }) 
+                    @Html.Action("IntroUpdate", "Account", new { id = ViewBag.IntroId })
                 }
             }
             @if (ViewBag.Intro != null) {
@@ -194,7 +194,7 @@
                             <h5 class="meta">
                                 @item.Company
                                 @if (ViewBag.UserType == "owner") {
-                                    @Html.Action("WorkExperienceUpdate", "Account", new { @id = item.WorkxpId})
+                                    @Html.Action("WorkExperienceUpdate", "Account", new { @id = item.WorkxpId })
                                 }
                             </h5>
                             <h5 class="meta">Designation - <span class="h5">@item.Designation</span></h5>
@@ -231,10 +231,10 @@
                             <h5 class="meta" style="display:inline-block">
                                 <a href="@item.ProjectUrl" target="_blank">@item.ProjectName</a>
                             </h5>
-                                @if (ViewBag.UserType == "owner") {
-                                    @Html.Action("ProjectUpdate", "Account", new { @id = item.ProjectId })
-                                }
-                                <br/>
+                            @if (ViewBag.UserType == "owner") {
+                                @Html.Action("ProjectUpdate", "Account", new { @id = item.ProjectId })
+                            }
+                            <br />
                             <span class="project-tagline">@item.ProjectDescription</span>
                             <h5 class="meta">From - <span class="h5">@item.FromMonth.MonthName @item.FromYear.YearName</span></h5>
                             @if (@item.ProjectOnGoing) {
@@ -292,9 +292,9 @@
                         <h5 class="meta" style="display:inline">
                             @item.Name
                         </h5>
-                            @if (ViewBag.UserType == "owner") {
-                                @Html.Action("AwardUpdate", "Account", new { @id = item.AwardId })
-                            }
+                        @if (ViewBag.UserType == "owner") {
+                            @Html.Action("AwardUpdate", "Account", new { @id = item.AwardId })
+                        }
                         <h5 class="meta">Issuer - <span class="h5">@item.Issuer</span></h5>
                         <h5 class="project-tagline">Desciption - <span class="h5">@item.Description</span></h5>
                         <h5 class="meta">Period - <span class="h5">@item.Month.MonthName @item.Year.YearName</span></h5>
@@ -494,6 +494,7 @@
                     $("ul#reqNotifyul").empty();
                 });
                 //end show FriendRequests
+
                 //display chatbox
                 $("body").on("click", ".chat ul li", function () {
                     var $this = $(this);

@@ -204,6 +204,9 @@
     <Compile Include="Models\Education.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ForgetPassword.cs">
+      <DependentUpon>LpuContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IntroDTO.cs" />
     <Compile Include="Models\LpuContext.Context.cs">
       <AutoGen>True</AutoGen>
@@ -235,6 +238,7 @@
     </Compile>
     <Compile Include="Models\RecordDTO.cs" />
     <Compile Include="Models\Repository\EmailVerification.cs" />
+    <Compile Include="Models\Repository\PasswordReset.cs" />
     <Compile Include="Models\SelfIntro.cs">
       <DependentUpon>LpuContext.tt</DependentUpon>
     </Compile>
@@ -285,8 +289,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\customCss.css" />
-    <Content Include="Database\Connect_LPU.mdf" />
-    <Content Include="Database\Connect_LPU_log.ldf">
+    <Content Include="App_Data\Connect_LPU.mdf" />
+    <Content Include="App_Data\Connect_LPU_log.ldf">
       <DependentUpon>Connect_LPU.mdf</DependentUpon>
     </Content>
     <Content Include="favicon.ico" />
@@ -401,7 +405,7 @@
     <Content Include="Views\Account\AwardUpdate.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\Profile\" />
   </ItemGroup>

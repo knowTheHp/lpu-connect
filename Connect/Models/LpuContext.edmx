@@ -85,6 +85,15 @@
           <Property Name="VerificationDateTime" Type="datetime" />
           <Property Name="UserId" Type="bigint" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblForgetPassword">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UniqueId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ResetRequestDateTime" Type="datetime" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblLpuRecords">
           <Key>
             <PropertyRef Name="User_Id" />
@@ -279,6 +288,18 @@
               <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="tblEmailVerification">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblForget__UserI__6ABAD62E">
+          <End Role="tblUserSignup" Type="Self.tblUserSignup" Multiplicity="1" />
+          <End Role="tblForgetPassword" Type="Self.tblForgetPassword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserSignup">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblForgetPassword">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -545,6 +566,7 @@
           <EntitySet Name="tblDepartment" EntityType="Self.tblDepartment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblEducation" EntityType="Self.tblEducation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblEmailVerification" EntityType="Self.tblEmailVerification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblForgetPassword" EntityType="Self.tblForgetPassword" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblLpuRecords" EntityType="Self.tblLpuRecords" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMonth" EntityType="Self.tblMonth" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblOnline" EntityType="Self.tblOnline" Schema="dbo" store:Type="Tables" />
@@ -582,6 +604,10 @@
           <AssociationSet Name="FK__tblEmailV__UserI__0B91BA14" Association="Self.FK__tblEmailV__UserI__0B91BA14">
             <End Role="tblUserSignup" EntitySet="tblUserSignup" />
             <End Role="tblEmailVerification" EntitySet="tblEmailVerification" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblForget__UserI__6ABAD62E" Association="Self.FK__tblForget__UserI__6ABAD62E">
+            <End Role="tblUserSignup" EntitySet="tblUserSignup" />
+            <End Role="tblForgetPassword" EntitySet="tblForgetPassword" />
           </AssociationSet>
           <AssociationSet Name="FK__tblLpuRec__Branc__1F98B2C1" Association="Self.FK__tblLpuRec__Branc__1F98B2C1">
             <End Role="tblBranch" EntitySet="tblBranch" />
@@ -740,6 +766,7 @@
           <NavigationProperty Name="Awards" Relationship="Connect_LPUModel.FK__tblAwards__UserI__0697FACD" FromRole="User" ToRole="tblAward" />
           <NavigationProperty Name="Skills" Relationship="Connect_LPUModel.FK__tblUserSk__UserI__2BC97F7C" FromRole="User" ToRole="tblUserSkill" />
           <NavigationProperty Name="Onlines" Relationship="Connect_LPUModel.FK__tblOnline__UserI__4865BE2A" FromRole="User" ToRole="tblOnline" />
+          <NavigationProperty Name="ForgetPassword" Relationship="Connect_LPUModel.FK__tblForget__UserI__6ABAD62E" FromRole="User" ToRole="tblForgetPassword" />
           </EntityType>
         <Association Name="FK__tblBranch__Cours__72C60C4A">
           <End Role="tblCourse" Type="Connect_LPUModel.Course" Multiplicity="0..1" />
@@ -896,6 +923,11 @@
           <AssociationSet Name="FK__tblOnline__UserI__4865BE2A" Association="Connect_LPUModel.FK__tblOnline__UserI__4865BE2A">
             <End Role="User" EntitySet="Users" />
             <End Role="tblOnline" EntitySet="Onlines" />
+          </AssociationSet>
+          <EntitySet Name="ForgetPasswords" EntityType="Connect_LPUModel.ForgetPassword" />
+          <AssociationSet Name="FK__tblForget__UserI__6ABAD62E" Association="Connect_LPUModel.FK__tblForget__UserI__6ABAD62E">
+            <End Role="User" EntitySet="Users" />
+            <End Role="tblForgetPassword" EntitySet="ForgetPasswords" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Record">
@@ -1391,6 +1423,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ForgetPassword">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UniqueId" Type="Guid" Nullable="false" />
+          <Property Name="ResetRequestDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Connect_LPUModel.FK__tblForget__UserI__6ABAD62E" FromRole="tblForgetPassword" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__tblForget__UserI__6ABAD62E">
+          <End Type="Connect_LPUModel.User" Role="User" Multiplicity="1" />
+          <End Type="Connect_LPUModel.ForgetPassword" Role="tblForgetPassword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblForgetPassword">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1607,6 +1661,16 @@
                 <ScalarProperty Name="ConnectionId" ColumnName="ConnectionId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="OnlineId" ColumnName="OnlineId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForgetPasswords">
+            <EntityTypeMapping TypeName="Connect_LPUModel.ForgetPassword">
+              <MappingFragment StoreEntitySet="tblForgetPassword">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ResetRequestDateTime" ColumnName="ResetRequestDateTime" />
+                <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

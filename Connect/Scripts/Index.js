@@ -53,7 +53,6 @@
         }).change(); //ensure visible state matches initially
     });
 
-
     //Start Branch
     $('#Course').change(function () {
         var courseId = $('#Course').val();
@@ -113,7 +112,7 @@
             if (response === "ok") {
                 //
             } else {
-                $("#validationVisible").show();
+                $("#validationVisible").removeClass("hidden");
             }
         });
     });

@@ -32,10 +32,9 @@
         <AssociationConnector Association="Connect_LPUModel.FK__tblWorkEx__FromM__69FBBC1F" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblWorkEx__ToMon__6BE40491" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblWorkEx__UserI__6EC0713C" ManuallyRouted="true" >
-          <ConnectorPoint PointX="5.7042122830085917" PointY="6.71091796875" />
-          <ConnectorPoint PointX="5.7042122830085917" PointY="10.087368966796875" />
-          <ConnectorPoint PointX="4.99946330878671" PointY="10.087368966796875" />
-          <ConnectorPoint PointX="4.99946330878671" PointY="10.5" />
+          <ConnectorPoint PointX="5.875" PointY="6.9032194010416656" />
+          <ConnectorPoint PointX="5.875" PointY="13.953926653645826" />
+          <ConnectorPoint PointX="5.375" PointY="13.953926653645826" />
         </AssociationConnector>
         <AssociationConnector Association="Connect_LPUModel.FK__tblWorkEx__FromY__6AEFE058" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblWorkEx__ToYea__6CD828CA" />
@@ -57,6 +56,8 @@
         <AssociationConnector Association="Connect_LPUModel.FK__tblUserSk__UserI__2BC97F7C" />
         <EntityTypeShape EntityType="Connect_LPUModel.Online" Width="1.5" PointX="3.5" PointY="2.75" />
         <AssociationConnector Association="Connect_LPUModel.FK__tblOnline__UserI__4865BE2A" />
+        <EntityTypeShape EntityType="Connect_LPUModel.ForgetPassword" Width="1.5" PointX="7.75" PointY="18.375" />
+        <AssociationConnector Association="Connect_LPUModel.FK__tblForget__UserI__6ABAD62E" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

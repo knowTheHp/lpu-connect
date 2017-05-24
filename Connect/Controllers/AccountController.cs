@@ -2,15 +2,12 @@
 using Connect.Models.Repository;
 using Connect.Models.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Web.Security;
 
 namespace Connect.Controllers {
@@ -196,16 +193,16 @@ namespace Connect.Controllers {
         }
 
         #region Email Verification
-        [HttpPost]
         [AllowAnonymous]
-        public ActionResult VerifyEmail(string userId, string uid) {
+        public ActionResult VerifyEmail(string id, string uid) {
             string uniqueId = Request.QueryString["uid"];
             if (!string.IsNullOrEmpty(uid)) {
-                VerifyEmail email = lpuContext.VerifyEmails.Where(uidCode => uidCode.UniqueId.ToString() == uniqueId).FirstOrDefault();
-                if (email.UniqueId != null) {
-                    User userEmail = lpuContext.Users.Where(user => user.UserId == Convert.ToInt64(userId)).FirstOrDefault();
+                VerifyEmail email = lpuContext.VerifyEmails.Where(uidCode => uidCode.UniqueId.ToString() == uid).FirstOrDefault();
+                if (email != null) {
+                    long userId = Convert.ToInt64(id);
+                    User userEmail = lpuContext.Users.Where(user => user.UserId == userId).FirstOrDefault();
                     userEmail.IsEmailVerified = true;
-                    lpuContext.Users.Add(userEmail);
+                    lpuContext.Entry(userEmail).State = EntityState.Modified;
                     lpuContext.VerifyEmails.Remove(email);
                     lpuContext.SaveChanges();
                     ViewBag.ValidateEmail = "Email verified";
@@ -231,6 +228,14 @@ namespace Connect.Controllers {
 
             #region Logged in User Data
             User userLoggedIn = lpuContext.Users.Where(user => user.Username.Equals(loggedInUser)).FirstOrDefault();
+
+            //check if user is verified
+            if (userLoggedIn.IsUserVerified == true) {
+                ViewBag.VerifiedUser = "true";
+            } else {
+                ViewBag.VerifiedUser = "false";
+            }
+            
             //get user fullname
             ViewBag.FullName = userLoggedIn.Firstname + " " + userLoggedIn.Lastname;
             //get user id
@@ -686,6 +691,10 @@ namespace Connect.Controllers {
         }
         #endregion
 
+        [HttpGet]
+        public ActionResult ResetPassword(string id,string uid) {
+            return View();
+        }
 
         #region Logout
         [Authorize]

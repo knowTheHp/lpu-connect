@@ -13,7 +13,7 @@ namespace Connect.Models.Repository {
                 string ToAddress = toEmail;
                 string ToAdressTitle = userName + " " + "(" + toEmail + ")";
                 string Subject = "[LpuConnect] Verify your email address.";
-                string BodyContent = "Hi " + userName + "<br/>" + "Help us secure your LpuConnect account by verifying your email address" + "(" + ToAddress + ")" + ".<br/><br/>" + "<a href=http://localhost:9101/Account/VerifyEmail/"+userId+"?uid=" + uid + "/>Verify email address</a><br/><br/><br/>" + "You’re receiving this email because you recently created a new LpuConnect account or added a new email address. If this wasn’t you, please ignore this email.";
+                string BodyContent = "Hi " + userName + "<br/>" + "Help us secure your LpuConnect account by verifying your email address" + "(" + ToAddress + ")" + ".<br/><br/>" + "<a href=http://localhost:9101/Account/VerifyEmail/"+userId+"?uid=" + uid + ">Verify email address</a><br/><br/><br/>" + "You’re receiving this email because you recently created a new LpuConnect account or added a new email address. If this wasn’t you, please ignore this email.";
 
                 //Smtp Server 
                 string SmtpServer = "smtp.gmail.com";
@@ -30,7 +30,7 @@ namespace Connect.Models.Repository {
 
                 using (var client = new SmtpClient()) {
                     client.Connect(SmtpServer, SmtpPortNumber, false);
-                    client.Authenticate("lpuconnects@gmail.com", "password");
+                    client.Authenticate("lpuconnects@gmail.com", "Lpu@123@");
                     client.Send(mimeMessage);
                     client.Disconnect(true);
                 }

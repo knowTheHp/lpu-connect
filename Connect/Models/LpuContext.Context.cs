@@ -44,5 +44,6 @@ namespace Connect.Models
         public virtual DbSet<Skills> Skills { get; set; }
         public virtual DbSet<UserSkills> UserSkills { get; set; }
         public virtual DbSet<Online> Onlines { get; set; }
+        public virtual DbSet<ForgetPassword> ForgetPasswords { get; set; }
     }
 }

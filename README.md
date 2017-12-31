@@ -19,8 +19,23 @@ Student must provide their valid Registration Number and Course Details.
 Once a user registers, an email verification link will be sent to the user and after 24 hours another email will be sent after there information verification. If the user is verified they all the features of LPU Connect will be unlocked.
 
 ## What LPU Connect offers?
-A separate profile section for all the students and faculties. In the profile the user can add their information that are categorized in the following sections.
+1. A separate profile section for all the students and faculties. In the profile the user can add their information that are categorized in the following sections.
 ![](https://user-images.githubusercontent.com/14968296/34460557-cbcbc3cc-ee37-11e7-9ba6-da9a53a73619.png)
 
 Once a user updates his/her profile, it will look like this.
 ![screenshot 43](https://user-images.githubusercontent.com/14968296/34460611-63b628de-ee39-11e7-9dbf-24445bfc8b88.png)
+
+2. User can search for other users and send a connect request to them. Search can be done by Name, Department, City, Gender, Skills.
+![screenshot 45](https://user-images.githubusercontent.com/14968296/34460666-f1503a9e-ee3a-11e7-90ee-ba1e9a6d32cd.png)
+
+![screenshot 46](https://user-images.githubusercontent.com/14968296/34460667-f180c9d4-ee3a-11e7-8397-d7ab868a0a63.png)
+
+With the help of SignalR, user gets an instant notification if someone sends a connect request.
+![screenshot 47](https://user-images.githubusercontent.com/14968296/34460668-f1e78e30-ee3a-11e7-8354-e9a0f7707345.png)
+
+3. The reciever have two options to choose from, either accept the request or deny it. If the reciever accepts the request, he/she can chat with them.
+![capture](https://user-images.githubusercontent.com/14968296/34460698-de11bc86-ee3b-11e7-8803-d81bea4837c3.PNG)
+
+### Some code samples for sending connect request
+
+

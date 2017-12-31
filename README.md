@@ -8,6 +8,19 @@ Helping Hands -> There are n number of departments in LPU and let's say if someo
 
 Startup -> It is very difficult to think of an innovative idea, but the more difficult task is to create a good team. So the students/faculties with innovative idea can search for other students/faculties whose skillset matches.
 
-## What LPU Connect offer?
+## How to use LPU Connect?
+In order to use LPU Connect, user must register him/her with their valid University information.
+Faculty should provide their valid Employee Id and Job Title.
+![](https://user-images.githubusercontent.com/14968296/34460573-5cedeace-ee38-11e7-9b02-8abdebaa8751.png)
+
+Student must provide their valid Registration Number and Course Details.
+![screenshot 41](https://user-images.githubusercontent.com/14968296/34460606-40ba75ce-ee39-11e7-8b2c-ac1d94681f17.png)
+
+Once a user registers, an email verification link will be sent to the user and after 24 hours another email will be sent after there information verification. If the user is verified they all the features of LPU Connect will be unlocked.
+
+## What LPU Connect offers?
 A separate profile section for all the students and faculties. In the profile the user can add their information that are categorized in the following sections.
 ![](https://user-images.githubusercontent.com/14968296/34460557-cbcbc3cc-ee37-11e7-9ba6-da9a53a73619.png)
+
+Once a user updates his/her profile, it will look like this.
+![screenshot 43](https://user-images.githubusercontent.com/14968296/34460611-63b628de-ee39-11e7-9dbf-24445bfc8b88.png)

@@ -35,7 +35,3 @@ With the help of SignalR, user gets an instant notification if someone sends a c
 
 3. The reciever have two options to choose from, either accept the request or deny it. If the reciever accepts the request, he/she can chat with them.
 ![capture](https://user-images.githubusercontent.com/14968296/34460698-de11bc86-ee3b-11e7-8803-d81bea4837c3.PNG)
-
-### Some code samples for sending connect request
-
-
